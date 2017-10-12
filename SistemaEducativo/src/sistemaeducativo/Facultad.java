@@ -38,7 +38,7 @@ public class Facultad
     {
         if(this.getAlumnos().containsKey(legajo))
         {
-            //exceptcion a hacer si el alumno(segun legajo) ya existe 
+            //exception a hacer si el alumno(segun legajo) ya existe 
         }else
         {
             Alumno a = new Alumno(legajo,apellido,nombre,domicilio,mail);
