@@ -130,6 +130,7 @@ public class Cursada
         }
     }
     
+    //Ver como implementar
     public void eliminarProfesor(String legajo)
     {
         if(this.getProfesores().remove(legajo)==null)
