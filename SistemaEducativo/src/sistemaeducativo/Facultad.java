@@ -4,7 +4,7 @@ import java.util.TreeMap;
 
 public class Facultad
 {
-    TreeMap <String,Alumno> alumnos=new TreeMap<>();
+    
     TreeMap <String,Profesor> profesores=new TreeMap<>();
     TreeMap <String,Asignatura> asignaturas=new TreeMap<>();
     TreeMap <String,Cursada> cursadas=new TreeMap<>();
