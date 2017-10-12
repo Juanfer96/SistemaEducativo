@@ -45,4 +45,49 @@ public class Facultad
             this.getAlumnos().put(a.getLegajo(), a);
         }
     }
+    
+    public void agregarProfesor(String legajo, String apellido, String nombre, String domicilio, String mail)
+    {
+        if(this.getProfesores().containsKey(legajo))
+        {
+            //exception a hacer si el alumno(segun legajo) ya existe 
+        }else
+        {
+            Profesor a = new Profesor(legajo,apellido,nombre,domicilio,mail);
+            this.getProfesores().put(a.getLegajo(), a);
+        }
+    }
+    
+    public void agregarAsignatura(String id, String nombre)
+    {
+        if(this.getAsignaturas().containsKey(id))
+        {
+            //exception a hacer si el alumno(segun legajo) ya existe 
+        }else
+        {
+            Asignatura a = new Asignatura(id,nombre);
+            this.getAsignaturas().put(a.getId(), a);
+        }
+    }
+    
+    public void agregarCursada(String id, Asignatura asignatura, String dia, String hora, String periodo)
+    {
+        if(this.getCursadas().containsKey(id))
+        {
+            //exception a hacer si el alumno(segun legajo) ya existe 
+        }else
+        {
+            Cursada a = new Cursada(id, asignatura, dia, hora, periodo);
+            this.getCursadas().put(a.getId(), a);
+        }
+    }
+    
+    /**
+     * pre: Se considera que el id es de un alumno existente.
+     * @param id
+     */
+    public void bajaAlumno(String legajo) {
+        this.getAlumnos().remove(legajo);
+        
+    }
 }

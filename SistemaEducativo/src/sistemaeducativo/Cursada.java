@@ -120,11 +120,13 @@ public class Cursada
         }
     }
     
-    public void eliminarAlumno(String legajo)
+    //Ver como implementar.
+    public String eliminarAlumno(String legajo)
     {
         if(this.getAlumnos().remove(legajo)==null)
         {
-            //excepcion de que quiero eliminar una correlatividad q no existe(no econtro la clave)
+            
+            //excepcion de que quiero eliminar una alumno q no existe(no econtro la clave)
         }
     }
     
