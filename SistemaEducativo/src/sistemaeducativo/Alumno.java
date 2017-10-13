@@ -4,7 +4,6 @@ import java.util.Hashtable;
 
 public class Alumno extends Persona
 {
-    
     private Hashtable <String, Asignatura> historia=new Hashtable<String,Asignatura>();
     
     public Alumno(String legajo, String apellido, String nombre, String domicilio, String mail)
