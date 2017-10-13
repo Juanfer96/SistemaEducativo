@@ -1,5 +1,6 @@
 package sistemaeducativo;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -72,17 +73,18 @@ public class Facultad {
         }
     }
 
+    //Preguntar si cada alumno no tiene una coleccion de cursadas actuales. Idem profesores.
     /**
-     * pre: Se considera que el id es de un alumno existente.
+     * pre: Se considera que el legajo es de un alumno existente.
      * @param id
      */
     public void bajaAlumno(String legajo) {
         this.getAlumnos().remove(legajo);
         Cursada c;
-        Set set = this.getCursadas().entrySet();
-        Iterator it = set.iterator();
+        Iterator it = this.getCursadas().entrySet().iterator();
         while (it.hasNext()) {
-            c = (Cursada) it.next();
+            Map.Entry m=(Map.Entry)it.next();
+            c = (Cursada) m.getValue();
             c.eliminarAlumno(legajo);
         }
     }
@@ -90,11 +92,25 @@ public class Facultad {
     public void bajaProfesor(String legajo) {
         this.getProfesores().remove(legajo);
         Cursada c;
-        Set set = this.getCursadas().entrySet();
-        Iterator it = set.iterator();
+        Iterator it = this.getCursadas().entrySet().iterator();
         while (it.hasNext()) {
-            c = (Cursada) it.next();
+            Map.Entry m=(Map.Entry)it.next();
+            c = (Cursada) m.getValue();
             c.eliminarProfesor(legajo);
         }
+    }
+    
+    public ArrayList<Alumno> buscarAlumnoPorNombre(String nombre,String apellido) {
+        ArrayList<Alumno> alumnosReturn = new ArrayList<>();
+        Alumno a;
+        Iterator it = this.getAlumnos().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry m=(Map.Entry)it.next();
+            a = (Alumno) m.getValue();
+            if(a.getNombre().equals(nombre) && a.getApellido().equals(apellido)) {
+                alumnosReturn.add(a);
+            }
+        }
+        return alumnosReturn;
     }
 }
