@@ -141,11 +141,11 @@ public class Facultad
         {
             Map.Entry m = (Map.Entry) it.next();
             c = (Cursada) m.getValue();
-            if (c.get.equals(cursada))
+            if (c.getAsignatura().equals(asignatura))
             {
-                alumnosReturn.add(a);
+                cursadasReturn.add(c);
             }
         }
-        return alumnosReturn;
+        return cursadasReturn;
     }
 }
