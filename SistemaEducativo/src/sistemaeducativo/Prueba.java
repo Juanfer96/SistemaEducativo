@@ -1,5 +1,8 @@
 package sistemaeducativo;
 
+import java.time.DateTimeException;
+import java.time.LocalTime;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -28,7 +31,13 @@ public class Prueba {
             alum=(Alumno)it.next();
             System.out.println("Nombre: "+alum.getNombre()+" Apellido : "+alum.getApellido()+" Legajo: "+alum.getLegajo());
         }
-        
-        
+        try{
+           LocalTime hora=LocalTime.of(28, 30);
+            System.out.printf("En este momento son las %d horas con %d minutos y %d segundos\n", hora.getHour(),  
+                   hora.getMinute(), hora.getSecond());
+        } 
+        catch(DateTimeException e) {
+            System.out.print("Hora erronea");
+        }
     }
 }
