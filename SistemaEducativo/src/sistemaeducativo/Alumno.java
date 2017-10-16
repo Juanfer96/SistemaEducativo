@@ -4,7 +4,6 @@ import java.util.Hashtable;
 
 public class Alumno extends Persona
 {
-    
     private Hashtable <String, Asignatura> historia=new Hashtable<String,Asignatura>();
     
     public Alumno(String legajo, String apellido, String nombre, String domicilio, String mail)
@@ -28,21 +27,19 @@ public class Alumno extends Persona
         return historia;
     }
     
-    public void agregarCompetencia(Asignatura a)
-    {
+    public void agregarHistoria(Asignatura a) throws AsignaturaRegistradaEnAlumnoException {
         if(this.getHistoria().containsKey(a.getId()))
         {
-            //exceptcion a hacer si la correlatividad ya existe 
+            throw new AsignaturaRegistradaEnAlumnoException(this,a);
+            //exceptcion a hacer si la asignatura aprobada ya existe 
         }else
         {
             this.getHistoria().put(a.getId(), a);
         }
     }
-    public void eliminarCompetencia(String id)
+    
+    public void eliminarHistoria(String id)
     {
-        if(this.getHistoria().remove(id)==null)
-        {
-            //excepcion de que quiero eliminar una correlatividad q no existe(no econtro la clave)
-        }   
+        this.getHistoria().remove(id);
     }
 }

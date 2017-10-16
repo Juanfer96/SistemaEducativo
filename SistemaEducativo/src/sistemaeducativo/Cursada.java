@@ -2,12 +2,18 @@ package sistemaeducativo;
 
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
+import java.time.*;
+
+import java.util.ArrayList;
 
 public class Cursada
 {
     private String id;
     private Asignatura asignatura;
-    private String dia, hora, periodo;
+    private String periodo;
+    private ArrayList<Fecha> horario=new ArrayList<>();
     private Hashtable<String,Profesor> profesores=new Hashtable<String, Profesor>();
     private Hashtable<String,Alumno> alumnos=new Hashtable<String,Alumno>();
     
@@ -17,12 +23,10 @@ public class Cursada
     }
 
 
-    public Cursada(String id, Asignatura asignatura, String dia, String hora, String periodo)
+    public Cursada(String id, Asignatura asignatura, String periodo)
     {
         this.id = id;
         this.asignatura = asignatura;
-        this.dia = dia;
-        this.hora = hora;
         this.periodo = periodo;
     }
 
@@ -46,25 +50,6 @@ public class Cursada
         return asignatura;
     }
 
-    public void setDia(String dia)
-    {
-        this.dia = dia;
-    }
-
-    public String getDia()
-    {
-        return dia;
-    }
-
-    public void setHora(String hora)
-    {
-        this.hora = hora;
-    }
-
-    public String getHora()
-    {
-        return hora;
-    }
 
     public void setPeriodo(String periodo)
     {
@@ -74,6 +59,15 @@ public class Cursada
     public String getPeriodo()
     {
         return periodo;
+    }
+
+
+    public void setHorario(ArrayList<Fecha> horario) {
+        this.horario = horario;
+    }
+
+    public ArrayList<Fecha> getHorario() {
+        return horario;
     }
 
     public void setProfesores(Hashtable<String,Profesor> profesores)
@@ -96,31 +90,65 @@ public class Cursada
         return alumnos;
     }
     
-    public void agregarAlumno(Alumno a)
-    {
+    public void agregarAlumno(Alumno a) throws AlumnoInhabilitadoException, AlumnoRegistradoEnCursadaException {
         if(this.getAlumnos().containsKey(a.getLegajo()))
         {
-            //Exception: alumno a ya se encuentra registrado.
+            throw new AlumnoRegistradoEnCursadaException(a,this);
+            //Exception: alumno a ya se encuentra registrado en la cursada.
         }
         else
         {
-            this.getAlumnos().put(a.getLegajo(), a);
+            if(alumnoHabilitadoParaCursada(a))
+            {
+                this.getAlumnos().put(a.getLegajo(), a);   
+            }
+            else {
+                throw new AlumnoInhabilitadoException(a, this);
+                //Exception para alumno que no puede anotarse a la cursada por no tener las correlativas necesarias.
+            }
         }
     }
     
-    public void agregarProfesor(Profesor p)
-    {
+    public boolean alumnoHabilitadoParaCursada(Alumno a) {
+        boolean rta=true;
+        String asignaturaId;
+        Iterator it = this.getAsignatura().getCorrelatividades().entrySet().iterator();
+        while (it.hasNext() && rta==true) {
+            Map.Entry m = (Map.Entry) it.next();
+            asignaturaId = (String) m.getKey();
+            if(!a.getHistoria().containsKey(asignaturaId)) {
+                rta = false;
+            }
+        }
+        return rta;
+    }
+    
+    public void agregarProfesor(Profesor p) throws ProfesorRegistradoEnCursadaException, ProfesorInhabilitadoParaCursadaException {
         if(this.getProfesores().containsKey(p.getLegajo()))
         {
-            //Exception: alumno a ya se encuentra registrado.
+            throw new ProfesorRegistradoEnCursadaException(p,this);
         }
         else
         {
-            this.getProfesores().put(p.getLegajo(), p);
+            if(!profesorHabilitadoParaCursada(p)) {
+                throw new ProfesorInhabilitadoParaCursadaException(p,this);
+            }
+            else{
+                this.getProfesores().put(p.getLegajo(), p);   
+            }
         }
     }
     
-    //Ver como implementar.
+    public boolean profesorHabilitadoParaCursada(Profesor p) {
+        boolean rta=true;
+        if(p.getCompetencia().get(this.getAsignatura().getId())==null) {
+            rta=false;
+        }
+        return rta;
+    }
+    
+    //Retorna el legajo del alumno eliminado (si dicho alumno se encuentra en la cursada)
+    //Retorna null si no lo encontro (obviamente no lo elimina).
     public Object eliminarAlumno(String legajo)
     {
         /*if(this.getAlumnos().remove(legajo)==null)
@@ -128,10 +156,11 @@ public class Cursada
             
             //excepcion de que quiero eliminar una alumno q no existe(no econtro la clave)
         }*/
-        return this.getProfesores().remove(legajo);
+        return this.getAlumnos().remove(legajo);
     }
     
-    //Ver como implementar
+    //Retorna el legajo del profesor eliminado (si dicho alumno se encuentra en la cursada)
+    //Retorna null si no lo encontro (obviamente no lo elimina).
     public Object eliminarProfesor(String legajo)
     {
         /*if(this.getProfesores().remove(legajo)==null)
@@ -140,4 +169,31 @@ public class Cursada
         }*/
         return this.getProfesores().remove(legajo);
     }
+    
+    
+    /**
+     * pre: Se considera que los datos ingresados son horas validas (segun su formato).
+     * post: Se agrega el horario ingresado al arrayList de horarios en caso de que no se superponga con otro horario.
+     * @param dia
+     * @param horaInicio
+     * @param minInicio
+     * @param horaFin
+     * @param minFin
+     */
+    /*
+    public void agregarHorario(int dia, int horaInicio, int minInicio, int horaFin, int minFin) {
+        if(this.getHorario().isEmpty()) {
+            //No habra cursadas superpuestas de esa asignatura, ya que será la primera que se inserta.
+            Fecha f= new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
+            this.getHorario().add(f);
+        }
+        else {
+            Fecha aux;
+            Iterator it=this.getHorario().iterator();
+            while(it.hasNext()) {
+                aux=(Fecha)it.next();
+                if(aux.)
+            }
+        }
+    }*/
 }
