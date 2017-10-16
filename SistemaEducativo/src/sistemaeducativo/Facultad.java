@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class Facultad {
-    //cambio 2
+    //cambio 200
    
     TreeMap<String, Alumno> alumnos = new TreeMap<>();
     TreeMap<String, Profesor> profesores = new TreeMap<>();
