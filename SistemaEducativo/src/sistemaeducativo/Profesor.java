@@ -26,27 +26,36 @@ public class Profesor extends Persona
         return competencia;
     }
     
-    public void agregarCompetencia(Asignatura a)
-    {
-        if(this.getCompetencia().containsKey(a.getId()))
-        {
-            //exceptcion a hacer si la correlatividad ya existe 
-        }else
-        {
-            this.getCompetencia().put(a.getId(), a);
+    
+    public void modificarProfesor(String apellido, String nombre, String domicilio, String mail) {
+        this.setApellido(apellido);
+        this.setNombre(nombre);
+        this.setDomicilio(domicilio);
+        this.setMail(mail);
         }
+    
+    /**
+     * pre: Se considera que la asignatura a agregar en la competencia del profesor es correcta y no esta repetida.
+     * @param a
+     */
+    public void agregarCompetencia(Asignatura a) {
+        this.competencia.put(a.getId(), a);
     }
-    public void eliminarCompetencia(String id)
+    
+    /**
+     * pre: Se considera que la asignatura a eliminar se encuentra en la competencia del profesor.
+     * @param a
+     */
+    public void eliminarCompetencia(Asignatura a)
     {
-        if(this.getCompetencia().remove(id)==null)
-        {
-            //excepcion de que quiero eliminar una correlatividad q no existe(no econtro la clave)
+        this.getCompetencia().remove(a.getId());
         }   
+    
+    
     }
     @Override
     public String toString()
     {
         // TODO Implement this method
         return "Nombre: "+this.getNombre()+"   Apellido: "+this.getApellido()+"   Legajo: "+this.getLegajo() ;
-    }
 }

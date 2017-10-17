@@ -41,6 +41,8 @@ public class Facultad {
         return cursadas;
     }
 
+    //Agregar entidades a las colecciones
+    
     public Alumno agregarAlumno(String apellido, String nombre, String domicilio, String mail) {
         String s = String.format("%04d", ++PROXLEGAJOALUM);
         String leg = "ALU" + s;
@@ -73,14 +75,50 @@ public class Facultad {
         return a;
     }
     
+    //Bajas de las entidades
     
-    public void agregarProfesorACursada(String cursadaId, Profesor p) throws ProfesorRegistradoEnCursadaException, ProfesorInhabilitadoException {
-        Cursada c=this.getCursadas().get(cursadaId);
-        c.agregarProfesor(p);
+    /**
+     * pre: Se considera que cursada pertenece a una cursada existente.
+     * @param cursada
+     */
+    public void bajaCursada(Cursada cursada) {
+        this.getCursadas().remove(cursada.getId());
     }
 
-    //Preguntar si cada alumno no tiene una coleccion de cursadas actuales. Idem profesores.
 
+    /**
+     * El metodo ademas de dar de baja en la coleccion correspondiente la asignatura, da de baja a las cursadas de esa asignatura.
+     * @param a
+     */
+    public void bajaAsignatura(Asignatura a) {
+        ArrayList<Cursada> cursadas=this.cursadasDeAsignatura(a);
+        Iterator it=cursadas.iterator();
+        Cursada c;
+        while(it.hasNext()) {
+            c=(Cursada)it.next();
+            this.bajaCursada(c);
+        }
+        this.getAsignaturas().remove(a.getId());
+    }
+    
+    /**
+     * El metodo devuelve en un ArrayList todas las cursadas de la asignatura pasada como parametro
+     * @param a
+     * @return
+     */
+    private ArrayList<Cursada> cursadasDeAsignatura(Asignatura a){
+        Iterator it=this.getCursadas().entrySet().iterator();
+        Cursada c;
+        ArrayList<Cursada> cursadasReturn=new ArrayList<>();
+        while(it.hasNext()) {
+            Map.Entry m = (Map.Entry) it.next();
+            c = (Cursada) m.getValue();
+            if(c.getAsignatura()==a)
+                cursadasReturn.add(c);
+        }
+        return cursadasReturn;
+    }
+        
     /**
      * pre: Se considera que el legajo es de un alumno existente.
      * @param id
@@ -88,9 +126,7 @@ public class Facultad {
     public void bajaAlumno(String legajo) {
         this.getAlumnos().remove(legajo);
         Cursada c;
-        Iterator it = this.getCursadas()
-                          .entrySet()
-                          .iterator();
+        Iterator it = this.getCursadas().entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry m = (Map.Entry) it.next();
             c = (Cursada) m.getValue();
@@ -110,6 +146,8 @@ public class Facultad {
             c.eliminarProfesor(legajo);
         }
     }
+
+    //Consultas de las entidades
 
     public ArrayList<Alumno> buscarAlumnoPorNombre(String nombre, String apellido) {
         ArrayList<Alumno> alumnosReturn = new ArrayList<>();
@@ -174,6 +212,8 @@ public class Facultad {
         }
         return asignaturasReturn;
     }
+    
+    //Metodos de Cursada
     
     public void agregarAlumnoEnCursada(Alumno a, Cursada c) throws AlumnoRegistradoEnCursadaException, AlumnoInhabilitadoException, AlumnoOcupadoParaCursadaException {
         if(c.getAlumnos().containsKey(a.getLegajo())) {
@@ -313,6 +353,8 @@ public class Facultad {
         return cursadasReturn;
     }
     
+    //Alumno-Profesor
+    
     public void modificarAlumno(Alumno a, String apellido, String nombre, String domicilio, String mail) {
         a.modificarAlumno(apellido, nombre, domicilio, mail);
     }
@@ -337,3 +379,25 @@ public class Facultad {
         alumno.eliminarAsignatura(asignatura);
     }
 }
+    
+    public void modificarProfesor(Profesor p,String apellido, String nombre, String domicilio, String mail) {
+        p.modificarProfesor(apellido, nombre, domicilio, mail);
+    }
+    
+    /**
+     * pre: Se considera que la asignatura es una existente.
+     * @param p
+     * @param a
+     */
+    public void agregarCompetenciaProfesor(Profesor p, Asignatura a) throws AsignaturaYaRegistradaEnProfesorException {
+        if(p.getCompetencia().containsKey(a.getId())) {
+            throw new AsignaturaYaRegistradaEnProfesorException(a,p);
+        }
+        else{
+            p.agregarCompetencia(a);
+        }
+    }
+    
+    public void eliminarCompetenciaProfesor(Profesor p, Asignatura a) {
+        p.eliminarCompetencia(a);
+    }
