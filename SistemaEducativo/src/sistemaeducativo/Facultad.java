@@ -74,17 +74,7 @@ public class Facultad {
     }
     
     
-    /**
-     * pre: el id de la cursada es valido. El Alumno a es distinto de null.
-     * @param cursadaId
-     * @param a
-     */
-    public void agregarAlumnoACursada(String cursadaId, Alumno a) throws AlumnoInhabilitadoException, AlumnoRegistradoEnCursadaException {
-        Cursada c=this.getCursadas().get(cursadaId);
-        c.agregarAlumno(a);
-    }
-    
-    public void agregarProfesorACursada(String cursadaId, Profesor p) throws ProfesorRegistradoEnCursadaException, ProfesorInhabilitadoParaCursadaException {
+    public void agregarProfesorACursada(String cursadaId, Profesor p) throws ProfesorRegistradoEnCursadaException, ProfesorInhabilitadoException {
         Cursada c=this.getCursadas().get(cursadaId);
         c.agregarProfesor(p);
     }
@@ -183,5 +173,167 @@ public class Facultad {
             }
         }
         return asignaturasReturn;
+    }
+    
+    public void agregarAlumnoEnCursada(Alumno a, Cursada c) throws AlumnoRegistradoEnCursadaException, AlumnoInhabilitadoException, AlumnoOcupadoParaCursadaException {
+        if(c.getAlumnos().containsKey(a.getLegajo())) {
+            throw new AlumnoRegistradoEnCursadaException(a,c);
+        }
+        else{
+            if(!alumnoHabilitadoParaCursada(a, c)) {
+                throw new AlumnoInhabilitadoException(a, c);
+            }
+            else{
+                if(this.alumnoOcupadoParaCursada(a, c)) {
+                    throw new AlumnoOcupadoParaCursadaException(a,c);
+                }
+                else {
+                    c.agregarAlumno(a);
+                }
+            }
+        }
+    }
+    
+    public ArrayList<Cursada> cursadasDeAlumno(Alumno a) {
+        ArrayList<Cursada> cursadasReturn=new ArrayList<Cursada>();
+        Iterator it = this.getCursadas().entrySet().iterator();
+        Cursada c;
+        while (it.hasNext()) {
+            Map.Entry m = (Map.Entry) it.next();
+            c = (Cursada) m.getValue();
+            if (c.contieneAlumno(a)) {
+                cursadasReturn.add(c);
+            }
+        }
+        return cursadasReturn;
+    }
+    
+    private boolean alumnoOcupadoParaCursada(Alumno a, Cursada c) {
+        ArrayList<Cursada>cursadasAlumno=this.cursadasDeAlumno(a);
+        if(cursadasAlumno.size()>0) {
+            Iterator itCursadas=cursadasAlumno.iterator();
+            Iterator itHorarioCursada=c.getHorario().iterator();
+            Iterator itHorariosAlumno;
+            Fecha horarioAlumno,horarioCursada;
+            Cursada cAux;
+            while(itHorarioCursada.hasNext()) {
+                horarioCursada=(Fecha)itHorarioCursada.next();
+                while(itCursadas.hasNext()) {
+                    cAux=(Cursada)itCursadas.next();
+                    itHorariosAlumno=cAux.getHorario().iterator();
+                    while(itHorariosAlumno.hasNext()) {
+                        horarioAlumno=(Fecha)itHorariosAlumno.next();
+                        if(horarioCursada.superpone(horarioAlumno)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    private boolean alumnoHabilitadoParaCursada(Alumno a, Cursada c) {
+        boolean rta=true;
+        String asignaturaId;
+        Iterator it = c.getAsignatura().getCorrelatividades().entrySet().iterator();
+        while (it.hasNext() && rta==true) {
+            Map.Entry m = (Map.Entry) it.next();
+            asignaturaId = (String) m.getKey();
+            if(!a.getHistoria().containsKey(asignaturaId)) {
+                rta = false;
+            }
+        }
+        return rta;
+    }
+    
+    public void agregarProfesorEnCursada(Profesor p, Cursada c) throws ProfesorRegistradoEnCursadaException,ProfesorInhabilitadoException,ProfesorOcupadoParaCursadaException {
+        if(c.getProfesores().containsKey(p.getLegajo())) {
+            throw new ProfesorRegistradoEnCursadaException(p,c);
+        }
+        else{
+            if(!profesorHabilitadoParaCursada(p, c)) {
+                throw new ProfesorInhabilitadoException(p, c);
+            }
+            else{
+                if(this.profesorOcupadoParaCursada(p, c)) {
+                    throw new ProfesorOcupadoParaCursadaException(p,c);
+                }
+                else {
+                    c.agregarProfesor(p);
+                }
+            }
+        }
+    }
+    
+    private boolean profesorOcupadoParaCursada(Profesor p, Cursada c) {
+        ArrayList<Cursada>cursadasProfesor=this.cursadasDeProfesor(p);
+        if(cursadasProfesor.size()>0) {
+            Iterator itCursadas=cursadasProfesor.iterator();
+            Iterator itHorarioCursada=c.getHorario().iterator();
+            Iterator itHorariosProfesor;
+            Fecha horarioProfesor,horarioCursada;
+            Cursada cAux;
+            while(itHorarioCursada.hasNext()) {
+                horarioCursada=(Fecha)itHorarioCursada.next();
+                while(itCursadas.hasNext()) {
+                    cAux=(Cursada)itCursadas.next();
+                    itHorariosProfesor=cAux.getHorario().iterator();
+                    while(itHorariosProfesor.hasNext()) {
+                        horarioProfesor=(Fecha)itHorariosProfesor.next();
+                        if(horarioCursada.superpone(horarioProfesor)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean profesorHabilitadoParaCursada(Profesor p, Cursada c) {
+        boolean rta=true;
+        if(p.getCompetencia().get(c.getAsignatura().getId())==null) {
+            rta=false;
+        }
+        return rta;
+    }
+    
+    public ArrayList<Cursada> cursadasDeProfesor(Profesor p) {
+        ArrayList<Cursada> cursadasReturn=new ArrayList<Cursada>();
+        Iterator it = this.getCursadas().entrySet().iterator();
+        Cursada c;
+        while (it.hasNext()) {
+            Map.Entry m = (Map.Entry) it.next();
+            c = (Cursada) m.getValue();
+            if (c.contieneProfesor(p)) {
+                cursadasReturn.add(c);
+            }
+        }
+        return cursadasReturn;
+    }
+    
+    public void modificarAlumno(Alumno a, String apellido, String nombre, String domicilio, String mail) {
+        a.modificarAlumno(apellido, nombre, domicilio, mail);
+    }
+    
+    //Ver si es necesaria esa excepcion.
+    public void aprobarAlumnoAsignatura(Alumno alumno, Asignatura asignatura) throws AsignaturaAprobadaYaRegistradaException{
+        if(alumno.getHistoria().containsKey(asignatura.getId())) {
+            throw new AsignaturaAprobadaYaRegistradaException(alumno,asignatura);
+            //Ya se encuentra aprobada esa asignatura
+        }
+        else{
+            alumno.aprobarAsignatura(asignatura);
+        }
+    }
+    
+    /**
+     * pre: la asignatura se encuentra dentro de las materias aprobadas por alumno.
+     * @param alumno
+     * @param asignatura
+     */
+    public void eliminarAlumnoAsignatura(Alumno alumno, Asignatura asignatura) {
+        alumno.eliminarAsignatura(asignatura);
     }
 }

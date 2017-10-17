@@ -1,10 +1,10 @@
 package sistemaeducativo;
 
-public class ProfesorInhabilitadoParaCursadaException extends Exception{
+public class ProfesorInhabilitadoException extends Exception{
     private Profesor p;
     private Cursada c;
     
-    public ProfesorInhabilitadoParaCursadaException(Profesor p, Cursada c) {
+    public ProfesorInhabilitadoException(Profesor p, Cursada c) {
         this.p=p;
         this.c=c;
     }

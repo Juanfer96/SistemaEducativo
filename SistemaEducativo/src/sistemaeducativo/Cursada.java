@@ -92,67 +92,28 @@ public class Cursada
     
     //Implementar en Facultad las verificaciones: alumnoOcupado, alumnoHabilitado idem profesor.!!
     //Falta implementar si el alumno esta ocupado en ese horario.
+    
+    /**
+     * pre: Se considera que el alumno a inscribirse cumple con todas las restricciones.
+     * @param a
+     * @throws AlumnoInhabilitadoException
+     * @throws AlumnoRegistradoEnCursadaException
+     */
     public void agregarAlumno(Alumno a) throws AlumnoInhabilitadoException, AlumnoRegistradoEnCursadaException {
-        if(this.getAlumnos().containsKey(a.getLegajo()))
-        {
-            throw new AlumnoRegistradoEnCursadaException(a,this);
-            //Exception: alumno a ya se encuentra registrado en la cursada.
-        }
-        else
-        {
-            if(alumnoHabilitadoParaCursada(a))
-            {
-                this.getAlumnos().put(a.getLegajo(), a);   
-            }
-            else {
-                throw new AlumnoInhabilitadoException(a, this);
-                //Exception para alumno que no puede anotarse a la cursada por no tener las correlativas necesarias.
-            }
-        }
+        this.getAlumnos().put(a.getLegajo(), a); 
     }
     
-    public boolean alumnoOcupadoParaCursada(Alumno a) {
-        Iterator it=this.getHorario().iterator();
-        while()
+    /**
+     * pre: Se considera que el profesor a inscribirse cumple con todas las restricciones.
+     * @param p
+     * @throws ProfesorRegistradoEnCursadaException
+     * @throws ProfesorInhabilitadoException
+     */
+    public void agregarProfesor(Profesor p) throws ProfesorRegistradoEnCursadaException, ProfesorInhabilitadoException {
+        this.getProfesores().put(p.getLegajo(), p);
     }
     
-    public boolean alumnoHabilitadoParaCursada(Alumno a) {
-        boolean rta=true;
-        String asignaturaId;
-        Iterator it = this.getAsignatura().getCorrelatividades().entrySet().iterator();
-        while (it.hasNext() && rta==true) {
-            Map.Entry m = (Map.Entry) it.next();
-            asignaturaId = (String) m.getKey();
-            if(!a.getHistoria().containsKey(asignaturaId)) {
-                rta = false;
-            }
-        }
-        return rta;
-    }
     
-    public void agregarProfesor(Profesor p) throws ProfesorRegistradoEnCursadaException, ProfesorInhabilitadoParaCursadaException {
-        if(this.getProfesores().containsKey(p.getLegajo()))
-        {
-            throw new ProfesorRegistradoEnCursadaException(p,this);
-        }
-        else
-        {
-            if(!profesorHabilitadoParaCursada(p)) {
-                throw new ProfesorInhabilitadoParaCursadaException(p,this);
-            }
-            else{
-                this.getProfesores().put(p.getLegajo(), p);   
-            }
-        }
-    }
-    
-    public boolean profesorHabilitadoParaCursada(Profesor p) {
-        boolean rta=true;
-        if(p.getCompetencia().get(this.getAsignatura().getId())==null) {
-            rta=false;
-        }
-        return rta;
-    }
     
     //Retorna el legajo del alumno eliminado (si dicho alumno se encuentra en la cursada)
     //Retorna null si no lo encontro (obviamente no lo elimina).
@@ -209,5 +170,19 @@ public class Cursada
             Fecha f= new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
             this.getHorario().add(f);
         }
+    }
+    
+    public boolean contieneAlumno(Alumno a) {
+       if(this.getAlumnos().containsKey(a.getLegajo())) {
+           return true;
+       }
+       return false;
+    }
+    
+    public boolean contieneProfesor(Profesor p) {
+        if(this.getProfesores().containsKey(p.getLegajo())) {
+            return true;
+        }
+        return false;
     }
 }
