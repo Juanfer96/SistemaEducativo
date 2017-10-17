@@ -47,5 +47,16 @@ public class Prueba {
         else{
             System.out.println("Incorrecto");
         }
+        
+        f.agregarAsignatura("Matematica");
+        Asignatura asig=f.buscarAsignaturaPorNombre("Matematica").get(0);
+        //Poner que f.agregarXXXX devuelva ese objeto creado.
+        Cursada c=f.agregarCursada(asig,"01");
+        try {
+            c.agregarHorario(Fecha.LUNES, 16, 0, 17, 30);
+            c.agregarHorario(Fecha.LUNES, 15, 0, 22, 0);
+        } catch (HorarioCursadaSuperpuestaException e) {
+            System.out.println("Horarios superpuestos");
+        }
     }
 }

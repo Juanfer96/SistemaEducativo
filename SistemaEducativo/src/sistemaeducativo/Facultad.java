@@ -41,32 +41,36 @@ public class Facultad {
         return cursadas;
     }
 
-    public void agregarAlumno(String apellido, String nombre, String domicilio, String mail) {
+    public Alumno agregarAlumno(String apellido, String nombre, String domicilio, String mail) {
         String s = String.format("%04d", ++PROXLEGAJOALUM);
         String leg = "ALU" + s;
         Alumno a = new Alumno(leg, apellido, nombre, domicilio, mail);
         this.getAlumnos().put(a.getLegajo(), a);
+        return a;
     }
 
-    public void agregarProfesor(String apellido, String nombre, String domicilio, String mail) {
+    public Profesor agregarProfesor(String apellido, String nombre, String domicilio, String mail) {
         String s = String.format("%04d", ++PROXLEGAJOPROF);
         String leg = "PRO" + s;
         Profesor a = new Profesor(leg, apellido, nombre, domicilio, mail);
         this.getProfesores().put(a.getLegajo(), a);
+        return a;
     }
 
-    public void agregarAsignatura(String nombre) {
+    public Asignatura agregarAsignatura(String nombre) {
         String s = String.format("%04d", ++PROXIDASIGNATURA);
         String id = "ASI" + s;
         Asignatura a = new Asignatura(id, nombre);
         this.getAsignaturas().put(a.getId(), a);
+        return a;
     }
 
-    public void agregarCursada(Asignatura asignatura, String dia, String hora, String periodo) {
+    public Cursada agregarCursada(Asignatura asignatura,  String periodo) {
         String s = String.format("%04d", ++PROXIDCURSADA);
         String id = "ASI" + s;
         Cursada a = new Cursada(id, asignatura, periodo);
         this.getCursadas().put(a.getId(), a);
+        return a;
     }
     
     
@@ -163,5 +167,21 @@ public class Facultad {
             }
         }
         return cursadasReturn;
+    }
+    
+    public ArrayList<Asignatura> buscarAsignaturaPorNombre(String asignatura) {
+        ArrayList<Asignatura> asignaturasReturn = new ArrayList<Asignatura>();
+        Asignatura a;
+        Iterator it = this.getAsignaturas()
+                          .entrySet()
+                          .iterator();
+        while (it.hasNext()) {
+            Map.Entry m = (Map.Entry) it.next();
+            a = (Asignatura) m.getValue();
+            if (a.getNombre().equals(asignatura)) {
+                asignaturasReturn.add(a);
+            }
+        }
+        return asignaturasReturn;
     }
 }

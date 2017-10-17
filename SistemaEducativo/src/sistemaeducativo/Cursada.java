@@ -90,6 +90,8 @@ public class Cursada
         return alumnos;
     }
     
+    //Implementar en Facultad las verificaciones: alumnoOcupado, alumnoHabilitado idem profesor.!!
+    //Falta implementar si el alumno esta ocupado en ese horario.
     public void agregarAlumno(Alumno a) throws AlumnoInhabilitadoException, AlumnoRegistradoEnCursadaException {
         if(this.getAlumnos().containsKey(a.getLegajo()))
         {
@@ -107,6 +109,11 @@ public class Cursada
                 //Exception para alumno que no puede anotarse a la cursada por no tener las correlativas necesarias.
             }
         }
+    }
+    
+    public boolean alumnoOcupadoParaCursada(Alumno a) {
+        Iterator it=this.getHorario().iterator();
+        while()
     }
     
     public boolean alumnoHabilitadoParaCursada(Alumno a) {
@@ -180,8 +187,8 @@ public class Cursada
      * @param horaFin
      * @param minFin
      */
-    
-    public void agregarHorario(int dia, int horaInicio, int minInicio, int horaFin, int minFin) {
+    //Considere horario superpuesto solo entre la misma cursada
+    public void agregarHorario(int dia, int horaInicio, int minInicio, int horaFin, int minFin) throws HorarioCursadaSuperpuestaException {
         if(this.getHorario().isEmpty()) {
             //No habra cursadas superpuestas de esa asignatura, ya que será la primera que se inserta.
             Fecha f= new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
@@ -195,10 +202,12 @@ public class Cursada
                 fechaEstablecida=(Fecha)it.next();
                 if(fechaEstablecida.getDia()==fechaEntrada.getDia()) {
                     if(fechaEstablecida.superpone(fechaEntrada)) {
-                        
+                        throw new HorarioCursadaSuperpuestaException(fechaEntrada,this);
                     }
                 }
             }
+            Fecha f= new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
+            this.getHorario().add(f);
         }
     }
 }
