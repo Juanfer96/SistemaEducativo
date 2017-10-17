@@ -7,31 +7,32 @@ import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+
 import javax.swing.JOptionPane;
 
 import sistemaeducativo.Alumno;
 import sistemaeducativo.Facultad;
+import sistemaeducativo.Profesor;
 
 /**
  *
  * @author Usuario
  */
-public class VentanaAlumno extends javax.swing.JFrame
-    
+public class VentanaProfesor extends javax.swing.JFrame
 {
+
+    /** Creates new form VentanaProfesor */
     private Facultad facultad;
     private DefaultListModel modeloBaja;
     private DefaultListModel modeloConsulta;
     private DefaultListModel modeloMod;
-    
-    /** Creates new form VentanaAlumno */
-    public VentanaAlumno()
+    public VentanaProfesor()
     {
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         facultad=VentanaPrincipal.getFacultad();
         setResizable(false);
-        setTitle("Sistema Educativo -Alumno");
+        setTitle("Sistema Educativo -Profesor");
         setLocationRelativeTo(null);
         this.modeloBaja=new DefaultListModel();
         this.modeloConsulta=new DefaultListModel();
@@ -70,6 +71,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         }
         return true;
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -79,7 +81,6 @@ public class VentanaAlumno extends javax.swing.JFrame
     private void initComponents()//GEN-BEGIN:initComponents
     {
 
-        jLabel3 = new javax.swing.JLabel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanelAltaAlumno = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -102,7 +103,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel2 = new javax.swing.JPanel();
         jLabelSeleccionarBaja = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jListAlumnosBaja = new javax.swing.JList<>();
+        jListProfesoresBaja = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
         jButtonVolverBaja = new javax.swing.JButton();
         jButtonEliminarBaja = new javax.swing.JButton();
@@ -117,7 +118,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel6 = new javax.swing.JPanel();
         jLabelSeleccionarMod = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jListAlumnosMod = new javax.swing.JList<>();
+        jListProfesoresMod = new javax.swing.JList<>();
         jPanel7 = new javax.swing.JPanel();
         jLabelNombreNuevoMod = new javax.swing.JLabel();
         jTextFieldNombreNuevoMod = new javax.swing.JTextField();
@@ -143,7 +144,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel12 = new javax.swing.JPanel();
         jLabelSeleccionarConsulta = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jListAlumnosConsulta = new javax.swing.JList<>();
+        jListProfesoresConsulta = new javax.swing.JList<>();
         jPanel13 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jTextFieldLegajoConsultaa = new javax.swing.JTextField();
@@ -163,8 +164,6 @@ public class VentanaAlumno extends javax.swing.JFrame
         jButtonCargarConsulta = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         jButtonVolverConsulta = new javax.swing.JButton();
-
-        jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -247,7 +246,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         );
         jPanelAltaAlumnoLayout.setVerticalGroup(
             jPanelAltaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Alta", jPanelAltaAlumno);
@@ -256,27 +255,27 @@ public class VentanaAlumno extends javax.swing.JFrame
 
         jPanel1.setLayout(new java.awt.GridLayout(2, 2));
 
-        jLabelNombreBaja.setText("Nombre del alumno a dar de baja");
+        jLabelNombreBaja.setText("Nombre del profesor a dar de baja");
         jPanel1.add(jLabelNombreBaja);
         jPanel1.add(jTextFieldNombreBaja);
 
-        jLabelApellidoBaja.setText("Apellido del alumno a dar de baja");
+        jLabelApellidoBaja.setText("Apellido del profesor a dar de baja");
         jPanel1.add(jLabelApellidoBaja);
         jPanel1.add(jTextFieldApellidoBaja);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.setLayout(new java.awt.GridLayout());
 
-        jLabelSeleccionarBaja.setText("Seleccione el alumno a eliminar");
+        jLabelSeleccionarBaja.setText("Seleccione el profesor a eliminar");
         jPanel2.add(jLabelSeleccionarBaja);
 
-        jListAlumnosBaja.setModel(new javax.swing.AbstractListModel<String>()
+        jListProfesoresBaja.setModel(new javax.swing.AbstractListModel<String>()
         {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jListAlumnosBaja);
+        jScrollPane1.setViewportView(jListProfesoresBaja);
 
         jPanel2.add(jScrollPane1);
 
@@ -293,7 +292,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         });
         jPanel3.add(jButtonVolverBaja);
 
-        jButtonEliminarBaja.setText("eliminar alumno ");
+        jButtonEliminarBaja.setText("eliminar profesor ");
         jButtonEliminarBaja.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -303,7 +302,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         });
         jPanel3.add(jButtonEliminarBaja);
 
-        jPanel8.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel8.setLayout(new java.awt.GridLayout());
 
         jButtonBuscarBaja.setText("Buscar");
         jButtonBuscarBaja.addActionListener(new java.awt.event.ActionListener()
@@ -353,18 +352,18 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel4.add(jTextFieldApellidoMod);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel6.setLayout(new java.awt.GridLayout());
 
         jLabelSeleccionarMod.setText("Seleccione el alumno ");
         jPanel6.add(jLabelSeleccionarMod);
 
-        jListAlumnosMod.setModel(new javax.swing.AbstractListModel<String>()
+        jListProfesoresMod.setModel(new javax.swing.AbstractListModel<String>()
         {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jListAlumnosMod);
+        jScrollPane2.setViewportView(jListProfesoresMod);
 
         jPanel6.add(jScrollPane2);
 
@@ -400,10 +399,10 @@ public class VentanaAlumno extends javax.swing.JFrame
         });
         jPanel7.add(jButtonConfirmarMod);
 
-        jButtonAsigAprobMod.setText("Altas/Bajas de Asignaturas Aprobadas");
+        jButtonAsigAprobMod.setText("Altas/Bajas de Asignaturas ");
         jPanel7.add(jButtonAsigAprobMod);
 
-        jPanel9.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel9.setLayout(new java.awt.GridLayout());
 
         jButtonBuscarMod.setText("Buscar");
         jButtonBuscarMod.addActionListener(new java.awt.event.ActionListener()
@@ -439,37 +438,37 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanelModAlumnoLayout.setVerticalGroup(
             jPanelModAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelModAlumnoLayout.createSequentialGroup()
-                .addGap(0, 284, Short.MAX_VALUE)
+                .addGap(0, 282, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanelModAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelModAlumnoLayout.createSequentialGroup()
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 474, Short.MAX_VALUE)))
+                    .addGap(0, 472, Short.MAX_VALUE)))
             .addGroup(jPanelModAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelModAlumnoLayout.createSequentialGroup()
                     .addGap(99, 99, 99)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(292, Short.MAX_VALUE)))
+                    .addContainerGap(290, Short.MAX_VALUE)))
             .addGroup(jPanelModAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelModAlumnoLayout.createSequentialGroup()
                     .addGap(73, 73, 73)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(450, Short.MAX_VALUE)))
+                    .addContainerGap(448, Short.MAX_VALUE)))
         );
 
         jTabbedPane2.addTab("Modificaciones", jPanelModAlumno);
 
         jPanel10.setLayout(new java.awt.GridLayout(2, 2));
 
-        jLabelNombreConsulta.setText("Nombre del alumno ");
+        jLabelNombreConsulta.setText("Nombre del profesor");
         jPanel10.add(jLabelNombreConsulta);
         jPanel10.add(jTextFieldNombreConsulta);
 
-        jLabelApellidoConsulta.setText("Apellido del alumno ");
+        jLabelApellidoConsulta.setText("Apellido del profesor");
         jPanel10.add(jLabelApellidoConsulta);
         jPanel10.add(jTextFieldApellidoConsulta);
 
-        jPanel11.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel11.setLayout(new java.awt.GridLayout());
 
         jButtonBuscarConsulta.setText("Buscar");
         jButtonBuscarConsulta.addActionListener(new java.awt.event.ActionListener()
@@ -482,18 +481,18 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel11.add(jButtonBuscarConsulta);
 
         jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel12.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel12.setLayout(new java.awt.GridLayout());
 
         jLabelSeleccionarConsulta.setText("Seleccione el alumno ");
         jPanel12.add(jLabelSeleccionarConsulta);
 
-        jListAlumnosConsulta.setModel(new javax.swing.AbstractListModel<String>()
+        jListProfesoresConsulta.setModel(new javax.swing.AbstractListModel<String>()
         {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jListAlumnosConsulta);
+        jScrollPane3.setViewportView(jListProfesoresConsulta);
 
         jPanel12.add(jScrollPane3);
 
@@ -527,7 +526,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel13.add(jLabel22);
         jPanel13.add(jTextFieldMailConsulta);
 
-        jPanel14.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel14.setLayout(new java.awt.GridLayout());
 
         jListAsignaturasAprobadasConsulta.setModel(new javax.swing.AbstractListModel<String>()
         {
@@ -537,7 +536,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         });
         jScrollPane4.setViewportView(jListAsignaturasAprobadasConsulta);
 
-        jLabel24.setText("Asignaturas Aprobadas");
+        jLabel24.setText("Coleccion de Asignaturas en las que puede participar");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -548,7 +547,7 @@ public class VentanaAlumno extends javax.swing.JFrame
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4)
                     .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -633,7 +632,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanelConsultaAlumnoLayout.setVerticalGroup(
             jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultaAlumnoLayout.createSequentialGroup()
-                .addContainerGap(184, Short.MAX_VALUE)
+                .addContainerGap(182, Short.MAX_VALUE)
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(jButtonCargarConsulta)
@@ -648,17 +647,17 @@ public class VentanaAlumno extends javax.swing.JFrame
                 .addGroup(jPanelConsultaAlumnoLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(455, Short.MAX_VALUE)))
+                    .addContainerGap(453, Short.MAX_VALUE)))
             .addGroup(jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelConsultaAlumnoLayout.createSequentialGroup()
                     .addGap(90, 90, 90)
                     .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(424, Short.MAX_VALUE)))
+                    .addContainerGap(422, Short.MAX_VALUE)))
             .addGroup(jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelConsultaAlumnoLayout.createSequentialGroup()
                     .addGap(122, 122, 122)
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(356, Short.MAX_VALUE)))
+                    .addContainerGap(354, Short.MAX_VALUE)))
         );
 
         jTabbedPane2.addTab("Consulta", jPanelConsultaAlumno);
@@ -677,43 +676,6 @@ public class VentanaAlumno extends javax.swing.JFrame
         pack();
     }//GEN-END:initComponents
 
-    private void jTextFieldMailAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldMailAltaActionPerformed
-    {//GEN-HEADEREND:event_jTextFieldMailAltaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldMailAltaActionPerformed
-
-    private void jButtonConfirmarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConfirmarModActionPerformed
-    {//GEN-HEADEREND:event_jButtonConfirmarModActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonConfirmarModActionPerformed
-
-    private void jTextFieldLegajoConsultaaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldLegajoConsultaaActionPerformed
-    {//GEN-HEADEREND:event_jTextFieldLegajoConsultaaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldLegajoConsultaaActionPerformed
-
-    private void jButtonConfirmarAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConfirmarAltaActionPerformed
-    {//GEN-HEADEREND:event_jButtonConfirmarAltaActionPerformed
-        // TODO add your handling code here:
-        if(this.validarAlta())
-        {
-            String mail= this.jTextFieldMailAlta.getText();
-            if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
-            {
-                this.facultad.agregarAlumno(this.jTextFieldApellidoAlta.getText().toUpperCase(), this.jTextFieldNombreAlta.getText().toUpperCase(), this.jTextFieldDomicilioAlta.getText().toUpperCase(), this.jTextFieldMailAlta.getText());
-                JOptionPane.showMessageDialog(null, "El alumno fue creado con exito");
-                this.limpiarTextFieldAlta();
-                
-            }else
-            {
-                JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
-            }
-        }else
-            {
-                JOptionPane.showMessageDialog(null, "Complete todos los campos porfavor");
-            }
-    }//GEN-LAST:event_jButtonConfirmarAltaActionPerformed
-
     private void jTextFieldNombreAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldNombreAltaActionPerformed
     {//GEN-HEADEREND:event_jTextFieldNombreAltaActionPerformed
         // TODO add your handling code here:
@@ -729,20 +691,10 @@ public class VentanaAlumno extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDomicilioAltaActionPerformed
 
-    private void jButtonBuscarBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarBajaActionPerformed
-    {//GEN-HEADEREND:event_jButtonBuscarBajaActionPerformed
-        String nombre=this.jTextFieldNombreBaja.getText().toUpperCase();
-        String apellido=this.jTextFieldApellidoBaja.getText().toUpperCase();
-        ArrayList<Alumno> alumnos=facultad.buscarAlumnoPorNombre(nombre, apellido);;
-        Iterator it=alumnos.iterator();
-        
-        while(it.hasNext())
-        {
-           Alumno a=(Alumno)it.next();
-            modeloBaja.addElement(a);
-        }
-        this.jListAlumnosBaja.setModel(modeloBaja); 
-    }//GEN-LAST:event_jButtonBuscarBajaActionPerformed
+    private void jTextFieldMailAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldMailAltaActionPerformed
+    {//GEN-HEADEREND:event_jTextFieldMailAltaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldMailAltaActionPerformed
 
     private void jButtonVolverAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverAltaActionPerformed
     {//GEN-HEADEREND:event_jButtonVolverAltaActionPerformed
@@ -750,15 +702,27 @@ public class VentanaAlumno extends javax.swing.JFrame
         this.dispose();
     }//GEN-LAST:event_jButtonVolverAltaActionPerformed
 
-    private void jButtonEliminarBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEliminarBajaActionPerformed
-    {//GEN-HEADEREND:event_jButtonEliminarBajaActionPerformed
+    private void jButtonConfirmarAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConfirmarAltaActionPerformed
+    {//GEN-HEADEREND:event_jButtonConfirmarAltaActionPerformed
         // TODO add your handling code here:
-        int n=this.jListAlumnosBaja.getSelectedIndex();
-        Alumno a=(Alumno) this.modeloBaja.getElementAt(n);
-        this.facultad.bajaAlumno(a.getLegajo());
-        this.limpiarModelo();
-        this.jListAlumnosBaja.clearSelection();
-    }//GEN-LAST:event_jButtonEliminarBajaActionPerformed
+        if(this.validarAlta())
+        {
+            String mail= this.jTextFieldMailAlta.getText();
+            if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
+            {
+                this.facultad.agregarProfesor(this.jTextFieldApellidoAlta.getText().toUpperCase(), this.jTextFieldNombreAlta.getText().toUpperCase(), this.jTextFieldDomicilioAlta.getText().toUpperCase(), this.jTextFieldMailAlta.getText());
+                JOptionPane.showMessageDialog(null, "El profesor fue creado con exito");
+                this.limpiarTextFieldAlta();
+
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
+            }
+        }else
+        {
+            JOptionPane.showMessageDialog(null, "Complete todos los campos porfavor");
+        }
+    }//GEN-LAST:event_jButtonConfirmarAltaActionPerformed
 
     private void jButtonVolverBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverBajaActionPerformed
     {//GEN-HEADEREND:event_jButtonVolverBajaActionPerformed
@@ -766,20 +730,50 @@ public class VentanaAlumno extends javax.swing.JFrame
         this.dispose();
     }//GEN-LAST:event_jButtonVolverBajaActionPerformed
 
+    private void jButtonEliminarBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEliminarBajaActionPerformed
+    {//GEN-HEADEREND:event_jButtonEliminarBajaActionPerformed
+        // TODO add your handling code here:
+        int n=this.jListProfesoresBaja.getSelectedIndex();
+        Profesor a=(Profesor) this.modeloBaja.getElementAt(n);
+        this.facultad.bajaProfesor(a.getLegajo());
+        this.limpiarModelo();
+        this.jListProfesoresBaja.clearSelection();
+    }//GEN-LAST:event_jButtonEliminarBajaActionPerformed
+
+    private void jButtonBuscarBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarBajaActionPerformed
+    {//GEN-HEADEREND:event_jButtonBuscarBajaActionPerformed
+        String nombre=this.jTextFieldNombreBaja.getText().toUpperCase();
+        String apellido=this.jTextFieldApellidoBaja.getText().toUpperCase();
+        ArrayList<Profesor> profesores=facultad.buscarProfesorPorNombre(nombre, apellido);;
+        Iterator it=profesores.iterator();
+
+        while(it.hasNext())
+        {
+            Profesor a=(Profesor)it.next();
+            modeloBaja.addElement(a);
+        }
+        this.jListProfesoresBaja.setModel(modeloBaja);
+    }//GEN-LAST:event_jButtonBuscarBajaActionPerformed
+
+    private void jButtonConfirmarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConfirmarModActionPerformed
+    {//GEN-HEADEREND:event_jButtonConfirmarModActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonConfirmarModActionPerformed
+
     private void jButtonBuscarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarModActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarModActionPerformed
         // TODO add your handling code here
         String nombre=this.jTextFieldNombreMod.getText().toUpperCase();
         String apellido=this.jTextFieldApellidoMod.getText().toUpperCase();
-        ArrayList<Alumno> alumnos=facultad.buscarAlumnoPorNombre(nombre, apellido);;
-        Iterator it=alumnos.iterator();
-        
+        ArrayList<Profesor> profesores=facultad.buscarProfesorPorNombre(nombre, apellido);;
+        Iterator it=profesores.iterator();
+
         while(it.hasNext())
         {
-           Alumno a=(Alumno)it.next();
+            Profesor a=(Profesor)it.next();
             modeloMod.addElement(a);
         }
-        this.jListAlumnosMod.setModel(modeloMod);
+        this.jListProfesoresMod.setModel(modeloMod);
     }//GEN-LAST:event_jButtonBuscarModActionPerformed
 
     private void jButtonBuscarConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarConsultaActionPerformed
@@ -787,30 +781,35 @@ public class VentanaAlumno extends javax.swing.JFrame
         // TODO add your handling code here:
         String nombre=this.jTextFieldNombreConsulta.getText().toUpperCase();
         String apellido=this.jTextFieldApellidoConsulta.getText().toUpperCase();
-        ArrayList<Alumno> alumnos=facultad.buscarAlumnoPorNombre(nombre, apellido);;
-        Iterator it=alumnos.iterator();
-        
+        ArrayList<Profesor> profesores=facultad.buscarProfesorPorNombre(nombre, apellido);;
+        Iterator it=profesores.iterator();
+
         while(it.hasNext())
         {
-           Alumno a=(Alumno)it.next();
+            Profesor a=(Profesor)it.next();
             modeloConsulta.addElement(a);
         }
-        this.jListAlumnosConsulta.setModel(modeloConsulta);
+        this.jListProfesoresConsulta.setModel(modeloConsulta);
     }//GEN-LAST:event_jButtonBuscarConsultaActionPerformed
+
+    private void jTextFieldLegajoConsultaaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldLegajoConsultaaActionPerformed
+    {//GEN-HEADEREND:event_jTextFieldLegajoConsultaaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldLegajoConsultaaActionPerformed
 
     private void jButtonCargarConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCargarConsultaActionPerformed
     {//GEN-HEADEREND:event_jButtonCargarConsultaActionPerformed
         // TODO add your handling code here:
-        int n=this.jListAlumnosConsulta.getSelectedIndex();
-        Alumno a=(Alumno) this.modeloConsulta.getElementAt(n);
+        int n=this.jListProfesoresConsulta.getSelectedIndex();
+        Profesor a=(Profesor) this.modeloConsulta.getElementAt(n);
         this.jTextFieldApellidoConsultaa.setText(a.getApellido());
         this.jTextFieldDomicilioConsulta.setText(a.getDomicilio());
         this.jTextFieldLegajoConsultaa.setText(a.getLegajo());
         this.jTextFieldMailConsulta.setText(a.getMail());
         this.jTextFieldNombreConsultaa.setText(a.getNombre());
-        
+
         this.limpiarModelo();
-        this.jListAlumnosConsulta.clearSelection();
+        this.jListProfesoresConsulta.clearSelection();
     }//GEN-LAST:event_jButtonCargarConsultaActionPerformed
 
     private void jButtonVolverConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverConsultaActionPerformed
@@ -848,7 +847,7 @@ public class VentanaAlumno extends javax.swing.JFrame
             java.util
                 .logging
                 .Logger
-                .getLogger(VentanaAlumno.class.getName())
+                .getLogger(VentanaProfesor.class.getName())
                 .log(java.util
                          .logging
                          .Level
@@ -858,7 +857,7 @@ public class VentanaAlumno extends javax.swing.JFrame
             java.util
                 .logging
                 .Logger
-                .getLogger(VentanaAlumno.class.getName())
+                .getLogger(VentanaProfesor.class.getName())
                 .log(java.util
                          .logging
                          .Level
@@ -868,7 +867,7 @@ public class VentanaAlumno extends javax.swing.JFrame
             java.util
                 .logging
                 .Logger
-                .getLogger(VentanaAlumno.class.getName())
+                .getLogger(VentanaProfesor.class.getName())
                 .log(java.util
                          .logging
                          .Level
@@ -878,7 +877,7 @@ public class VentanaAlumno extends javax.swing.JFrame
             java.util
                 .logging
                 .Logger
-                .getLogger(VentanaAlumno.class.getName())
+                .getLogger(VentanaProfesor.class.getName())
                 .log(java.util
                          .logging
                          .Level
@@ -893,7 +892,7 @@ public class VentanaAlumno extends javax.swing.JFrame
             {
                 public void run()
                 {
-                    new VentanaAlumno().setVisible(true);
+                    new VentanaProfesor().setVisible(true);
                 }
             });
     }
@@ -917,7 +916,6 @@ public class VentanaAlumno extends javax.swing.JFrame
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelApellidoAlta;
     private javax.swing.JLabel jLabelApellidoBaja;
     private javax.swing.JLabel jLabelApellidoConsulta;
@@ -935,10 +933,10 @@ public class VentanaAlumno extends javax.swing.JFrame
     private javax.swing.JLabel jLabelSeleccionarBaja;
     private javax.swing.JLabel jLabelSeleccionarConsulta;
     private javax.swing.JLabel jLabelSeleccionarMod;
-    private javax.swing.JList<String> jListAlumnosBaja;
-    private javax.swing.JList<String> jListAlumnosConsulta;
-    private javax.swing.JList<String> jListAlumnosMod;
     private javax.swing.JList<String> jListAsignaturasAprobadasConsulta;
+    private javax.swing.JList<String> jListProfesoresBaja;
+    private javax.swing.JList<String> jListProfesoresConsulta;
+    private javax.swing.JList<String> jListProfesoresMod;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

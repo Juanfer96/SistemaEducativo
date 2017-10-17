@@ -43,4 +43,10 @@ public class Profesor extends Persona
             //excepcion de que quiero eliminar una correlatividad q no existe(no econtro la clave)
         }   
     }
+    @Override
+    public String toString()
+    {
+        // TODO Implement this method
+        return "Nombre: "+this.getNombre()+"   Apellido: "+this.getApellido()+"   Legajo: "+this.getLegajo() ;
+    }
 }

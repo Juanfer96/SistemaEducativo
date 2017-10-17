@@ -90,7 +90,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private void jButtonAlumnoPrincipalActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAlumnoPrincipalActionPerformed
     {//GEN-HEADEREND:event_jButtonAlumnoPrincipalActionPerformed
         VentanaAlumno ventanaAlumno=new VentanaAlumno();
-        dispose();
+        //dispose();
         ventanaAlumno.setVisible(true);
         
     }//GEN-LAST:event_jButtonAlumnoPrincipalActionPerformed
@@ -98,6 +98,8 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private void jButtonProfesorPrincipalActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonProfesorPrincipalActionPerformed
     {//GEN-HEADEREND:event_jButtonProfesorPrincipalActionPerformed
         // TODO add your handling code here:
+        VentanaProfesor ventanaProfesor=new VentanaProfesor();
+        ventanaProfesor.setVisible(true);
     }//GEN-LAST:event_jButtonProfesorPrincipalActionPerformed
 
     /**

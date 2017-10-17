@@ -133,7 +133,7 @@ public class Facultad {
         return alumnosReturn;
     }
     
-    private ArrayList<Profesor> buscarProfesorPorNombre(String nombre, String apellido) {
+    public ArrayList<Profesor> buscarProfesorPorNombre(String nombre, String apellido) {
         ArrayList<Profesor> profesoresReturn = new ArrayList<>();
         Profesor p;
         Iterator it = this.getProfesores()
