@@ -70,6 +70,26 @@ public class VentanaAlumno extends javax.swing.JFrame
         }
         return true;
     }
+    public boolean validarMod()
+    {
+        if(this.jTextFieldApellidoNuevoMod.getText().equals(""))
+        {
+            return false;
+        }
+        if(this.jTextFieldNombreNuevoMod.getText().equals(""))
+        {
+            return false;
+        }
+        if(this.jTextFieldMailNuevoMod.getText().equals(""))
+        {
+            return false;
+        }
+        if(this.jTextFieldDomicilioNuevoMod.getText().equals(""))
+        {
+            return false;
+        }
+        return true;
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -388,6 +408,13 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel7.add(jTextFieldDomicilioNuevoMod);
 
         jButtonVolverMod.setText("Volver");
+        jButtonVolverMod.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonVolverModActionPerformed(evt);
+            }
+        });
         jPanel7.add(jButtonVolverMod);
 
         jButtonConfirmarMod.setText("Confirmar Cambios");
@@ -685,11 +712,34 @@ public class VentanaAlumno extends javax.swing.JFrame
     private void jButtonConfirmarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConfirmarModActionPerformed
     {//GEN-HEADEREND:event_jButtonConfirmarModActionPerformed
         // TODO add your handling code here:
+        int n=this.jListAlumnosMod.getSelectedIndex();
+        Alumno a=(Alumno) this.modeloMod.getElementAt(n);
+        if(this.validarMod())
+        {
+            String mail= this.jTextFieldMailNuevoMod.getText();
+            if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
+            {
+                facultad.modificarAlumno(a,this.jTextFieldApellidoNuevoMod.getText().toUpperCase(),this.jTextFieldNombreNuevoMod.getText().toUpperCase(),this.jTextFieldDomicilioNuevoMod.getText().toUpperCase(), this.jTextFieldMailNuevoMod.getText().toUpperCase());
+                JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
+                this.limpiarModelo();
+                this.jListAlumnosMod.clearSelection();
+                
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
+            }
+        }else
+            {
+                JOptionPane.showMessageDialog(null, "Complete todos los campos porfavor");
+            }
+        
     }//GEN-LAST:event_jButtonConfirmarModActionPerformed
 
     private void jTextFieldLegajoConsultaaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldLegajoConsultaaActionPerformed
     {//GEN-HEADEREND:event_jTextFieldLegajoConsultaaActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_jTextFieldLegajoConsultaaActionPerformed
 
     private void jButtonConfirmarAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConfirmarAltaActionPerformed
@@ -818,6 +868,12 @@ public class VentanaAlumno extends javax.swing.JFrame
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonVolverConsultaActionPerformed
+
+    private void jButtonVolverModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverModActionPerformed
+    {//GEN-HEADEREND:event_jButtonVolverModActionPerformed
+        // TODO add your handling code here
+        this.dispose();
+    }//GEN-LAST:event_jButtonVolverModActionPerformed
 
     /**
      * @param args the command line arguments
