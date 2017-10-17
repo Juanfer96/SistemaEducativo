@@ -90,62 +90,30 @@ public class Cursada
         return alumnos;
     }
     
+    //Implementar en Facultad las verificaciones: alumnoOcupado, alumnoHabilitado idem profesor.!!
+    //Falta implementar si el alumno esta ocupado en ese horario.
+    
+    /**
+     * pre: Se considera que el alumno a inscribirse cumple con todas las restricciones.
+     * @param a
+     * @throws AlumnoInhabilitadoException
+     * @throws AlumnoRegistradoEnCursadaException
+     */
     public void agregarAlumno(Alumno a) throws AlumnoInhabilitadoException, AlumnoRegistradoEnCursadaException {
-        if(this.getAlumnos().containsKey(a.getLegajo()))
-        {
-            throw new AlumnoRegistradoEnCursadaException(a,this);
-            //Exception: alumno a ya se encuentra registrado en la cursada.
-        }
-        else
-        {
-            if(alumnoHabilitadoParaCursada(a))
-            {
-                this.getAlumnos().put(a.getLegajo(), a);   
-            }
-            else {
-                throw new AlumnoInhabilitadoException(a, this);
-                //Exception para alumno que no puede anotarse a la cursada por no tener las correlativas necesarias.
-            }
-        }
+        this.getAlumnos().put(a.getLegajo(), a); 
     }
     
-    public boolean alumnoHabilitadoParaCursada(Alumno a) {
-        boolean rta=true;
-        String asignaturaId;
-        Iterator it = this.getAsignatura().getCorrelatividades().entrySet().iterator();
-        while (it.hasNext() && rta==true) {
-            Map.Entry m = (Map.Entry) it.next();
-            asignaturaId = (String) m.getKey();
-            if(!a.getHistoria().containsKey(asignaturaId)) {
-                rta = false;
-            }
-        }
-        return rta;
+    /**
+     * pre: Se considera que el profesor a inscribirse cumple con todas las restricciones.
+     * @param p
+     * @throws ProfesorRegistradoEnCursadaException
+     * @throws ProfesorInhabilitadoException
+     */
+    public void agregarProfesor(Profesor p) throws ProfesorRegistradoEnCursadaException, ProfesorInhabilitadoException {
+        this.getProfesores().put(p.getLegajo(), p);
     }
     
-    public void agregarProfesor(Profesor p) throws ProfesorRegistradoEnCursadaException, ProfesorInhabilitadoParaCursadaException {
-        if(this.getProfesores().containsKey(p.getLegajo()))
-        {
-            throw new ProfesorRegistradoEnCursadaException(p,this);
-        }
-        else
-        {
-            if(!profesorHabilitadoParaCursada(p)) {
-                throw new ProfesorInhabilitadoParaCursadaException(p,this);
-            }
-            else{
-                this.getProfesores().put(p.getLegajo(), p);   
-            }
-        }
-    }
     
-    public boolean profesorHabilitadoParaCursada(Profesor p) {
-        boolean rta=true;
-        if(p.getCompetencia().get(this.getAsignatura().getId())==null) {
-            rta=false;
-        }
-        return rta;
-    }
     
     //Retorna el legajo del alumno eliminado (si dicho alumno se encuentra en la cursada)
     //Retorna null si no lo encontro (obviamente no lo elimina).
@@ -180,20 +148,41 @@ public class Cursada
      * @param horaFin
      * @param minFin
      */
-    /*
-    public void agregarHorario(int dia, int horaInicio, int minInicio, int horaFin, int minFin) {
+    //Considere horario superpuesto solo entre la misma cursada
+    public void agregarHorario(int dia, int horaInicio, int minInicio, int horaFin, int minFin) throws HorarioCursadaSuperpuestaException {
         if(this.getHorario().isEmpty()) {
             //No habra cursadas superpuestas de esa asignatura, ya que será la primera que se inserta.
             Fecha f= new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
             this.getHorario().add(f);
         }
         else {
-            Fecha aux;
+            Fecha fechaEstablecida;
+            Fecha fechaEntrada=new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
             Iterator it=this.getHorario().iterator();
             while(it.hasNext()) {
-                aux=(Fecha)it.next();
-                if(aux.)
+                fechaEstablecida=(Fecha)it.next();
+                if(fechaEstablecida.getDia()==fechaEntrada.getDia()) {
+                    if(fechaEstablecida.superpone(fechaEntrada)) {
+                        throw new HorarioCursadaSuperpuestaException(fechaEntrada,this);
+                    }
+                }
             }
+            Fecha f= new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
+            this.getHorario().add(f);
         }
-    }*/
+    }
+    
+    public boolean contieneAlumno(Alumno a) {
+       if(this.getAlumnos().containsKey(a.getLegajo())) {
+           return true;
+       }
+       return false;
+    }
+    
+    public boolean contieneProfesor(Profesor p) {
+        if(this.getProfesores().containsKey(p.getLegajo())) {
+            return true;
+        }
+        return false;
+    }
 }

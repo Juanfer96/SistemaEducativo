@@ -39,5 +39,24 @@ public class Prueba {
         catch(DateTimeException e) {
             System.out.print("Hora erronea");
         }
+        
+        String prueba="abs@djas";
+        if(prueba.contains("@") && prueba.indexOf("@")<prueba.length()-1 && prueba.indexOf("@")>0) {
+            System.out.println("Correcto");
+        }
+        else{
+            System.out.println("Incorrecto");
+        }
+        
+        f.agregarAsignatura("Matematica");
+        Asignatura asig=f.buscarAsignaturaPorNombre("Matematica").get(0);
+        //Poner que f.agregarXXXX devuelva ese objeto creado.
+        Cursada c=f.agregarCursada(asig,"01");
+        try {
+            c.agregarHorario(Fecha.LUNES, 16, 0, 17, 30);
+            c.agregarHorario(Fecha.LUNES, 15, 0, 22, 0);
+        } catch (HorarioCursadaSuperpuestaException e) {
+            System.out.println("Horarios superpuestos");
+        }
     }
 }

@@ -49,4 +49,19 @@ public class Alumno extends Persona
     {
         this.getHistoria().remove(id);
     }
+    
+    public void modificarAlumno(String apellido, String nombre, String domicilio, String mail) {
+        this.setApellido(apellido);
+        this.setNombre(nombre);
+        this.setDomicilio(domicilio);
+        this.setMail(mail);
+    }
+    
+    public void aprobarAsignatura(Asignatura a) {
+        this.historia.put(a.getId(), a);
+    }
+    
+    public void eliminarAsignatura(Asignatura a) {
+        this.historia.remove(a.getId());
+    }
 }
