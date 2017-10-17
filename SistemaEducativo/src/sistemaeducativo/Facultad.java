@@ -72,12 +72,6 @@ public class Facultad {
         this.getCursadas().put(a.getId(), a);
         return a;
     }
-    
-    
-    public void agregarProfesorACursada(String cursadaId, Profesor p) throws ProfesorRegistradoEnCursadaException, ProfesorInhabilitadoException {
-        Cursada c=this.getCursadas().get(cursadaId);
-        c.agregarProfesor(p);
-    }
 
     //Preguntar si cada alumno no tiene una coleccion de cursadas actuales. Idem profesores.
 
@@ -335,5 +329,27 @@ public class Facultad {
      */
     public void eliminarAlumnoAsignatura(Alumno alumno, Asignatura asignatura) {
         alumno.eliminarAsignatura(asignatura);
+    }
+    
+    public void modificarProfesor(Profesor p,String apellido, String nombre, String domicilio, String mail) {
+        p.modificarProfesor(apellido, nombre, domicilio, mail);
+    }
+    
+    /**
+     * pre: Se considera que la asignatura es una existente.
+     * @param p
+     * @param a
+     */
+    public void agregarCompetenciaProfesor(Profesor p, Asignatura a) throws AsignaturaYaRegistradaEnProfesorException {
+        if(p.getCompetencia().containsKey(a.getId())) {
+            throw new AsignaturaYaRegistradaEnProfesorException(a,p);
+        }
+        else{
+            p.agregarCompetencia(a);
+        }
+    }
+    
+    public void eliminarCompetenciaProfesor(Profesor p, Asignatura a) {
+        p.eliminarCompetencia(a);
     }
 }
