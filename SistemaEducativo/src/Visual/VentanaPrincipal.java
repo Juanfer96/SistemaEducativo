@@ -1,17 +1,24 @@
 
 package Visual;
 
+import javax.swing.JFrame;
+
+import sistemaeducativo.Facultad;
+
 /**
  *
  * @author Usuario
  */
 public class VentanaPrincipal extends javax.swing.JFrame
 {
-
+    private static Facultad facultad=new Facultad();
     /** Creates new form VentanaPrincipal */
     public VentanaPrincipal()
     {
         initComponents();
+        setResizable(false);
+        setTitle("Sistema Educativo ");
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -24,34 +31,41 @@ public class VentanaPrincipal extends javax.swing.JFrame
     {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonAlumnoPrincipal = new javax.swing.JButton();
+        jButtonAsignaturaPrincipal = new javax.swing.JButton();
+        jButtonProfesorPrincipal = new javax.swing.JButton();
+        jButtonCursadaPrincipal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(new java.awt.GridLayout(2, 2));
 
-        jButton1.setText("Alumno");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
+        jButtonAlumnoPrincipal.setText("Alumno");
+        jButtonAlumnoPrincipal.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jButton1ActionPerformed(evt);
+                jButtonAlumnoPrincipalActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
+        jPanel1.add(jButtonAlumnoPrincipal);
 
-        jButton3.setText("Asignatura");
-        jPanel1.add(jButton3);
+        jButtonAsignaturaPrincipal.setText("Asignatura");
+        jPanel1.add(jButtonAsignaturaPrincipal);
 
-        jButton2.setText("Profesor");
-        jPanel1.add(jButton2);
+        jButtonProfesorPrincipal.setText("Profesor");
+        jButtonProfesorPrincipal.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonProfesorPrincipalActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonProfesorPrincipal);
 
-        jButton4.setText("Cursada");
-        jPanel1.add(jButton4);
+        jButtonCursadaPrincipal.setText("Cursada");
+        jPanel1.add(jButtonCursadaPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,10 +87,18 @@ public class VentanaPrincipal extends javax.swing.JFrame
         pack();
     }//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void jButtonAlumnoPrincipalActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAlumnoPrincipalActionPerformed
+    {//GEN-HEADEREND:event_jButtonAlumnoPrincipalActionPerformed
+        VentanaAlumno ventanaAlumno=new VentanaAlumno();
+        dispose();
+        ventanaAlumno.setVisible(true);
+        
+    }//GEN-LAST:event_jButtonAlumnoPrincipalActionPerformed
+
+    private void jButtonProfesorPrincipalActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonProfesorPrincipalActionPerformed
+    {//GEN-HEADEREND:event_jButtonProfesorPrincipalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonProfesorPrincipalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,11 +180,16 @@ public class VentanaPrincipal extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonAlumnoPrincipal;
+    private javax.swing.JButton jButtonAsignaturaPrincipal;
+    private javax.swing.JButton jButtonCursadaPrincipal;
+    private javax.swing.JButton jButtonProfesorPrincipal;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
+    
+    public static Facultad getFacultad()
+    {
+        return facultad;
+    }
 }

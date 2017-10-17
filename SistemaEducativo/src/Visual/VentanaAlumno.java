@@ -1,19 +1,67 @@
 
 package Visual;
 
+import java.util.ArrayList;
+
+import java.util.Iterator;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import sistemaeducativo.Alumno;
+import sistemaeducativo.Facultad;
+
 /**
  *
  * @author Usuario
  */
 public class VentanaAlumno extends javax.swing.JFrame
+    
 {
-
+    private Facultad facultad;
+    private DefaultListModel modelo;
     /** Creates new form VentanaAlumno */
     public VentanaAlumno()
     {
         initComponents();
+        facultad=VentanaPrincipal.getFacultad();
+        setResizable(false);
+        setTitle("Sistema Educativo -Alumno");
+        setLocationRelativeTo(null);
+        this.modelo=new DefaultListModel();
     }
-
+    public void limpiarModelo()
+    {
+        this.modelo.clear();
+    }
+    public void limpiarTextFieldAlta()
+    {
+        this.jTextFieldApellidoAlta.setText("");
+        this.jTextFieldNombreAlta.setText("");
+        this.jTextFieldMailAlta.setText("");
+        this.jTextFieldDomicilioAlta.setText("");
+    }
+    public boolean validarAlta()
+    {
+        if(this.jTextFieldApellidoAlta.getText().equals(""))
+        {
+            return false;
+        }
+        if(this.jTextFieldNombreAlta.getText().equals(""))
+        {
+            return false;
+        }
+        if(this.jTextFieldMailAlta.getText().equals(""))
+        {
+            return false;
+        }
+        if(this.jTextFieldDomicilioAlta.getText().equals(""))
+        {
+            return false;
+        }
+        return true;
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -118,25 +166,42 @@ public class VentanaAlumno extends javax.swing.JFrame
         jLabelNombreAlta.setText("Nombre");
         jPanel5.add(jLabelNombreAlta);
 
-        jTextFieldNombreAlta.setText("Ingrese nombre");
+        jTextFieldNombreAlta.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jTextFieldNombreAltaActionPerformed(evt);
+            }
+        });
         jPanel5.add(jTextFieldNombreAlta);
 
         jLabelApellidoAlta.setText("Apellido");
         jPanel5.add(jLabelApellidoAlta);
 
-        jTextFieldApellidoAlta.setText("Ingrese apellido");
+        jTextFieldApellidoAlta.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jTextFieldApellidoAltaActionPerformed(evt);
+            }
+        });
         jPanel5.add(jTextFieldApellidoAlta);
 
         jLabelDomicilioAlta.setText("Domicilio");
         jPanel5.add(jLabelDomicilioAlta);
 
-        jTextFieldDomicilioAlta.setText("Ingrese Domicilio");
+        jTextFieldDomicilioAlta.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jTextFieldDomicilioAltaActionPerformed(evt);
+            }
+        });
         jPanel5.add(jTextFieldDomicilioAlta);
 
         jLabelMailAlta.setText("Mail");
         jPanel5.add(jLabelMailAlta);
 
-        jTextFieldMailAlta.setText("aaaa@aaaaa");
         jTextFieldMailAlta.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -147,9 +212,23 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel5.add(jTextFieldMailAlta);
 
         jButtonVolverAlta.setText("Volver");
+        jButtonVolverAlta.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonVolverAltaActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButtonVolverAlta);
 
         jButtonConfirmarAlta.setText("Confirmar Alta");
+        jButtonConfirmarAlta.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonConfirmarAltaActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButtonConfirmarAlta);
 
         javax.swing.GroupLayout jPanelAltaAlumnoLayout = new javax.swing.GroupLayout(jPanelAltaAlumno);
@@ -200,11 +279,25 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel3.add(jButtonVolverBaja);
 
         jButtonEliminarBaja.setText("eliminar alumno ");
+        jButtonEliminarBaja.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonEliminarBajaActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButtonEliminarBaja);
 
         jPanel8.setLayout(new java.awt.GridLayout());
 
         jButtonBuscarBaja.setText("Buscar");
+        jButtonBuscarBaja.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonBuscarBajaActionPerformed(evt);
+            }
+        });
         jPanel8.add(jButtonBuscarBaja);
 
         javax.swing.GroupLayout jPanelBajaAlumnoLayout = new javax.swing.GroupLayout(jPanelBajaAlumno);
@@ -555,6 +648,75 @@ public class VentanaAlumno extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTextFieldLegajoConsultaaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldLegajoConsultaaActionPerformed
+
+    private void jButtonConfirmarAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConfirmarAltaActionPerformed
+    {//GEN-HEADEREND:event_jButtonConfirmarAltaActionPerformed
+        // TODO add your handling code here:
+        if(this.validarAlta())
+        {
+            String mail= this.jTextFieldMailAlta.getText();
+            if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
+            {
+                this.facultad.agregarAlumno(this.jTextFieldApellidoAlta.getText().toUpperCase(), this.jTextFieldNombreAlta.getText().toUpperCase(), this.jTextFieldDomicilioAlta.getText().toUpperCase(), this.jTextFieldMailAlta.getText());
+                JOptionPane.showMessageDialog(null, "El alumno fue creado con exito");
+                this.limpiarTextFieldAlta();
+                
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
+            }
+        }else
+            {
+                JOptionPane.showMessageDialog(null, "Complete todos los campos porfavor");
+            }
+    }//GEN-LAST:event_jButtonConfirmarAltaActionPerformed
+
+    private void jTextFieldNombreAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldNombreAltaActionPerformed
+    {//GEN-HEADEREND:event_jTextFieldNombreAltaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNombreAltaActionPerformed
+
+    private void jTextFieldApellidoAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldApellidoAltaActionPerformed
+    {//GEN-HEADEREND:event_jTextFieldApellidoAltaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldApellidoAltaActionPerformed
+
+    private void jTextFieldDomicilioAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldDomicilioAltaActionPerformed
+    {//GEN-HEADEREND:event_jTextFieldDomicilioAltaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDomicilioAltaActionPerformed
+
+    private void jButtonBuscarBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarBajaActionPerformed
+    {//GEN-HEADEREND:event_jButtonBuscarBajaActionPerformed
+        String nombre=this.jTextFieldNombreBaja.getText().toUpperCase();
+        String apellido=this.jTextFieldApellidoBaja.getText().toUpperCase();
+        ArrayList<Alumno> alumnos=facultad.buscarAlumnoPorNombre(nombre, apellido);;
+        Iterator it=alumnos.iterator();
+        
+        while(it.hasNext())
+        {
+           Alumno a=(Alumno)it.next();
+            modelo.addElement(a);
+        }
+        this.jListAlumnosBaja.setModel(modelo); 
+    }//GEN-LAST:event_jButtonBuscarBajaActionPerformed
+
+    private void jButtonVolverAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverAltaActionPerformed
+    {//GEN-HEADEREND:event_jButtonVolverAltaActionPerformed
+        // TODO add your handling code here:
+        VentanaPrincipal ventana=new VentanaPrincipal();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jButtonVolverAltaActionPerformed
+
+    private void jButtonEliminarBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEliminarBajaActionPerformed
+    {//GEN-HEADEREND:event_jButtonEliminarBajaActionPerformed
+        // TODO add your handling code here:
+        int n=this.jListAlumnosBaja.getSelectedIndex();
+        Alumno a=(Alumno) this.modelo.getElementAt(n);
+        this.facultad.bajaAlumno(a.getLegajo());
+        this.limpiarModelo();
+        this.jListAlumnosBaja.clearSelection();
+    }//GEN-LAST:event_jButtonEliminarBajaActionPerformed
 
     /**
      * @param args the command line arguments
