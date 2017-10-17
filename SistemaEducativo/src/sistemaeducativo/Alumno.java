@@ -37,7 +37,14 @@ public class Alumno extends Persona
             this.getHistoria().put(a.getId(), a);
         }
     }
-    
+
+    @Override
+    public String toString()
+    {
+        // TODO Implement this method
+        return "Nombre: "+this.getNombre()+"   Apellido: "+this.getApellido()+"   Legajo: "+this.getLegajo() ;
+    }
+
     public void eliminarHistoria(String id)
     {
         this.getHistoria().remove(id);
