@@ -180,7 +180,7 @@ public class Cursada
      * @param horaFin
      * @param minFin
      */
-    /*
+    
     public void agregarHorario(int dia, int horaInicio, int minInicio, int horaFin, int minFin) {
         if(this.getHorario().isEmpty()) {
             //No habra cursadas superpuestas de esa asignatura, ya que será la primera que se inserta.
@@ -188,12 +188,17 @@ public class Cursada
             this.getHorario().add(f);
         }
         else {
-            Fecha aux;
+            Fecha fechaEstablecida;
+            Fecha fechaEntrada=new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
             Iterator it=this.getHorario().iterator();
             while(it.hasNext()) {
-                aux=(Fecha)it.next();
-                if(aux.)
+                fechaEstablecida=(Fecha)it.next();
+                if(fechaEstablecida.getDia()==fechaEntrada.getDia()) {
+                    if(fechaEstablecida.superpone(fechaEntrada)) {
+                        
+                    }
+                }
             }
         }
-    }*/
+    }
 }

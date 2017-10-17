@@ -39,5 +39,13 @@ public class Prueba {
         catch(DateTimeException e) {
             System.out.print("Hora erronea");
         }
+        
+        String prueba="abs@djas";
+        if(prueba.contains("@") && prueba.indexOf("@")<prueba.length()-1 && prueba.indexOf("@")>0) {
+            System.out.println("Correcto");
+        }
+        else{
+            System.out.println("Incorrecto");
+        }
     }
 }

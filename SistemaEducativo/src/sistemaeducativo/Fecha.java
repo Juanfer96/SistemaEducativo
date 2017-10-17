@@ -61,4 +61,16 @@ public class Fecha {
     public LocalTime getHoraFin() {
         return horaFin;
     }
+    
+    /**
+     *
+     * @param fecha
+     * @return true si se superpone this con fecha. false en caso contrario
+     */
+    public boolean superpone(Fecha fecha) {
+        if(this.horaInicio.compareTo(fecha.getHoraInicio())==0 || this.horaInicio.isAfter(fecha.getHoraInicio()) && this.horaInicio.isBefore(fecha.getHoraFin()) || this.horaFin.isBefore(fecha.getHoraFin()) && this.horaFin.isAfter(fecha.getHoraInicio())) {
+            return true;
+        }
+        return false;
+    }
 }

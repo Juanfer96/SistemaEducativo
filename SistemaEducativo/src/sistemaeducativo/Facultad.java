@@ -42,7 +42,7 @@ public class Facultad {
     }
 
     public void agregarAlumno(String apellido, String nombre, String domicilio, String mail) {
-        String s = String.format("%04d", PROXLEGAJOALUM);
+        String s = String.format("%04d", ++PROXLEGAJOALUM);
         String leg = "ALU" + s;
         Alumno a = new Alumno(leg, apellido, nombre, domicilio, mail);
         this.getAlumnos().put(a.getLegajo(), a);
