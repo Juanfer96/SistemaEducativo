@@ -675,26 +675,30 @@ public class VentanaAlumno extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonConfirmarModActionPerformed
         // TODO add your handling code here:
         int n=this.jListAlumnosMod.getSelectedIndex();
-        Alumno a=(Alumno) this.modeloMod.getElementAt(n);
-        if(this.validarMod())
-        {
-            String mail= this.jTextFieldMailNuevoMod.getText();
-            if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
+        if(n!=-1) {
+            Alumno a=(Alumno) this.modeloMod.getElementAt(n);
+            if(this.validarMod())
             {
-                facultad.modificarAlumno(a,this.jTextFieldApellidoNuevoMod.getText().toUpperCase(),this.jTextFieldNombreNuevoMod.getText().toUpperCase(),this.jTextFieldDomicilioNuevoMod.getText().toUpperCase(), this.jTextFieldMailNuevoMod.getText().toUpperCase());
-                JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
-                this.limpiarModelo();
-                this.jListAlumnosMod.clearSelection();
-                
+                String mail= this.jTextFieldMailNuevoMod.getText();
+                if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
+                {
+                    facultad.modificarAlumno(a,this.jTextFieldApellidoNuevoMod.getText().toUpperCase(),this.jTextFieldNombreNuevoMod.getText().toUpperCase(),this.jTextFieldDomicilioNuevoMod.getText().toUpperCase(), this.jTextFieldMailNuevoMod.getText().toUpperCase());
+                    JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
+                    this.limpiarModelo();
+                    this.jListAlumnosMod.clearSelection();
+                    
+                }else
+                {
+                    JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
+                }
             }else
-            {
-                JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
-            }
-        }else
-            {
-                JOptionPane.showMessageDialog(null, "Complete todos los campos porfavor");
-            }
-        
+                {
+                    JOptionPane.showMessageDialog(null, "Complete todos los campos porfavor");
+                }   
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonConfirmarModActionPerformed
 
     private void jTextFieldLegajoConsultaaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldLegajoConsultaaActionPerformed
@@ -782,9 +786,14 @@ public class VentanaAlumno extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonEliminarBajaActionPerformed
         // TODO add your handling code here:
         int n=this.jListAlumnosBaja.getSelectedIndex();
-        Alumno a=(Alumno) this.modeloBaja.getElementAt(n);
-        this.facultad.bajaAlumno(a.getLegajo());
-        this.limpiarModelo();
+        if(n!=-1) {
+            Alumno a=(Alumno) this.modeloBaja.getElementAt(n);
+            this.facultad.bajaAlumno(a.getLegajo());
+            this.limpiarModelo();   
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonEliminarBajaActionPerformed
 
     private void jButtonVolverBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverBajaActionPerformed
@@ -830,22 +839,26 @@ public class VentanaAlumno extends javax.swing.JFrame
         // TODO add your handling code here:
         this.jListAsignaturasAprobadasConsulta.clearSelection();
         int n=this.jListAlumnosConsulta.getSelectedIndex();
-        Alumno a=(Alumno) this.modeloConsulta.getElementAt(n);
-        this.jTextFieldApellidoConsultaa.setText(a.getApellido());
-        this.jTextFieldDomicilioConsulta.setText(a.getDomicilio());
-        this.jTextFieldLegajoConsultaa.setText(a.getLegajo());
-        this.jTextFieldMailConsulta.setText(a.getMail());
-        this.jTextFieldNombreConsultaa.setText(a.getNombre());
-        this.jListAlumnosConsulta.clearSelection();
-        Hashtable<String,Asignatura> asignaturas=a.getHistoria();
-        Enumeration e = asignaturas.elements();
-        Asignatura asig;
-        while( e.hasMoreElements() ){
-            asig =(Asignatura) e.nextElement();
-            this.modeloConsultaAsig.addElement(asig);
+        if(n!=-1) {
+            Alumno a=(Alumno) this.modeloConsulta.getElementAt(n);
+            this.jTextFieldApellidoConsultaa.setText(a.getApellido());
+            this.jTextFieldDomicilioConsulta.setText(a.getDomicilio());
+            this.jTextFieldLegajoConsultaa.setText(a.getLegajo());
+            this.jTextFieldMailConsulta.setText(a.getMail());
+            this.jTextFieldNombreConsultaa.setText(a.getNombre());
+            this.jListAlumnosConsulta.clearSelection();
+            Hashtable<String,Asignatura> asignaturas=a.getHistoria();
+            Enumeration e = asignaturas.elements();
+            Asignatura asig;
+            while( e.hasMoreElements() ){
+                asig =(Asignatura) e.nextElement();
+                this.modeloConsultaAsig.addElement(asig);
+            }
+            this.jListAsignaturasAprobadasConsulta.setModel(modeloConsultaAsig);   
         }
-        this.jListAsignaturasAprobadasConsulta.setModel(modeloConsultaAsig);
-        
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonCargarConsultaActionPerformed
 
     private void jButtonVolverConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverConsultaActionPerformed

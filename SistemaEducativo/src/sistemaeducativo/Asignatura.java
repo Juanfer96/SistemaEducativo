@@ -13,6 +13,10 @@ public class Asignatura
         this.id = id;
         this.nombre = nombre;
     }
+    
+    public Asignatura(){
+        super();
+    }
 
     public void setId(String id)
     {

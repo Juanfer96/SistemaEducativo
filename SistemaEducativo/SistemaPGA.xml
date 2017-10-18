@@ -6,19 +6,19 @@
     <string>ALU0001</string>
     <object class="sistemaeducativo.Alumno">
      <void property="apellido">
-      <string>PONCE</string>
+      <string>CABEZA</string>
      </void>
      <void property="domicilio">
-      <string>12</string>
+      <string>ASDS</string>
      </void>
      <void property="legajo">
       <string>ALU0001</string>
      </void>
      <void property="mail">
-      <string>32@12</string>
+      <string>aaa@sss</string>
      </void>
      <void property="nombre">
-      <string>EMANUEL</string>
+      <string>DALILA</string>
      </void>
     </object>
    </void>
@@ -26,19 +26,19 @@
     <string>ALU0002</string>
     <object class="sistemaeducativo.Alumno">
      <void property="apellido">
-      <string>NJ</string>
+      <string>PONCE</string>
      </void>
      <void property="domicilio">
-      <string>12</string>
+      <string>ASD</string>
      </void>
      <void property="legajo">
       <string>ALU0002</string>
      </void>
      <void property="mail">
-      <string>21♠1@12</string>
+      <string>MANU_P@LIVE</string>
      </void>
      <void property="nombre">
-      <string>JUAN</string>
+      <string>EMANUEL</string>
      </void>
     </object>
    </void>
@@ -63,34 +63,46 @@
     </object>
    </void>
   </void>
-  <void id="TreeMap1" property="profesores">
+  <void id="TreeMap1" property="asignaturas">
+   <void method="put">
+    <string>ASI0001</string>
+    <object class="sistemaeducativo.Asignatura">
+     <void property="id">
+      <string>ASI0001</string>
+     </void>
+     <void property="nombre">
+      <string>MATEM</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void id="TreeMap2" property="profesores">
    <void method="put">
     <string>PRO0001</string>
     <object class="sistemaeducativo.Profesor">
      <void property="apellido">
-      <string>PEREZ</string>
+      <string>FERNANDEZ</string>
      </void>
      <void property="domicilio">
-      <string>CONSTITUCION 2222</string>
+      <string>12312</string>
      </void>
      <void property="legajo">
       <string>PRO0001</string>
      </void>
      <void property="mail">
-      <string>as@sss</string>
+      <string>54@S</string>
      </void>
      <void property="nombre">
-      <string>JUAN</string>
+      <string>FRANCISCO</string>
      </void>
     </object>
    </void>
   </void>
-  <void id="TreeMap2" property="asignaturas"/>
   <void id="TreeMap3" property="cursadas"/>
  </object>
  <object idref="TreeMap0"/>
- <object idref="TreeMap1"/>
  <object idref="TreeMap2"/>
+ <object idref="TreeMap1"/>
  <object idref="TreeMap3"/>
  <int>0</int>
  <int>0</int>

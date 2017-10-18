@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import sistemaeducativo.Alumno;
 import sistemaeducativo.Asignatura;
 import sistemaeducativo.Facultad;
+import sistemaeducativo.Persistencia;
 import sistemaeducativo.Profesor;
 
 /**
@@ -753,9 +754,17 @@ public class VentanaProfesor extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonEliminarBajaActionPerformed
         // TODO add your handling code here:
         int n=this.jListProfesoresBaja.getSelectedIndex();
-        Profesor a=(Profesor) this.modeloBaja.getElementAt(n);
-        this.facultad.bajaProfesor(a.getLegajo());
-        this.limpiarModelo();
+        if(n!=-1){
+            Profesor a=(Profesor) this.modeloBaja.getElementAt(n);
+            int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea eliminar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+            if(valor==JOptionPane.YES_OPTION){
+                this.facultad.bajaProfesor(a.getLegajo());
+                this.limpiarModelo();      
+            }  
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un profesor","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonEliminarBajaActionPerformed
 
     private void jButtonBuscarBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarBajaActionPerformed
@@ -777,26 +786,30 @@ public class VentanaProfesor extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonConfirmarModActionPerformed
         // TODO add your handling code here:
         int n=this.jListProfesoresMod.getSelectedIndex();
-        Profesor a=(Profesor) this.modeloMod.getElementAt(n);
-        if(this.validarMod())
-        {
-            String mail= this.jTextFieldMailNuevoMod.getText();
-            if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
+        if(n!=-1){
+            Profesor a=(Profesor) this.modeloMod.getElementAt(n);
+            if(this.validarMod())
             {
-                facultad.modificarProfesor(a,this.jTextFieldApellidoNuevoMod.getText().toUpperCase(),this.jTextFieldNombreNuevoMod.getText().toUpperCase(),this.jTextFieldDomicilioNuevoMod.getText().toUpperCase(), this.jTextFieldMailNuevoMod.getText().toUpperCase());
-                JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
-                this.limpiarModelo();
-
-                
+                String mail= this.jTextFieldMailNuevoMod.getText();
+                if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
+                {
+                    int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea modificar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                    if(valor==JOptionPane.YES_OPTION){
+                        facultad.modificarProfesor(a,this.jTextFieldApellidoNuevoMod.getText().toUpperCase(),this.jTextFieldNombreNuevoMod.getText().toUpperCase(),this.jTextFieldDomicilioNuevoMod.getText().toUpperCase(), this.jTextFieldMailNuevoMod.getText().toUpperCase());
+                        JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
+                        this.limpiarModelo();   
+                    }
+                }else
+                {
+                    JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
+                }
             }else
-            {
-                JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
-            }
-        }else
             {
                 JOptionPane.showMessageDialog(null, "Complete todos los campos por favor");
             }
-        
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un profesor","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonConfirmarModActionPerformed
 
     private void jButtonBuscarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarModActionPerformed
@@ -841,21 +854,26 @@ public class VentanaProfesor extends javax.swing.JFrame
         // TODO add your handling code here:
         this.jListAsignaturasProfesorConsulta.clearSelection();
         int n=this.jListProfesoresConsulta.getSelectedIndex();
-        Profesor a=(Profesor) this.modeloConsulta.getElementAt(n);
-        this.jTextFieldApellidoConsultaa.setText(a.getApellido());
-        this.jTextFieldDomicilioConsulta.setText(a.getDomicilio());
-        this.jTextFieldLegajoConsultaa.setText(a.getLegajo());
-        this.jTextFieldMailConsulta.setText(a.getMail());
-        this.jTextFieldNombreConsultaa.setText(a.getNombre());
-        this.jListProfesoresConsulta.clearSelection();
-        Hashtable<String,Asignatura> asignaturas=a.getCompetencia();
-        Enumeration e = asignaturas.elements();
-        Asignatura asig;
-        while( e.hasMoreElements() ){
-            asig =(Asignatura) e.nextElement();
-            this.modeloConsultaAsig.addElement(asig);
+        if(n!=-1){
+            Profesor a=(Profesor) this.modeloConsulta.getElementAt(n);
+            this.jTextFieldApellidoConsultaa.setText(a.getApellido());
+            this.jTextFieldDomicilioConsulta.setText(a.getDomicilio());
+            this.jTextFieldLegajoConsultaa.setText(a.getLegajo());
+            this.jTextFieldMailConsulta.setText(a.getMail());
+            this.jTextFieldNombreConsultaa.setText(a.getNombre());
+            this.jListProfesoresConsulta.clearSelection();
+            Hashtable<String,Asignatura> asignaturas=a.getCompetencia();
+            Enumeration e = asignaturas.elements();
+            Asignatura asig;
+            while( e.hasMoreElements() ){
+                asig =(Asignatura) e.nextElement();
+                this.modeloConsultaAsig.addElement(asig);
+            }
+            this.jListAsignaturasProfesorConsulta.setModel(modeloConsultaAsig);   
         }
-        this.jListAsignaturasProfesorConsulta.setModel(modeloConsultaAsig);
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un profesor","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonCargarConsultaActionPerformed
 
     private void jButtonVolverConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverConsultaActionPerformed

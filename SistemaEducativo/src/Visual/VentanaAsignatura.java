@@ -781,10 +781,15 @@ public class VentanaAsignatura extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonEliminarBajaActionPerformed
         // TODO add your handling code here:
         int n=this.jListBaja.getSelectedIndex();
-        Asignatura a=(Asignatura) this.modeloBaja.getElementAt(n);
-        this.facultad.bajaAsignatura(a);
-        this.limpiarModelo();
-        JOptionPane.showMessageDialog(null,"La asignatura fue eliminada con exito","Gracias",JOptionPane.INFORMATION_MESSAGE);
+        if(n!=-1) {
+            Asignatura a=(Asignatura) this.modeloBaja.getElementAt(n);
+            this.facultad.bajaAsignatura(a);
+            this.limpiarModelo();
+            JOptionPane.showMessageDialog(null,"La asignatura fue eliminada con exito","Gracias",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonEliminarBajaActionPerformed
 
     private void jButtonVolverBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverBajaActionPerformed
@@ -798,29 +803,35 @@ public class VentanaAsignatura extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonCargarModActionPerformed
         // TODO add your handling code here:
         int n=this.jListAsignaturasMod.getSelectedIndex();
-        Asignatura a=(Asignatura) this.modeloMod.getElementAt(n);
-        TreeMap<String,Asignatura> asignaturas=this.facultad.getAsignaturas();
-        Iterator it = asignaturas.entrySet().iterator();
-        while (it.hasNext()) {
-            Asignatura asig;
-            Map.Entry m = (Map.Entry) it.next();
-            asig = (Asignatura) m.getValue();
-            if(asig!=a)
-            {
-                this.modeloModAlta.addElement(asig);    
+        if(n!=-1){
+            Asignatura a=(Asignatura) this.modeloMod.getElementAt(n);
+            TreeMap<String,Asignatura> asignaturas=this.facultad.getAsignaturas();
+            Iterator it = asignaturas.entrySet().iterator();
+            while (it.hasNext()) {
+                Asignatura asig;
+                Map.Entry m = (Map.Entry) it.next();
+                asig = (Asignatura) m.getValue();
+                if(asig!=a)
+                {
+                    this.modeloModAlta.addElement(asig);    
+                }
             }
+            this.jListAgregarCorrelativaMod.setModel(modeloModAlta);
+            
+            Hashtable<String,Asignatura> asignaturas2=a.getCorrelatividades();
+            Enumeration e = asignaturas2.elements();
+            
+            while( e.hasMoreElements() ){
+            Asignatura asig;
+              asig =(Asignatura) e.nextElement();
+              this.modeloModBaja.addElement(asig);
+            }
+            this.jListEliminarCorrelativaMod.setModel(modeloModBaja);
         }
-        this.jListAgregarCorrelativaMod.setModel(modeloModAlta);
-        
-        Hashtable<String,Asignatura> asignaturas2=a.getCorrelatividades();
-        Enumeration e = asignaturas2.elements();
-        
-        while( e.hasMoreElements() ){
-        Asignatura asig;
-          asig =(Asignatura) e.nextElement();
-          this.modeloModBaja.addElement(asig);
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una asignatura","Error",JOptionPane.ERROR_MESSAGE);
         }
-        this.jListEliminarCorrelativaMod.setModel(modeloModBaja);
+        
     }//GEN-LAST:event_jButtonCargarModActionPerformed
 
     private void jButtonBuscarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarModActionPerformed
@@ -841,30 +852,40 @@ public class VentanaAsignatura extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonAgregarModActionPerformed
         // TODO add your handling code here:
         int n=this.jListAsignaturasMod.getSelectedIndex();
-        Asignatura a1=(Asignatura) this.modeloMod.getElementAt(n);
-        int x=this.jListAgregarCorrelativaMod.getSelectedIndex();
-        Asignatura a2=(Asignatura) this.modeloModAlta.getElementAt(x);
-        try
-        {
-            this.facultad.agregarCorrelativaAsignatura(a1, a2);
-            JOptionPane.showMessageDialog(null, "La correlativa se añadio con exito");
-        } catch (CorrelativaRegistradaException e)
-        {
-            JOptionPane.showMessageDialog(null, "La correlativa ya se encuentra registrada");
+        if(n!=-1){
+            Asignatura a1=(Asignatura) this.modeloMod.getElementAt(n);
+            int x=this.jListAgregarCorrelativaMod.getSelectedIndex();
+            Asignatura a2=(Asignatura) this.modeloModAlta.getElementAt(x);
+            try
+            {
+                this.facultad.agregarCorrelativaAsignatura(a1, a2);
+                JOptionPane.showMessageDialog(null, "La correlativa se añadio con exito");
+            } catch (CorrelativaRegistradaException e)
+            {
+                JOptionPane.showMessageDialog(null, "La correlativa ya se encuentra registrada");
+            }
+            this.limpiarModelo();   
         }
-        this.limpiarModelo();
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una asignatura","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonAgregarModActionPerformed
 
     private void jButtonEliminarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEliminarModActionPerformed
     {//GEN-HEADEREND:event_jButtonEliminarModActionPerformed
         // TODO add your handling code here:
         int n=this.jListAsignaturasMod.getSelectedIndex();
-        Asignatura a1=(Asignatura) this.modeloMod.getElementAt(n);
-        int x=this.jListEliminarCorrelativaMod.getSelectedIndex();
-        Asignatura a2=(Asignatura) this.modeloModBaja.getElementAt(x);
-        this.facultad.eliminarCorrelativaAsignatura(a1, a2);
-        JOptionPane.showMessageDialog(null, "La correlativa se elimino con exito");
-        this.limpiarModelo();
+        if(n!=-1){
+            Asignatura a1=(Asignatura) this.modeloMod.getElementAt(n);
+            int x=this.jListEliminarCorrelativaMod.getSelectedIndex();
+            Asignatura a2=(Asignatura) this.modeloModBaja.getElementAt(x);
+            this.facultad.eliminarCorrelativaAsignatura(a1, a2);
+            JOptionPane.showMessageDialog(null, "La correlativa se elimino con exito");
+            this.limpiarModelo();   
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una asignatura","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonEliminarModActionPerformed
 
     private void jButtonVolver2ModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolver2ModActionPerformed
@@ -916,17 +937,22 @@ public class VentanaAsignatura extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonCargarConsultaActionPerformed
         // TODO add your handling code here:
         int n=this.jListAsignaturaConsulta.getSelectedIndex();
-        Asignatura a=(Asignatura) this.modeloConsulta.getElementAt(n);
-        this.jTextFieldIdConsulta.setText(a.getId());
-        this.jTextFieldNombreeConsulta.setText(a.getNombre());
-        Hashtable<String,Asignatura> asignaturas=a.getCorrelatividades();
-        Enumeration e = asignaturas.elements();
-        Asignatura asig;
-        while( e.hasMoreElements() ){
-            asig =(Asignatura) e.nextElement();
-            this.modeloConsultaCorrelativas.addElement(asig);
+        if(n!=-1){
+            Asignatura a=(Asignatura) this.modeloConsulta.getElementAt(n);
+            this.jTextFieldIdConsulta.setText(a.getId());
+            this.jTextFieldNombreeConsulta.setText(a.getNombre());
+            Hashtable<String,Asignatura> asignaturas=a.getCorrelatividades();
+            Enumeration e = asignaturas.elements();
+            Asignatura asig;
+            while( e.hasMoreElements() ){
+                asig =(Asignatura) e.nextElement();
+                this.modeloConsultaCorrelativas.addElement(asig);
+            }
+            this.jListCorrelativasConsulta.setModel(modeloConsultaCorrelativas);   
         }
-        this.jListCorrelativasConsulta.setModel(modeloConsultaCorrelativas);
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una asignatura","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonCargarConsultaActionPerformed
 
     private void jButtonVolverConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverConsultaActionPerformed
