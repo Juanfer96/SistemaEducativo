@@ -45,10 +45,10 @@ public class VentanaAlumno extends javax.swing.JFrame
         setTitle("Sistema Educativo -Alumno");
         setLocationRelativeTo(null);
         this.modeloBaja=new DefaultListModel();
-        this.modeloConsulta=new DefaultListModel();
-        this.modeloMod=new DefaultListModel();
         this.modeloConsultaAsig=new DefaultListModel();
-        
+        this.modeloConsulta = new DefaultListModel();
+        this.modeloMod = new DefaultListModel();
+
     }
     public void limpiarModelo()
     {

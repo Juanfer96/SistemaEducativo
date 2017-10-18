@@ -412,7 +412,14 @@ public class Facultad {
         }
         return cursadasReturn;
     }
-    
+    public void agregarCorrelativaAsignatura(Asignatura a1,Asignatura a2) throws CorrelativaRegistradaException
+    {
+        a1.agregarCorrelatividad(a2);
+    }
+    public void eliminarCorrelativaAsignatura(Asignatura a1,Asignatura a2)
+    {
+        a1.eliminarCorrelatividad(a2.getId());
+    }
     //Alumno-Profesor
     
     public void modificarAlumno(Alumno a, String apellido, String nombre, String domicilio, String mail) {

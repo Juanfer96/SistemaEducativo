@@ -61,6 +61,13 @@ public class VentanaPrincipal extends javax.swing.JFrame
         jPanel1.add(jButtonAlumnoPrincipal);
 
         jButtonAsignaturaPrincipal.setText("Asignatura");
+        jButtonAsignaturaPrincipal.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonAsignaturaPrincipalActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonAsignaturaPrincipal);
 
         jButtonProfesorPrincipal.setText("Profesor");
@@ -131,7 +138,16 @@ public class VentanaPrincipal extends javax.swing.JFrame
         // TODO add your handling code here:
         VentanaProfesor ventanaProfesor=new VentanaProfesor(this.facultad,this);
         ventanaProfesor.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonProfesorPrincipalActionPerformed
+
+    private void jButtonAsignaturaPrincipalActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAsignaturaPrincipalActionPerformed
+    {//GEN-HEADEREND:event_jButtonAsignaturaPrincipalActionPerformed
+        // TODO add your handling code here:
+        VentanaAsignatura ventanaAsignatura=new VentanaAsignatura(this.facultad,this);
+        ventanaAsignatura.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonAsignaturaPrincipalActionPerformed
 
     /**
      * @param args the command line arguments
