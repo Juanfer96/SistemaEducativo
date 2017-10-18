@@ -1,7 +1,12 @@
 
 package Visual;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
+
+import javax.swing.JOptionPane;
 
 import sistemaeducativo.Facultad;
 
@@ -11,11 +16,13 @@ import sistemaeducativo.Facultad;
  */
 public class VentanaPrincipal extends javax.swing.JFrame
 {
-    private static Facultad facultad=new Facultad();
+    private Facultad facultad = new Facultad();
+    
     /** Creates new form VentanaPrincipal */
     public VentanaPrincipal()
     {
         initComponents();
+        cerrar();
         setResizable(false);
         setTitle("Sistema Educativo ");
         setLocationRelativeTo(null);
@@ -87,12 +94,32 @@ public class VentanaPrincipal extends javax.swing.JFrame
         pack();
     }//GEN-END:initComponents
 
+    public void cerrar() {
+        try{
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            addWindowListener(new WindowAdapter(){
+                public void windowClosing(WindowEvent e) {
+                    confirmarSalida();
+                }
+            });
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void confirmarSalida() {
+        int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro de cerrar la aplicacion?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        if(valor==JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }
+    
     private void jButtonAlumnoPrincipalActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAlumnoPrincipalActionPerformed
     {//GEN-HEADEREND:event_jButtonAlumnoPrincipalActionPerformed
-        VentanaAlumno ventanaAlumno=new VentanaAlumno();
-        dispose();
+        VentanaAlumno ventanaAlumno = new VentanaAlumno(facultad, this);
         ventanaAlumno.setVisible(true);
-        
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonAlumnoPrincipalActionPerformed
 
     private void jButtonProfesorPrincipalActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonProfesorPrincipalActionPerformed
@@ -187,9 +214,4 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-    
-    public static Facultad getFacultad()
-    {
-        return facultad;
-    }
 }

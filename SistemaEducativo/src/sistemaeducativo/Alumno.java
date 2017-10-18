@@ -26,17 +26,6 @@ public class Alumno extends Persona
     {
         return historia;
     }
-    
-    public void agregarHistoria(Asignatura a) throws AsignaturaRegistradaEnAlumnoException {
-        if(this.getHistoria().containsKey(a.getId()))
-        {
-            throw new AsignaturaRegistradaEnAlumnoException(this,a);
-            //exceptcion a hacer si la asignatura aprobada ya existe 
-        }else
-        {
-            this.getHistoria().put(a.getId(), a);
-        }
-    }
 
     @Override
     public String toString()
