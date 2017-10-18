@@ -365,6 +365,7 @@ public class VentanaAltasBajasAsignaturasAlumno extends javax.swing.JFrame
     private void jButtonBuscarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarModActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarModActionPerformed
         // TODO add your handling code here
+        this.limpiarModelo();
         String nombre=this.jTextFieldNombre.getText().toUpperCase();
         String apellido=this.jTextFieldApellido.getText().toUpperCase();
         ArrayList<Alumno> alumnos=facultad.buscarAlumnoPorNombre(nombre, apellido);;

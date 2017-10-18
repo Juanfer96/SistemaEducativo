@@ -306,11 +306,6 @@ public class VentanaProfesor extends javax.swing.JFrame
         jLabelSeleccionarBaja.setText("Seleccione el profesor a eliminar");
         jPanel2.add(jLabelSeleccionarBaja);
 
-        jListProfesoresBaja.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jListProfesoresBaja);
 
         jPanel2.add(jScrollPane1);
@@ -373,25 +368,20 @@ public class VentanaProfesor extends javax.swing.JFrame
 
         jPanel4.setLayout(new java.awt.GridLayout(2, 2));
 
-        jLabelNombreMod.setText("Nombre del alumno ");
+        jLabelNombreMod.setText("Nombre del profesor ");
         jPanel4.add(jLabelNombreMod);
         jPanel4.add(jTextFieldNombreMod);
 
-        jLabelApellidoMod.setText("Apellido del alumno ");
+        jLabelApellidoMod.setText("Apellido del profesor ");
         jPanel4.add(jLabelApellidoMod);
         jPanel4.add(jTextFieldApellidoMod);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabelSeleccionarMod.setText("Seleccione el alumno ");
+        jLabelSeleccionarMod.setText("Seleccione el profesor ");
         jPanel6.add(jLabelSeleccionarMod);
 
-        jListProfesoresMod.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(jListProfesoresMod);
 
         jPanel6.add(jScrollPane2);
@@ -514,11 +504,6 @@ public class VentanaProfesor extends javax.swing.JFrame
         jLabelSeleccionarConsulta.setText("Seleccione el profesor");
         jPanel12.add(jLabelSeleccionarConsulta);
 
-        jListProfesoresConsulta.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(jListProfesoresConsulta);
 
         jPanel12.add(jScrollPane3);
@@ -553,11 +538,6 @@ public class VentanaProfesor extends javax.swing.JFrame
 
         jPanel14.setLayout(new java.awt.GridLayout(1, 0));
 
-        jListAsignaturasProfesorConsulta.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane4.setViewportView(jListAsignaturasProfesorConsulta);
 
         jLabel24.setText("Coleccion de Asignaturas en las que puede participar");
@@ -769,6 +749,7 @@ public class VentanaProfesor extends javax.swing.JFrame
 
     private void jButtonBuscarBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarBajaActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarBajaActionPerformed
+        this.limpiarModelo();
         String nombre=this.jTextFieldNombreBaja.getText().toUpperCase();
         String apellido=this.jTextFieldApellidoBaja.getText().toUpperCase();
         ArrayList<Profesor> profesores=facultad.buscarProfesorPorNombre(nombre, apellido);;
@@ -815,6 +796,7 @@ public class VentanaProfesor extends javax.swing.JFrame
     private void jButtonBuscarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarModActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarModActionPerformed
         // TODO add your handling code here
+        this.limpiarModelo();
         String nombre=this.jTextFieldNombreMod.getText().toUpperCase();
         String apellido=this.jTextFieldApellidoMod.getText().toUpperCase();
         ArrayList<Profesor> profesores=facultad.buscarProfesorPorNombre(nombre, apellido);;
@@ -831,6 +813,7 @@ public class VentanaProfesor extends javax.swing.JFrame
     private void jButtonBuscarConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarConsultaActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarConsultaActionPerformed
         // TODO add your handling code here:
+        this.limpiarModelo();
         String nombre=this.jTextFieldNombreConsulta.getText().toUpperCase();
         String apellido=this.jTextFieldApellidoConsulta.getText().toUpperCase();
         ArrayList<Profesor> profesores=facultad.buscarProfesorPorNombre(nombre, apellido);;

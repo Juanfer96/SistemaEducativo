@@ -682,11 +682,12 @@ public class VentanaAlumno extends javax.swing.JFrame
                 String mail= this.jTextFieldMailNuevoMod.getText();
                 if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
                 {
-                    facultad.modificarAlumno(a,this.jTextFieldApellidoNuevoMod.getText().toUpperCase(),this.jTextFieldNombreNuevoMod.getText().toUpperCase(),this.jTextFieldDomicilioNuevoMod.getText().toUpperCase(), this.jTextFieldMailNuevoMod.getText().toUpperCase());
-                    JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
-                    this.limpiarModelo();
-                    this.jListAlumnosMod.clearSelection();
-                    
+                    int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea modificar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                    if(valor==JOptionPane.YES_OPTION){
+                        facultad.modificarAlumno(a,this.jTextFieldApellidoNuevoMod.getText().toUpperCase(),this.jTextFieldNombreNuevoMod.getText().toUpperCase(),this.jTextFieldDomicilioNuevoMod.getText().toUpperCase(), this.jTextFieldMailNuevoMod.getText().toUpperCase());
+                        JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
+                        this.limpiarModelo();     
+                    }  
                 }else
                 {
                     JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
@@ -719,7 +720,6 @@ public class VentanaAlumno extends javax.swing.JFrame
                 this.facultad.agregarAlumno(this.jTextFieldApellidoAlta.getText().toUpperCase(), this.jTextFieldNombreAlta.getText().toUpperCase(), this.jTextFieldDomicilioAlta.getText().toUpperCase(), this.jTextFieldMailAlta.getText());
                 JOptionPane.showMessageDialog(null, "El alumno fue creado con exito","Gracias",JOptionPane.INFORMATION_MESSAGE);
                 this.limpiarTextFieldAlta();
-                
             }else
             {
                 JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto","Error en mail",JOptionPane.ERROR_MESSAGE);
@@ -788,8 +788,11 @@ public class VentanaAlumno extends javax.swing.JFrame
         int n=this.jListAlumnosBaja.getSelectedIndex();
         if(n!=-1) {
             Alumno a=(Alumno) this.modeloBaja.getElementAt(n);
-            this.facultad.bajaAlumno(a.getLegajo());
-            this.limpiarModelo();   
+            int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea eliminar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+            if(valor==JOptionPane.YES_OPTION){
+                this.facultad.bajaAlumno(a.getLegajo());
+                this.limpiarModelo();       
+            }    
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
@@ -805,6 +808,7 @@ public class VentanaAlumno extends javax.swing.JFrame
     private void jButtonBuscarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarModActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarModActionPerformed
         // TODO add your handling code here
+        this.limpiarModelo();
         String nombre=this.jTextFieldNombreMod.getText().toUpperCase();
         String apellido=this.jTextFieldApellidoMod.getText().toUpperCase();
         ArrayList<Alumno> alumnos=facultad.buscarAlumnoPorNombre(nombre, apellido);;
@@ -821,6 +825,7 @@ public class VentanaAlumno extends javax.swing.JFrame
     private void jButtonBuscarConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarConsultaActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarConsultaActionPerformed
         // TODO add your handling code here:
+        this.limpiarModelo();
         String nombre=this.jTextFieldNombreConsulta.getText().toUpperCase();
         String apellido=this.jTextFieldApellidoConsulta.getText().toUpperCase();
         ArrayList<Alumno> alumnos=facultad.buscarAlumnoPorNombre(nombre, apellido);;

@@ -230,13 +230,7 @@
                     <Component class="javax.swing.JList" name="jListProfesoresBaja">
                       <Properties>
                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                          <StringArray count="5">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                            <StringItem index="4" value="Item 5"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>
@@ -373,14 +367,14 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabelNombreMod">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Nombre del alumno "/>
+                    <Property name="text" type="java.lang.String" value="Nombre del profesor "/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldNombreMod">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelApellidoMod">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Apellido del alumno "/>
+                    <Property name="text" type="java.lang.String" value="Apellido del profesor "/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldApellidoMod">
@@ -403,7 +397,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabelSeleccionarMod">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Seleccione el alumno "/>
+                    <Property name="text" type="java.lang.String" value="Seleccione el profesor "/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -416,13 +410,7 @@
                     <Component class="javax.swing.JList" name="jListProfesoresMod">
                       <Properties>
                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                          <StringArray count="5">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                            <StringItem index="4" value="Item 5"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>
@@ -678,13 +666,7 @@
                     <Component class="javax.swing.JList" name="jListProfesoresConsulta">
                       <Properties>
                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                          <StringArray count="5">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                            <StringItem index="4" value="Item 5"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>
@@ -790,13 +772,7 @@
                     <Component class="javax.swing.JList" name="jListAsignaturasProfesorConsulta">
                       <Properties>
                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                          <StringArray count="5">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                            <StringItem index="4" value="Item 5"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>

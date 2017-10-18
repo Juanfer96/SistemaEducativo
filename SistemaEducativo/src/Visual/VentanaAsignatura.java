@@ -2,6 +2,7 @@
 package Visual;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -802,6 +803,8 @@ public class VentanaAsignatura extends javax.swing.JFrame
     private void jButtonCargarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCargarModActionPerformed
     {//GEN-HEADEREND:event_jButtonCargarModActionPerformed
         // TODO add your handling code here:
+        this.modeloModAlta.clear();
+        this.modeloModBaja.clear();
         int n=this.jListAsignaturasMod.getSelectedIndex();
         if(n!=-1){
             Asignatura a=(Asignatura) this.modeloMod.getElementAt(n);
@@ -852,19 +855,19 @@ public class VentanaAsignatura extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonAgregarModActionPerformed
         // TODO add your handling code here:
         int n=this.jListAsignaturasMod.getSelectedIndex();
-        if(n!=-1){
+        int x=this.jListAgregarCorrelativaMod.getSelectedIndex();
+        if(x!=-1){
             Asignatura a1=(Asignatura) this.modeloMod.getElementAt(n);
-            int x=this.jListAgregarCorrelativaMod.getSelectedIndex();
             Asignatura a2=(Asignatura) this.modeloModAlta.getElementAt(x);
             try
             {
                 this.facultad.agregarCorrelativaAsignatura(a1, a2);
                 JOptionPane.showMessageDialog(null, "La correlativa se añadio con exito");
+                this.modeloModBaja.addElement(a2);
             } catch (CorrelativaRegistradaException e)
             {
                 JOptionPane.showMessageDialog(null, "La correlativa ya se encuentra registrada");
-            }
-            this.limpiarModelo();   
+            }  
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar una asignatura","Error",JOptionPane.ERROR_MESSAGE);
@@ -875,13 +878,13 @@ public class VentanaAsignatura extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonEliminarModActionPerformed
         // TODO add your handling code here:
         int n=this.jListAsignaturasMod.getSelectedIndex();
-        if(n!=-1){
+        int x=this.jListEliminarCorrelativaMod.getSelectedIndex();
+        if(x!=-1){
             Asignatura a1=(Asignatura) this.modeloMod.getElementAt(n);
-            int x=this.jListEliminarCorrelativaMod.getSelectedIndex();
             Asignatura a2=(Asignatura) this.modeloModBaja.getElementAt(x);
             this.facultad.eliminarCorrelativaAsignatura(a1, a2);
             JOptionPane.showMessageDialog(null, "La correlativa se elimino con exito");
-            this.limpiarModelo();   
+            this.modeloModBaja.removeElement(a2);   
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar una asignatura","Error",JOptionPane.ERROR_MESSAGE);
@@ -936,6 +939,7 @@ public class VentanaAsignatura extends javax.swing.JFrame
     private void jButtonCargarConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCargarConsultaActionPerformed
     {//GEN-HEADEREND:event_jButtonCargarConsultaActionPerformed
         // TODO add your handling code here:
+        this.modeloConsultaCorrelativas.clear();
         int n=this.jListAsignaturaConsulta.getSelectedIndex();
         if(n!=-1){
             Asignatura a=(Asignatura) this.modeloConsulta.getElementAt(n);
