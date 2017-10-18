@@ -12,7 +12,7 @@ public class Prueba {
     }
 
     public static void main(String[] args) {
-        Facultad f=new Facultad();
+        Facultad f=Facultad.getInstancia();
         f.agregarAlumno("Ponce", "Emanuel", "Tejefor", "manumanu");
         f.agregarAlumno("Alvarez", "Javier", "Tejefor", "manumanu");
         f.agregarAlumno("Fernandez", "Francisco", "Tejefor", "manumanu");

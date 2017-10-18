@@ -12,6 +12,7 @@ public class Facultad {
     public static int PROXLEGAJOPROF;
     public static int PROXIDCURSADA;
     public static int PROXIDASIGNATURA;
+    private static Facultad instancia = null;
     private TreeMap<String, Alumno> alumnos = new TreeMap<>();
     private TreeMap<String, Profesor> profesores = new TreeMap<>();
     private TreeMap<String, Asignatura> asignaturas = new TreeMap<>();
@@ -23,6 +24,14 @@ public class Facultad {
         PROXLEGAJOPROF = 0;
         PROXIDASIGNATURA = 0;
         PROXIDCURSADA = 0;
+    }
+    
+    
+    public static Facultad getInstancia()
+    {
+        if (instancia == null)
+            instancia = new Facultad();
+        return instancia;
     }
 
     public TreeMap<String, Alumno> getAlumnos() {
@@ -39,6 +48,57 @@ public class Facultad {
 
     public TreeMap<String, Cursada> getCursadas() {
         return cursadas;
+    }
+
+
+    public void setAlumnos(TreeMap<String, Alumno> alumnos) {
+        this.alumnos = alumnos;
+    }
+
+    public void setProfesores(TreeMap<String, Profesor> profesores) {
+        this.profesores = profesores;
+    }
+
+    public void setAsignaturas(TreeMap<String, Asignatura> asignaturas) {
+        this.asignaturas = asignaturas;
+    }
+
+    public void setCursadas(TreeMap<String, Cursada> cursadas) {
+        this.cursadas = cursadas;
+    }
+
+
+    public static void setPROXLEGAJOALUM(int PROXLEGAJOALUM) {
+        Facultad.PROXLEGAJOALUM = PROXLEGAJOALUM;
+    }
+
+    public static void setPROXLEGAJOPROF(int PROXLEGAJOPROF) {
+        Facultad.PROXLEGAJOPROF = PROXLEGAJOPROF;
+    }
+
+    public static void setPROXIDCURSADA(int PROXIDCURSADA) {
+        Facultad.PROXIDCURSADA = PROXIDCURSADA;
+    }
+
+    public static void setPROXIDASIGNATURA(int PROXIDASIGNATURA) {
+        Facultad.PROXIDASIGNATURA = PROXIDASIGNATURA;
+    }
+
+
+    public static int getPROXLEGAJOALUM() {
+        return PROXLEGAJOALUM;
+    }
+
+    public static int getPROXLEGAJOPROF() {
+        return PROXLEGAJOPROF;
+    }
+
+    public static int getPROXIDCURSADA() {
+        return PROXIDCURSADA;
+    }
+
+    public static int getPROXIDASIGNATURA() {
+        return PROXIDASIGNATURA;
     }
 
     //Agregar entidades a las colecciones

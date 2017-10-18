@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import sistemaeducativo.Facultad;
+import sistemaeducativo.Persistencia;
 
 /**
  *
@@ -16,12 +17,13 @@ import sistemaeducativo.Facultad;
  */
 public class VentanaPrincipal extends javax.swing.JFrame
 {
-    private Facultad facultad = new Facultad();
+    private Facultad facultad;
     
     /** Creates new form VentanaPrincipal */
-    public VentanaPrincipal()
+    public VentanaPrincipal(Facultad facultad)
     {
         initComponents();
+        this.facultad=facultad;
         cerrar();
         setResizable(false);
         setTitle("Sistema Educativo ");
@@ -111,6 +113,8 @@ public class VentanaPrincipal extends javax.swing.JFrame
     public void confirmarSalida() {
         int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro de cerrar la aplicacion?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
         if(valor==JOptionPane.YES_OPTION){
+            //Persistencia.guardarArchivo.
+            Persistencia.guardarArchivo(this.facultad);
             System.exit(0);
         }
     }
@@ -139,6 +143,8 @@ public class VentanaPrincipal extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
+        VentanaPrincipal ventana = new VentanaPrincipal(Persistencia.leerArchivo());
+        ventana.setVisible(true);
         try
         {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing
@@ -203,7 +209,8 @@ public class VentanaPrincipal extends javax.swing.JFrame
             {
                 public void run()
                 {
-                    new VentanaPrincipal().setVisible(true);
+                    //VentanaPrincipal ventana = new VentanaPrincipal(Persistencia.leerArchivo());
+                    //ventana.setVisible(true);
                 }
             });
     }
