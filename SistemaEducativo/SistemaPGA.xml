@@ -6,19 +6,19 @@
     <string>ALU0001</string>
     <object class="sistemaeducativo.Alumno">
      <void property="apellido">
-      <string>PONCE</string>
+      <string>PICO</string>
      </void>
      <void property="domicilio">
-      <string>12</string>
+      <string>FALUCHO 3433</string>
      </void>
      <void property="legajo">
       <string>ALU0001</string>
      </void>
      <void property="mail">
-      <string>32@12</string>
+      <string>juanferpjco@gmail.com</string>
      </void>
      <void property="nombre">
-      <string>EMANUEL</string>
+      <string>JUAN</string>
      </void>
     </object>
    </void>
@@ -68,19 +68,19 @@
     <string>PRO0001</string>
     <object class="sistemaeducativo.Profesor">
      <void property="apellido">
-      <string>PEREZ</string>
+      <string>EVANS</string>
      </void>
      <void property="domicilio">
-      <string>CONSTITUCION 2222</string>
+      <string>AAAA 222</string>
      </void>
      <void property="legajo">
       <string>PRO0001</string>
      </void>
      <void property="mail">
-      <string>as@sss</string>
+      <string>ada@da</string>
      </void>
      <void property="nombre">
-      <string>JUAN</string>
+      <string>FELIPE</string>
      </void>
     </object>
    </void>

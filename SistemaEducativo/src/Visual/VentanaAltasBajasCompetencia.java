@@ -48,7 +48,7 @@ public class VentanaAltasBajasCompetencia extends javax.swing.JFrame
         this.ventana=ventana;
         this.cerrar();
         setResizable(false);
-        setTitle("Sistema Educativo -Alumno-Altas/Bajas Asignaturas");
+        setTitle("Sistema Educativo -Profesor-Altas/Bajas Competencia");
         setLocationRelativeTo(null);
         this.modeloBaja=new DefaultListModel();
         this.modeloBuscar=new DefaultListModel();
