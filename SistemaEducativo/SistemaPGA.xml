@@ -9,13 +9,13 @@
       <string>PICO</string>
      </void>
      <void property="domicilio">
-      <string>FALUCHO 3433</string>
+      <string>ADA</string>
      </void>
      <void property="legajo">
       <string>ALU0001</string>
      </void>
      <void property="mail">
-      <string>juanferpjco@gmail.com</string>
+      <string>ada@ada</string>
      </void>
      <void property="nombre">
       <string>JUAN</string>
@@ -26,39 +26,19 @@
     <string>ALU0002</string>
     <object class="sistemaeducativo.Alumno">
      <void property="apellido">
-      <string>NJ</string>
+      <string>PONCE</string>
      </void>
      <void property="domicilio">
-      <string>12</string>
+      <string>ADADA</string>
      </void>
      <void property="legajo">
       <string>ALU0002</string>
      </void>
      <void property="mail">
-      <string>21♠1@12</string>
+      <string>ada@ada</string>
      </void>
      <void property="nombre">
-      <string>JUAN</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ALU0003</string>
-    <object class="sistemaeducativo.Alumno">
-     <void property="apellido">
-      <string>A</string>
-     </void>
-     <void property="domicilio">
-      <string>A</string>
-     </void>
-     <void property="legajo">
-      <string>ALU0003</string>
-     </void>
-     <void property="mail">
-      <string>a544@s</string>
-     </void>
-     <void property="nombre">
-      <string>A</string>
+      <string>MANU</string>
      </void>
     </object>
    </void>
