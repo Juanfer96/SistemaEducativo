@@ -125,6 +125,8 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private void jButtonProfesorPrincipalActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonProfesorPrincipalActionPerformed
     {//GEN-HEADEREND:event_jButtonProfesorPrincipalActionPerformed
         // TODO add your handling code here:
+        VentanaProfesor ventanaProfesor=new VentanaProfesor(this.facultad,this);
+        ventanaProfesor.setVisible(true);
     }//GEN-LAST:event_jButtonProfesorPrincipalActionPerformed
 
     /**
@@ -214,4 +216,4 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-}
+    }

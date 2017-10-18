@@ -84,8 +84,8 @@ public class Facultad {
     public void bajaCursada(Cursada cursada) {
         this.getCursadas().remove(cursada.getId());
     }
-    
-    
+
+
     /**
      * El metodo ademas de dar de baja en la coleccion correspondiente la asignatura, da de baja a las cursadas de esa asignatura.
      * @param a
@@ -146,7 +146,7 @@ public class Facultad {
             c.eliminarProfesor(legajo);
         }
     }
-    
+
     //Consultas de las entidades
 
     public ArrayList<Alumno> buscarAlumnoPorNombre(String nombre, String apellido) {
@@ -165,7 +165,7 @@ public class Facultad {
         return alumnosReturn;
     }
     
-    private ArrayList<Profesor> buscarProfesorPorNombre(String nombre, String apellido) {
+    public ArrayList<Profesor> buscarProfesorPorNombre(String nombre, String apellido) {
         ArrayList<Profesor> profesoresReturn = new ArrayList<>();
         Profesor p;
         Iterator it = this.getProfesores()
@@ -378,6 +378,7 @@ public class Facultad {
     public void eliminarAlumnoAsignatura(Alumno alumno, Asignatura asignatura) {
         alumno.eliminarAsignatura(asignatura);
     }
+
     
     public void modificarProfesor(Profesor p,String apellido, String nombre, String domicilio, String mail) {
         p.modificarProfesor(apellido, nombre, domicilio, mail);

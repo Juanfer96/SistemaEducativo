@@ -32,7 +32,7 @@ public class Profesor extends Persona
         this.setNombre(nombre);
         this.setDomicilio(domicilio);
         this.setMail(mail);
-    }
+        }
     
     /**
      * pre: Se considera que la asignatura a agregar en la competencia del profesor es correcta y no esta repetida.
@@ -49,7 +49,14 @@ public class Profesor extends Persona
     public void eliminarCompetencia(Asignatura a)
     {
         this.getCompetencia().remove(a.getId());
+        }   
+    
+    
+    
+    @Override
+    public String toString()
+    {
+        // TODO Implement this method
+        return "Nombre: "+this.getNombre()+"   Apellido: "+this.getApellido()+"   Legajo: "+this.getLegajo() ;
     }
-    
-    
 }
