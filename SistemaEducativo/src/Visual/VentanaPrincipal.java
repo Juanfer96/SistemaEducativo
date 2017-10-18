@@ -3,6 +3,7 @@ package Visual;
 
 import javax.swing.JFrame;
 
+import sistemaeducativo.Asignatura;
 import sistemaeducativo.Facultad;
 
 /**

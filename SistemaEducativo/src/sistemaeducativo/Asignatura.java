@@ -60,4 +60,11 @@ public class Asignatura
             //excepcion de que quiero eliminar una correlatividad q no existe(no econtro la clave)
         }   
     }
+
+    @Override
+    public String toString()
+    {
+        // TODO Implement this method
+        return "Nombre: "+this.getNombre()+" ID: "+this.getId();
+    }
 }

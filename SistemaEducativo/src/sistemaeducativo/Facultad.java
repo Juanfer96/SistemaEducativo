@@ -378,7 +378,7 @@ public class Facultad {
     public void eliminarAlumnoAsignatura(Alumno alumno, Asignatura asignatura) {
         alumno.eliminarAsignatura(asignatura);
     }
-}
+
     
     public void modificarProfesor(Profesor p,String apellido, String nombre, String domicilio, String mail) {
         p.modificarProfesor(apellido, nombre, domicilio, mail);
@@ -401,3 +401,4 @@ public class Facultad {
     public void eliminarCompetenciaProfesor(Profesor p, Asignatura a) {
         p.eliminarCompetencia(a);
     }
+}

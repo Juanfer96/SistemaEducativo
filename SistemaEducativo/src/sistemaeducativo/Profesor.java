@@ -52,10 +52,11 @@ public class Profesor extends Persona
         }   
     
     
-    }
+    
     @Override
     public String toString()
     {
         // TODO Implement this method
         return "Nombre: "+this.getNombre()+"   Apellido: "+this.getApellido()+"   Legajo: "+this.getLegajo() ;
+    }
 }

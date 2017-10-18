@@ -3,6 +3,8 @@ package Visual;
 
 import java.util.ArrayList;
 
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
@@ -11,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import sistemaeducativo.Alumno;
+import sistemaeducativo.Asignatura;
 import sistemaeducativo.Facultad;
 import sistemaeducativo.Profesor;
 
@@ -26,6 +29,7 @@ public class VentanaProfesor extends javax.swing.JFrame
     private DefaultListModel modeloBaja;
     private DefaultListModel modeloConsulta;
     private DefaultListModel modeloMod;
+    private DefaultListModel modeloConsultaAsig;
     public VentanaProfesor()
     {
         initComponents();
@@ -37,12 +41,15 @@ public class VentanaProfesor extends javax.swing.JFrame
         this.modeloBaja=new DefaultListModel();
         this.modeloConsulta=new DefaultListModel();
         this.modeloMod=new DefaultListModel();
+        this.modeloConsultaAsig=new DefaultListModel();
     }
     public void limpiarModelo()
     {
         this.modeloConsulta.clear();
         this.modeloBaja.clear();
         this.modeloMod.clear();
+        this.modeloConsultaAsig.clear();
+
     }
     public void limpiarTextFieldAlta()
     {
@@ -159,7 +166,7 @@ public class VentanaProfesor extends javax.swing.JFrame
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jListAsignaturasAprobadasConsulta = new javax.swing.JList<>();
+        jListAsignaturasProfesorConsulta = new javax.swing.JList<>();
         jLabel24 = new javax.swing.JLabel();
         jButtonCargarConsulta = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
@@ -264,7 +271,7 @@ public class VentanaProfesor extends javax.swing.JFrame
         jPanel1.add(jTextFieldApellidoBaja);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabelSeleccionarBaja.setText("Seleccione el profesor a eliminar");
         jPanel2.add(jLabelSeleccionarBaja);
@@ -302,7 +309,7 @@ public class VentanaProfesor extends javax.swing.JFrame
         });
         jPanel3.add(jButtonEliminarBaja);
 
-        jPanel8.setLayout(new java.awt.GridLayout());
+        jPanel8.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonBuscarBaja.setText("Buscar");
         jButtonBuscarBaja.addActionListener(new java.awt.event.ActionListener()
@@ -352,7 +359,7 @@ public class VentanaProfesor extends javax.swing.JFrame
         jPanel4.add(jTextFieldApellidoMod);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel6.setLayout(new java.awt.GridLayout());
+        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabelSeleccionarMod.setText("Seleccione el alumno ");
         jPanel6.add(jLabelSeleccionarMod);
@@ -402,7 +409,7 @@ public class VentanaProfesor extends javax.swing.JFrame
         jButtonAsigAprobMod.setText("Altas/Bajas de Asignaturas ");
         jPanel7.add(jButtonAsigAprobMod);
 
-        jPanel9.setLayout(new java.awt.GridLayout());
+        jPanel9.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonBuscarMod.setText("Buscar");
         jButtonBuscarMod.addActionListener(new java.awt.event.ActionListener()
@@ -468,7 +475,7 @@ public class VentanaProfesor extends javax.swing.JFrame
         jPanel10.add(jLabelApellidoConsulta);
         jPanel10.add(jTextFieldApellidoConsulta);
 
-        jPanel11.setLayout(new java.awt.GridLayout());
+        jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonBuscarConsulta.setText("Buscar");
         jButtonBuscarConsulta.addActionListener(new java.awt.event.ActionListener()
@@ -481,9 +488,9 @@ public class VentanaProfesor extends javax.swing.JFrame
         jPanel11.add(jButtonBuscarConsulta);
 
         jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel12.setLayout(new java.awt.GridLayout());
+        jPanel12.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabelSeleccionarConsulta.setText("Seleccione el alumno ");
+        jLabelSeleccionarConsulta.setText("Seleccione el profesor");
         jPanel12.add(jLabelSeleccionarConsulta);
 
         jListProfesoresConsulta.setModel(new javax.swing.AbstractListModel<String>()
@@ -526,15 +533,15 @@ public class VentanaProfesor extends javax.swing.JFrame
         jPanel13.add(jLabel22);
         jPanel13.add(jTextFieldMailConsulta);
 
-        jPanel14.setLayout(new java.awt.GridLayout());
+        jPanel14.setLayout(new java.awt.GridLayout(1, 0));
 
-        jListAsignaturasAprobadasConsulta.setModel(new javax.swing.AbstractListModel<String>()
+        jListAsignaturasProfesorConsulta.setModel(new javax.swing.AbstractListModel<String>()
         {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane4.setViewportView(jListAsignaturasAprobadasConsulta);
+        jScrollPane4.setViewportView(jListAsignaturasProfesorConsulta);
 
         jLabel24.setText("Coleccion de Asignaturas en las que puede participar");
 
@@ -800,6 +807,7 @@ public class VentanaProfesor extends javax.swing.JFrame
     private void jButtonCargarConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCargarConsultaActionPerformed
     {//GEN-HEADEREND:event_jButtonCargarConsultaActionPerformed
         // TODO add your handling code here:
+        this.jListAsignaturasProfesorConsulta.clearSelection();
         int n=this.jListProfesoresConsulta.getSelectedIndex();
         Profesor a=(Profesor) this.modeloConsulta.getElementAt(n);
         this.jTextFieldApellidoConsultaa.setText(a.getApellido());
@@ -807,9 +815,15 @@ public class VentanaProfesor extends javax.swing.JFrame
         this.jTextFieldLegajoConsultaa.setText(a.getLegajo());
         this.jTextFieldMailConsulta.setText(a.getMail());
         this.jTextFieldNombreConsultaa.setText(a.getNombre());
-
-        this.limpiarModelo();
         this.jListProfesoresConsulta.clearSelection();
+        Hashtable<String,Asignatura> asignaturas=a.getCompetencia();
+        Enumeration e = asignaturas.elements();
+        Asignatura asig;
+        while( e.hasMoreElements() ){
+            asig =(Asignatura) e.nextElement();
+            this.modeloConsultaAsig.addElement(asig);
+        }
+        this.jListAsignaturasProfesorConsulta.setModel(modeloConsultaAsig);
     }//GEN-LAST:event_jButtonCargarConsultaActionPerformed
 
     private void jButtonVolverConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverConsultaActionPerformed
@@ -933,7 +947,7 @@ public class VentanaProfesor extends javax.swing.JFrame
     private javax.swing.JLabel jLabelSeleccionarBaja;
     private javax.swing.JLabel jLabelSeleccionarConsulta;
     private javax.swing.JLabel jLabelSeleccionarMod;
-    private javax.swing.JList<String> jListAsignaturasAprobadasConsulta;
+    private javax.swing.JList<String> jListAsignaturasProfesorConsulta;
     private javax.swing.JList<String> jListProfesoresBaja;
     private javax.swing.JList<String> jListProfesoresConsulta;
     private javax.swing.JList<String> jListProfesoresMod;

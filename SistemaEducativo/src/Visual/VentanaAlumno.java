@@ -3,6 +3,8 @@ package Visual;
 
 import java.util.ArrayList;
 
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
@@ -10,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import sistemaeducativo.Alumno;
+import sistemaeducativo.Asignatura;
 import sistemaeducativo.Facultad;
 
 /**
@@ -23,6 +26,7 @@ public class VentanaAlumno extends javax.swing.JFrame
     private DefaultListModel modeloBaja;
     private DefaultListModel modeloConsulta;
     private DefaultListModel modeloMod;
+    private DefaultListModel modeloConsultaAsig;
     
     /** Creates new form VentanaAlumno */
     public VentanaAlumno()
@@ -36,12 +40,14 @@ public class VentanaAlumno extends javax.swing.JFrame
         this.modeloBaja=new DefaultListModel();
         this.modeloConsulta=new DefaultListModel();
         this.modeloMod=new DefaultListModel();
+        this.modeloConsultaAsig=new DefaultListModel();
     }
     public void limpiarModelo()
     {
         this.modeloConsulta.clear();
         this.modeloBaja.clear();
         this.modeloMod.clear();
+        this.modeloConsultaAsig.clear();
     }
     public void limpiarTextFieldAlta()
     {
@@ -428,6 +434,13 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel7.add(jButtonConfirmarMod);
 
         jButtonAsigAprobMod.setText("Altas/Bajas de Asignaturas Aprobadas");
+        jButtonAsigAprobMod.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonAsigAprobModActionPerformed(evt);
+            }
+        });
         jPanel7.add(jButtonAsigAprobMod);
 
         jPanel9.setLayout(new java.awt.GridLayout(1, 0));
@@ -851,6 +864,7 @@ public class VentanaAlumno extends javax.swing.JFrame
     private void jButtonCargarConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCargarConsultaActionPerformed
     {//GEN-HEADEREND:event_jButtonCargarConsultaActionPerformed
         // TODO add your handling code here:
+        this.jListAsignaturasAprobadasConsulta.clearSelection();
         int n=this.jListAlumnosConsulta.getSelectedIndex();
         Alumno a=(Alumno) this.modeloConsulta.getElementAt(n);
         this.jTextFieldApellidoConsultaa.setText(a.getApellido());
@@ -858,9 +872,16 @@ public class VentanaAlumno extends javax.swing.JFrame
         this.jTextFieldLegajoConsultaa.setText(a.getLegajo());
         this.jTextFieldMailConsulta.setText(a.getMail());
         this.jTextFieldNombreConsultaa.setText(a.getNombre());
-        
-        this.limpiarModelo();
         this.jListAlumnosConsulta.clearSelection();
+        Hashtable<String,Asignatura> asignaturas=a.getHistoria();
+        Enumeration e = asignaturas.elements();
+        Asignatura asig;
+        while( e.hasMoreElements() ){
+            asig =(Asignatura) e.nextElement();
+            this.modeloConsultaAsig.addElement(asig);
+        }
+        this.jListAsignaturasAprobadasConsulta.setModel(modeloConsultaAsig);
+        
     }//GEN-LAST:event_jButtonCargarConsultaActionPerformed
 
     private void jButtonVolverConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverConsultaActionPerformed
@@ -874,6 +895,13 @@ public class VentanaAlumno extends javax.swing.JFrame
         // TODO add your handling code here
         this.dispose();
     }//GEN-LAST:event_jButtonVolverModActionPerformed
+
+    private void jButtonAsigAprobModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAsigAprobModActionPerformed
+    {//GEN-HEADEREND:event_jButtonAsigAprobModActionPerformed
+        // TODO add your handling code here:
+        VentanaAltasBajasAsignaturasAlumno ven= new VentanaAltasBajasAsignaturasAlumno();
+        ven.setVisible(true);
+    }//GEN-LAST:event_jButtonAsigAprobModActionPerformed
 
     /**
      * @param args the command line arguments
