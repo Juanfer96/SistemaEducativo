@@ -678,7 +678,6 @@ public class VentanaAlumno extends javax.swing.JFrame
 
     private void jButtonVolverAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverAltaActionPerformed
     {//GEN-HEADEREND:event_jButtonVolverAltaActionPerformed
-        this.setVisible(false);
         this.ventana.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonVolverAltaActionPerformed
