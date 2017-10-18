@@ -299,10 +299,8 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel3.setLayout(new java.awt.GridLayout(1, 2));
 
         jButtonVolverBaja.setText("volver");
-        jButtonVolverBaja.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonVolverBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVolverBajaActionPerformed(evt);
             }
         });
@@ -330,7 +328,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanelBajaAlumno.setLayout(jPanelBajaAlumnoLayout);
         jPanelBajaAlumnoLayout.setHorizontalGroup(
             jPanelBajaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBajaAlumnoLayout.createSequentialGroup()
@@ -393,10 +391,8 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel7.add(jTextFieldDomicilioNuevoMod);
 
         jButtonVolverMod.setText("Volver");
-        jButtonVolverMod.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonVolverMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVolverModActionPerformed(evt);
             }
         });
@@ -411,10 +407,8 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel7.add(jButtonConfirmarMod);
 
         jButtonAsigAprobMod.setText("Altas/Bajas de Asignaturas Aprobadas");
-        jButtonAsigAprobMod.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonAsigAprobMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAsigAprobModActionPerformed(evt);
             }
         });
@@ -423,10 +417,8 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel9.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonBuscarMod.setText("Buscar");
-        jButtonBuscarMod.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonBuscarMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarModActionPerformed(evt);
             }
         });
@@ -478,21 +470,19 @@ public class VentanaAlumno extends javax.swing.JFrame
 
         jPanel10.setLayout(new java.awt.GridLayout(2, 2));
 
-        jLabelNombreConsulta.setText("Nombre del alumno ");
+        jLabelNombreConsulta.setText("  Nombre del alumno ");
         jPanel10.add(jLabelNombreConsulta);
         jPanel10.add(jTextFieldNombreConsulta);
 
-        jLabelApellidoConsulta.setText("Apellido del alumno ");
+        jLabelApellidoConsulta.setText("  Apellido del alumno ");
         jPanel10.add(jLabelApellidoConsulta);
         jPanel10.add(jTextFieldApellidoConsulta);
 
         jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonBuscarConsulta.setText("Buscar");
-        jButtonBuscarConsulta.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonBuscarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarConsultaActionPerformed(evt);
             }
         });
@@ -501,21 +491,18 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel12.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabelSeleccionarConsulta.setText("Seleccione el alumno ");
+        jLabelSeleccionarConsulta.setText("  Seleccione el alumno ");
         jPanel12.add(jLabelSeleccionarConsulta);
 
-        jListAlumnosConsulta.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(jListAlumnosConsulta);
 
         jPanel12.add(jScrollPane3);
 
+        jPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel13.setToolTipText("");
         jPanel13.setLayout(new java.awt.GridLayout(5, 2));
 
-        jLabel19.setText("Legajo");
+        jLabel19.setText("  Legajo");
         jPanel13.add(jLabel19);
 
         jTextFieldLegajoConsultaa.addActionListener(new java.awt.event.ActionListener() {
@@ -525,29 +512,24 @@ public class VentanaAlumno extends javax.swing.JFrame
         });
         jPanel13.add(jTextFieldLegajoConsultaa);
 
-        jLabel21.setText("Nombre");
+        jLabel21.setText("  Nombre");
         jPanel13.add(jLabel21);
         jPanel13.add(jTextFieldNombreConsultaa);
 
-        jLabel20.setText("Apellido");
+        jLabel20.setText("  Apellido");
         jPanel13.add(jLabel20);
         jPanel13.add(jTextFieldApellidoConsultaa);
 
-        jLabel23.setText("Domicilio");
+        jLabel23.setText("  Domicilio");
         jPanel13.add(jLabel23);
         jPanel13.add(jTextFieldDomicilioConsulta);
 
-        jLabel22.setText("Mail");
+        jLabel22.setText("  Mail");
         jPanel13.add(jLabel22);
         jPanel13.add(jTextFieldMailConsulta);
 
         jPanel14.setLayout(new java.awt.GridLayout(1, 0));
 
-        jListAsignaturasAprobadasConsulta.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane4.setViewportView(jListAsignaturasAprobadasConsulta);
 
         jLabel24.setText("Asignaturas Aprobadas");
@@ -559,11 +541,10 @@ public class VentanaAlumno extends javax.swing.JFrame
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,24 +552,20 @@ public class VentanaAlumno extends javax.swing.JFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
 
         jButtonCargarConsulta.setText("Cargar");
-        jButtonCargarConsulta.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonCargarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCargarConsultaActionPerformed(evt);
             }
         });
 
         jButtonVolverConsulta.setText("volver");
-        jButtonVolverConsulta.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonVolverConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVolverConsultaActionPerformed(evt);
             }
         });
@@ -599,14 +576,14 @@ public class VentanaAlumno extends javax.swing.JFrame
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonVolverConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                .addGap(41, 41, 41))
+                .addComponent(jButtonVolverConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonVolverConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(jButtonVolverConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -616,17 +593,17 @@ public class VentanaAlumno extends javax.swing.JFrame
             jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelConsultaAlumnoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultaAlumnoLayout.createSequentialGroup()
+                .addContainerGap(185, Short.MAX_VALUE)
+                .addComponent(jButtonCargarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(169, 169, 169))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultaAlumnoLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanelConsultaAlumnoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultaAlumnoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonCargarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
             .addGroup(jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelConsultaAlumnoLayout.createSequentialGroup()
                     .addGap(1, 1, 1)
@@ -634,9 +611,9 @@ public class VentanaAlumno extends javax.swing.JFrame
                     .addGap(1, 1, 1)))
             .addGroup(jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelConsultaAlumnoLayout.createSequentialGroup()
-                    .addGap(13, 13, 13)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(13, 13, 13)))
+                    .addGap(186, 186, 186)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(170, Short.MAX_VALUE)))
             .addGroup(jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelConsultaAlumnoLayout.createSequentialGroup()
                     .addGap(1, 1, 1)
@@ -646,17 +623,16 @@ public class VentanaAlumno extends javax.swing.JFrame
         jPanelConsultaAlumnoLayout.setVerticalGroup(
             jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultaAlumnoLayout.createSequentialGroup()
-                .addContainerGap(184, Short.MAX_VALUE)
+                .addContainerGap(160, Short.MAX_VALUE)
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addGap(53, 53, 53)
                 .addComponent(jButtonCargarConsulta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelConsultaAlumnoLayout.createSequentialGroup()
                     .addContainerGap()
@@ -664,14 +640,14 @@ public class VentanaAlumno extends javax.swing.JFrame
                     .addContainerGap(455, Short.MAX_VALUE)))
             .addGroup(jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelConsultaAlumnoLayout.createSequentialGroup()
-                    .addGap(90, 90, 90)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(424, Short.MAX_VALUE)))
+                    .addGap(88, 88, 88)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(435, Short.MAX_VALUE)))
             .addGroup(jPanelConsultaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelConsultaAlumnoLayout.createSequentialGroup()
                     .addGap(122, 122, 122)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(356, Short.MAX_VALUE)))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(336, Short.MAX_VALUE)))
         );
 
         jTabbedPane2.addTab("Consulta", jPanelConsultaAlumno);

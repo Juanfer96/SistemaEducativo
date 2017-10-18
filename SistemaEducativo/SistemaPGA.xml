@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_101" class="java.beans.XMLDecoder">
+ <object class="sistemaeducativo.Facultad" id="Facultad0">
+  <void id="TreeMap0" property="alumnos">
+   <void method="put">
+    <string>ALU0001</string>
+    <object class="sistemaeducativo.Alumno">
+     <void property="apellido">
+      <string>PONCE</string>
+     </void>
+     <void property="domicilio">
+      <string>12</string>
+     </void>
+     <void property="legajo">
+      <string>ALU0001</string>
+     </void>
+     <void property="mail">
+      <string>32@12</string>
+     </void>
+     <void property="nombre">
+      <string>EMANUEL</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>ALU0002</string>
+    <object class="sistemaeducativo.Alumno">
+     <void property="apellido">
+      <string>NJ</string>
+     </void>
+     <void property="domicilio">
+      <string>12</string>
+     </void>
+     <void property="legajo">
+      <string>ALU0002</string>
+     </void>
+     <void property="mail">
+      <string>21♠1@12</string>
+     </void>
+     <void property="nombre">
+      <string>JUAN</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>ALU0003</string>
+    <object class="sistemaeducativo.Alumno">
+     <void property="apellido">
+      <string>A</string>
+     </void>
+     <void property="domicilio">
+      <string>A</string>
+     </void>
+     <void property="legajo">
+      <string>ALU0003</string>
+     </void>
+     <void property="mail">
+      <string>a544@s</string>
+     </void>
+     <void property="nombre">
+      <string>A</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void id="TreeMap1" property="profesores">
+   <void method="put">
+    <string>PRO0001</string>
+    <object class="sistemaeducativo.Profesor">
+     <void property="apellido">
+      <string>PEREZ</string>
+     </void>
+     <void property="domicilio">
+      <string>CONSTITUCION 2222</string>
+     </void>
+     <void property="legajo">
+      <string>PRO0001</string>
+     </void>
+     <void property="mail">
+      <string>as@sss</string>
+     </void>
+     <void property="nombre">
+      <string>JUAN</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void id="TreeMap2" property="asignaturas"/>
+  <void id="TreeMap3" property="cursadas"/>
+ </object>
+ <object idref="TreeMap0"/>
+ <object idref="TreeMap1"/>
+ <object idref="TreeMap2"/>
+ <object idref="TreeMap3"/>
+ <int>0</int>
+ <int>0</int>
+ <int>0</int>
+ <int>0</int>
+</java>
