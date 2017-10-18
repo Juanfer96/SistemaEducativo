@@ -63,7 +63,28 @@
     </object>
    </void>
   </void>
-  <void id="TreeMap1" property="profesores"/>
+  <void id="TreeMap1" property="profesores">
+   <void method="put">
+    <string>PRO0001</string>
+    <object class="sistemaeducativo.Profesor">
+     <void property="apellido">
+      <string>PEREZ</string>
+     </void>
+     <void property="domicilio">
+      <string>CONSTITUCION 2222</string>
+     </void>
+     <void property="legajo">
+      <string>PRO0001</string>
+     </void>
+     <void property="mail">
+      <string>as@sss</string>
+     </void>
+     <void property="nombre">
+      <string>JUAN</string>
+     </void>
+    </object>
+   </void>
+  </void>
   <void id="TreeMap2" property="asignaturas"/>
   <void id="TreeMap3" property="cursadas"/>
  </object>
