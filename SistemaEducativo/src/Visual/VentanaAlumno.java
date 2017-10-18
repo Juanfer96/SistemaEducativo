@@ -813,7 +813,7 @@ public class VentanaAlumno extends javax.swing.JFrame
 
     private void jButtonVolverBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverBajaActionPerformed
     {//GEN-HEADEREND:event_jButtonVolverBajaActionPerformed
-        // TODO add your handling code here:
+        this.ventana.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonVolverBajaActionPerformed
 
