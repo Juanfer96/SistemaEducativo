@@ -100,6 +100,26 @@ public class VentanaProfesor extends javax.swing.JFrame
         }
         return true;
     }
+    public boolean validarMod()
+    {
+        if(this.jTextFieldApellidoNuevoMod.getText().equals(""))
+        {
+            return false;
+        }
+        if(this.jTextFieldNombreNuevoMod.getText().equals(""))
+        {
+            return false;
+        }
+        if(this.jTextFieldMailNuevoMod.getText().equals(""))
+        {
+            return false;
+        }
+        if(this.jTextFieldDomicilioNuevoMod.getText().equals(""))
+        {
+            return false;
+        }
+        return true;
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -756,6 +776,27 @@ public class VentanaProfesor extends javax.swing.JFrame
     private void jButtonConfirmarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConfirmarModActionPerformed
     {//GEN-HEADEREND:event_jButtonConfirmarModActionPerformed
         // TODO add your handling code here:
+        int n=this.jListProfesoresMod.getSelectedIndex();
+        Profesor a=(Profesor) this.modeloMod.getElementAt(n);
+        if(this.validarMod())
+        {
+            String mail= this.jTextFieldMailNuevoMod.getText();
+            if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
+            {
+                facultad.modificarProfesor(a,this.jTextFieldApellidoNuevoMod.getText().toUpperCase(),this.jTextFieldNombreNuevoMod.getText().toUpperCase(),this.jTextFieldDomicilioNuevoMod.getText().toUpperCase(), this.jTextFieldMailNuevoMod.getText().toUpperCase());
+                JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
+                this.limpiarModelo();
+
+                
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
+            }
+        }else
+            {
+                JOptionPane.showMessageDialog(null, "Complete todos los campos por favor");
+            }
+        
     }//GEN-LAST:event_jButtonConfirmarModActionPerformed
 
     private void jButtonBuscarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarModActionPerformed
