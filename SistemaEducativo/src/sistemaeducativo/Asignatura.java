@@ -43,11 +43,11 @@ public class Asignatura
     {
         return correlatividades;
     }
-    public void agregarCorrelatividad(Asignatura a)
+    public void agregarCorrelatividad(Asignatura a) throws CorrelativaRegistradaException
     {
         if(this.getCorrelatividades().containsKey(a.getId()))
         {
-            //exceptcion a hacer si la correlatividad ya existe 
+            throw new CorrelativaRegistradaException(a,this);
         }else
         {
             this.getCorrelatividades().put(a.getId(), a);
@@ -55,10 +55,7 @@ public class Asignatura
     }
     public void eliminarCorrelatividad(String id)
     {
-        if(this.getCorrelatividades().remove(id)==null)
-        {
-            //excepcion de que quiero eliminar una correlatividad q no existe(no econtro la clave)
-        }   
+        this.getCorrelatividades().remove(id);
     }
 
     @Override
