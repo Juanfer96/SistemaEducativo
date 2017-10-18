@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_101" class="java.beans.XMLDecoder">
  <int>4</int>
- <int>1</int>
+ <int>3</int>
  <int>0</int>
  <int>3</int>
  <object class="sistemaeducativo.Facultad" id="Facultad0">
@@ -156,6 +156,26 @@
      </void>
      <void property="nombre">
       <string>JUAN</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>PRO0003</string>
+    <object class="sistemaeducativo.Profesor">
+     <void property="apellido">
+      <string>PEREZ</string>
+     </void>
+     <void property="domicilio">
+      <string>AS@DS</string>
+     </void>
+     <void property="legajo">
+      <string>PRO0003</string>
+     </void>
+     <void property="mail">
+      <string>as@ds</string>
+     </void>
+     <void property="nombre">
+      <string>JUANSITO</string>
      </void>
     </object>
    </void>

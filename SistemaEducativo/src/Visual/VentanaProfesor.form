@@ -483,6 +483,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Altas/Bajas de Asignaturas "/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAsigAprobModActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
