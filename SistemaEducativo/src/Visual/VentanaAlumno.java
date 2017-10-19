@@ -41,6 +41,7 @@ public class VentanaAlumno extends javax.swing.JFrame
         this.facultad=facultad;
         this.ventana=ventana;
         this.cerrar();
+        this.disable();
         setResizable(false);
         setTitle("Sistema Educativo -Alumno");
         setLocationRelativeTo(null);
@@ -49,6 +50,14 @@ public class VentanaAlumno extends javax.swing.JFrame
         this.modeloConsulta = new DefaultListModel();
         this.modeloMod = new DefaultListModel();
 
+    }
+    public void disable(){
+        this.jTextFieldLegajoConsultaa.disable();
+        this.jTextFieldApellidoConsultaa.disable();
+        this.jTextFieldNombreConsultaa.disable();
+        this.jTextFieldDomicilioConsulta.disable();
+        this.jTextFieldMailConsulta.disable();
+        this.jListAsignaturasAprobadasConsulta.disable();
     }
     public void limpiarModelo()
     {

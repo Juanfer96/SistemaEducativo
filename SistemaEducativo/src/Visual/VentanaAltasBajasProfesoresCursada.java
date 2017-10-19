@@ -20,42 +20,44 @@ import sistemaeducativo.Alumno;
 import sistemaeducativo.AlumnoInhabilitadoException;
 import sistemaeducativo.AlumnoOcupadoParaCursadaException;
 import sistemaeducativo.AlumnoRegistradoEnCursadaException;
-import sistemaeducativo.Asignatura;
 import sistemaeducativo.Cursada;
 import sistemaeducativo.Facultad;
-import sistemaeducativo.Fecha;
+import sistemaeducativo.Profesor;
+import sistemaeducativo.ProfesorInhabilitadoException;
+import sistemaeducativo.ProfesorOcupadoParaCursadaException;
+import sistemaeducativo.ProfesorRegistradoEnCursadaException;
 
 /**
  *
- * @author Usuario
+ * @author User
  */
-public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
-{
-
-    /** Creates new form VentanaAltasBajasAlumnosCursada */
+public class VentanaAltasBajasProfesoresCursada extends javax.swing.JFrame {
+    
     private Facultad facultad;
     private VentanaCursada ventana;
     private DefaultListModel modeloCursadas;
-    private DefaultListModel modeloAlumnosAlta;
-    private DefaultListModel modeloAlumnosBaja;
-    public VentanaAltasBajasAlumnosCursada(Facultad f, VentanaCursada ventana)
-    {
+    private DefaultListModel modeloProfesoresAlta;
+    private DefaultListModel modeloProfesoresBaja;
+    
+    /** Creates new form VentanaAltasBajasProfesoresCursada */
+    public VentanaAltasBajasProfesoresCursada(Facultad f, VentanaCursada ventana) {
         initComponents();
         this.facultad=f;
         this.ventana=ventana;
         this.cerrar();
         setResizable(false);
-        setTitle("Sistema Educativo -Altas/Bajas alumnos de cursadas");
+        setTitle("Sistema Educativo -Altas/Bajas profesores de cursadas");
         setLocationRelativeTo(null);
         this.modeloCursadas=new DefaultListModel();
-        this.modeloAlumnosAlta=new DefaultListModel();
-        this.modeloAlumnosBaja=new DefaultListModel();
+        this.modeloProfesoresAlta=new DefaultListModel();
+        this.modeloProfesoresBaja=new DefaultListModel();
     }
+    
     public void limpiarModelo()
     {
         this.modeloCursadas.clear();
-        this.modeloAlumnosAlta.clear();
-        this.modeloAlumnosBaja.clear();
+        this.modeloProfesoresAlta.clear();
+        this.modeloProfesoresBaja.clear();
     }
     public void cerrar() {
         try{
@@ -70,6 +72,7 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
             e.printStackTrace();
         }
     }
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -90,9 +93,9 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jListAlumnosBaja = new javax.swing.JList<>();
-        jButtonEliminarAlumno = new javax.swing.JButton();
-        LabelSinAlumnos = new javax.swing.JLabel();
+        jListProfesoresBaja = new javax.swing.JList<>();
+        jButtonEliminarProfesor = new javax.swing.JButton();
+        LabelSinProfesores = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -101,7 +104,7 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
         jLabel5 = new javax.swing.JLabel();
         jTextFieldApellido = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jListAlumnosAlta = new javax.swing.JList<>();
+        jListProfesoresAlta = new javax.swing.JList<>();
         jLabel6 = new javax.swing.JLabel();
         jButtonCargar = new javax.swing.JButton();
         jButtonAgregarAlumno = new javax.swing.JButton();
@@ -111,7 +114,7 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Asignar y eliminar alumnos de cursadas"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Asignar y eliminar profesores de cursadas"));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Búsqueda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 102))); // NOI18N
 
@@ -146,7 +149,7 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jButtonBuscarCursadas, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -171,16 +174,16 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
                 .addContainerGap())
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Baja de alumnos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 102))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Baja de profesores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 102))); // NOI18N
 
-        jLabel8.setText("Seleccione alumno:");
+        jLabel8.setText("Seleccione profesor:");
 
-        jScrollPane2.setViewportView(jListAlumnosBaja);
+        jScrollPane2.setViewportView(jListProfesoresBaja);
 
-        jButtonEliminarAlumno.setText("Eliminar Alumno");
-        jButtonEliminarAlumno.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEliminarProfesor.setText("Eliminar Profesor");
+        jButtonEliminarProfesor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEliminarAlumnoActionPerformed(evt);
+                jButtonEliminarProfesorActionPerformed(evt);
             }
         });
 
@@ -194,12 +197,12 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(LabelSinAlumnos)
+                        .addComponent(LabelSinProfesores)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonEliminarAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEliminarProfesor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(23, 23, 23))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -208,11 +211,11 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
                 .addGap(4, 4, 4)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(LabelSinAlumnos))
+                    .addComponent(LabelSinProfesores))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonEliminarAlumno)
+                        .addComponent(jButtonEliminarProfesor)
                         .addGap(62, 62, 62))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -220,7 +223,7 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Alta de alumnos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 102))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Alta de profesores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 102))); // NOI18N
 
         jLabel3.setText("Ingrese nombre y apellido");
 
@@ -234,9 +237,9 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
         jPanel5.add(jLabel5);
         jPanel5.add(jTextFieldApellido);
 
-        jScrollPane3.setViewportView(jListAlumnosAlta);
+        jScrollPane3.setViewportView(jListProfesoresAlta);
 
-        jLabel6.setText("Seleccione el alumno a dar de Alta");
+        jLabel6.setText("Seleccione el profesor a dar de Alta");
 
         jButtonCargar.setText("Cargar");
         jButtonCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -245,7 +248,7 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
             }
         });
 
-        jButtonAgregarAlumno.setText("Agregar Alumno");
+        jButtonAgregarAlumno.setText("Agregar Profesor");
         jButtonAgregarAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAgregarAlumnoActionPerformed(evt);
@@ -347,12 +350,10 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonVolver)
                 .addContainerGap())
         );
-
-        jPanel3.getAccessibleContext().setAccessibleName("Baja de Alumnos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -374,8 +375,7 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
         pack();
     }//GEN-END:initComponents
 
-    private void jButtonBuscarCursadasActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarCursadasActionPerformed
-    {//GEN-HEADEREND:event_jButtonBuscarCursadasActionPerformed
+    private void jButtonBuscarCursadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarCursadasActionPerformed
         this.limpiarModelo();
         String asignatura=this.jTextFieldNombreCursada.getText().toUpperCase();
         ArrayList<Cursada> cursadas=facultad.buscarCursadaPorNombre(asignatura);
@@ -388,103 +388,96 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
         this.jListCursadas.setModel(modeloCursadas);
     }//GEN-LAST:event_jButtonBuscarCursadasActionPerformed
 
-    private void jListCursadasValueChanged(javax.swing.event.ListSelectionEvent evt)//GEN-FIRST:event_jListCursadasValueChanged
-    {//GEN-HEADEREND:event_jListCursadasValueChanged
+    private void jListCursadasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListCursadasValueChanged
         int n=this.jListCursadas.getSelectedIndex();
-        this.modeloAlumnosBaja.clear();
+        this.modeloProfesoresBaja.clear();
         Cursada c = (Cursada) this.modeloCursadas.getElementAt(n);
         this.LabelIdCursada.setText(c.getId());
-        Hashtable<String,Alumno> alumnos = c.getAlumnos();
-        if(alumnos.size()==0)
+        Hashtable<String,Profesor> profesores = c.getProfesores();
+        if(profesores.size()==0)
         {
-            this.LabelSinAlumnos.setText("Actualemente la cursada no tiene alumnos establecidos");
+            this.LabelSinProfesores.setText("Actualemente la cursada no tiene profesores establecidos");
         }else
         {
-            this.LabelSinAlumnos.setText("");
-            Enumeration e = alumnos.elements();
-            Alumno a;
+            this.LabelSinProfesores.setText("");
+            Enumeration e = profesores.elements();
+            Profesor a;
             while( e.hasMoreElements() ){
-                a =(Alumno) e.nextElement();
-                this.modeloAlumnosBaja.addElement(a);
+                a =(Profesor) e.nextElement();
+                this.modeloProfesoresBaja.addElement(a);
             }
-            this.jListAlumnosBaja.setModel(modeloAlumnosBaja);
+            this.jListProfesoresBaja.setModel(modeloProfesoresBaja);
         }
     }//GEN-LAST:event_jListCursadasValueChanged
 
-    private void jButtonEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEliminarAlumnoActionPerformed
-    {//GEN-HEADEREND:event_jButtonEliminarAlumnoActionPerformed
-        int n=this.jListAlumnosBaja.getSelectedIndex();
+    private void jButtonEliminarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarProfesorActionPerformed
+        int n=this.jListProfesoresBaja.getSelectedIndex();
         if(n!=-1)
         {
-            Alumno a=(Alumno) this.modeloAlumnosBaja.getElementAt(n);
+            Profesor a=(Profesor) this.modeloProfesoresBaja.getElementAt(n);
             int x=this.jListCursadas.getSelectedIndex();
             Cursada c=(Cursada) this.modeloCursadas.getElementAt(x);
-            this.facultad.eliminarAlumnoCursada(c, a);
-            JOptionPane.showMessageDialog(null, "El alumno fue eliminado correctamente de la cursada","Información",JOptionPane.INFORMATION_MESSAGE);
-            this.modeloAlumnosBaja.removeElementAt(n);
-            if(modeloAlumnosBaja.isEmpty())
+            this.facultad.eliminarProfesorCursada(c, a);
+            JOptionPane.showMessageDialog(null, "El profesor fue eliminado correctamente de la cursada","Información",JOptionPane.INFORMATION_MESSAGE);
+            this.modeloProfesoresBaja.removeElementAt(n);
+            if(modeloProfesoresBaja.isEmpty())
             {
-                this.LabelSinAlumnos.setText("Actualemente la cursada no tiene alumnos establecidos");
+                this.LabelSinProfesores.setText("Actualemente la cursada no tiene profesores establecidos");
             }
         }else
         {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un profesor","Error",JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButtonEliminarAlumnoActionPerformed
+    }//GEN-LAST:event_jButtonEliminarProfesorActionPerformed
 
-    private void jLabel10ComponentHidden(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_jLabel10ComponentHidden
-    {//GEN-HEADEREND:event_jLabel10ComponentHidden
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel10ComponentHidden
-
-    private void jButtonCargarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCargarActionPerformed
-    {//GEN-HEADEREND:event_jButtonCargarActionPerformed
+    private void jButtonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarActionPerformed
         // TODO add your handling code here:
         String nombre=this.jTextFieldNombre.getText().toUpperCase();
         String apellido=this.jTextFieldApellido.getText().toUpperCase();
-        ArrayList<Alumno> alumnos=facultad.buscarAlumnoPorNombre(nombre, apellido);;
-        Iterator it=alumnos.iterator();
-        
+        ArrayList<Profesor> profesores=facultad.buscarProfesorPorNombre(nombre, apellido);;
+        Iterator it=profesores.iterator();
         while(it.hasNext())
         {
-           Alumno a=(Alumno)it.next();
-            this.modeloAlumnosAlta.addElement(a);
+            Profesor a=(Profesor)it.next();
+            this.modeloProfesoresAlta.addElement(a);
         }
-        this.jListAlumnosAlta.setModel(modeloAlumnosAlta);
+        this.jListProfesoresAlta.setModel(modeloProfesoresAlta);
     }//GEN-LAST:event_jButtonCargarActionPerformed
 
-    private void jButtonAgregarAlumnoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAgregarAlumnoActionPerformed
-    {//GEN-HEADEREND:event_jButtonAgregarAlumnoActionPerformed
+    private void jButtonAgregarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarAlumnoActionPerformed
         // TODO add your handling code here:
         int n=this.jListCursadas.getSelectedIndex();
-        int x=this.jListAlumnosAlta.getSelectedIndex();
+        int x=this.jListProfesoresAlta.getSelectedIndex();
         if(n!=-1 && x!=-1)
         {
             Cursada c = (Cursada)this.modeloCursadas.getElementAt(n);
-            Alumno a=(Alumno)this.modeloAlumnosAlta.getElementAt(x);
+            Profesor a=(Profesor)this.modeloProfesoresAlta.getElementAt(x);
             try
             {
-                this.facultad.agregarAlumnoEnCursada(a, c);
-                JOptionPane.showMessageDialog(null, "El alumno fue añadido correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
-            } catch (AlumnoInhabilitadoException e)
+                this.facultad.agregarProfesorEnCursada(a, c);
+                JOptionPane.showMessageDialog(null, "El profesor fue añadido correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
+            } catch (ProfesorInhabilitadoException e)
             {
-                JOptionPane.showMessageDialog(null, "El alumno no esta habilitado para esta cursada","Error",JOptionPane.ERROR_MESSAGE);
-            } catch (AlumnoOcupadoParaCursadaException e)
+                JOptionPane.showMessageDialog(null, "El profesor no esta habilitado para esta cursada","Error",JOptionPane.ERROR_MESSAGE);
+            } catch (ProfesorOcupadoParaCursadaException e)
             {
-                JOptionPane.showMessageDialog(null, "El alumno no tiene disponibilidad horaria para esta cursada","Error",JOptionPane.ERROR_MESSAGE);
-            } catch (AlumnoRegistradoEnCursadaException e)
+                JOptionPane.showMessageDialog(null, "El profesor no tiene disponibilidad horaria para esta cursada","Error",JOptionPane.ERROR_MESSAGE);
+            } catch (ProfesorRegistradoEnCursadaException e)
             {
-                JOptionPane.showMessageDialog(null, "El Alumno ya esta registrado en esta cursada","Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El profesor ya esta registrado en esta cursada","Error",JOptionPane.ERROR_MESSAGE);
             }
         }else
         {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una cursada y un Alumno","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una cursada y un profesor","Error",JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_jButtonAgregarAlumnoActionPerformed
 
-    private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverActionPerformed
-    {//GEN-HEADEREND:event_jButtonVolverActionPerformed
+    private void jLabel10ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jLabel10ComponentHidden
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel10ComponentHidden
+
+    private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
         // TODO add your handling code here:
         this.dispose();
         this.ventana.setVisible(true);
@@ -493,63 +486,55 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try
-        {
+        try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing
                                                                    .UIManager
-                                                                   .getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+                                                                   .getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing
                          .UIManager
                          .setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util
                 .logging
                 .Logger
-                .getLogger(VentanaAltasBajasAlumnosCursada.class.getName())
+                .getLogger(VentanaAltasBajasProfesoresCursada.class.getName())
                 .log(java.util
                          .logging
                          .Level
                          .SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util
                 .logging
                 .Logger
-                .getLogger(VentanaAltasBajasAlumnosCursada.class.getName())
+                .getLogger(VentanaAltasBajasProfesoresCursada.class.getName())
                 .log(java.util
                          .logging
                          .Level
                          .SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util
                 .logging
                 .Logger
-                .getLogger(VentanaAltasBajasAlumnosCursada.class.getName())
+                .getLogger(VentanaAltasBajasProfesoresCursada.class.getName())
                 .log(java.util
                          .logging
                          .Level
                          .SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util
                 .logging
                 .Logger
-                .getLogger(VentanaAltasBajasAlumnosCursada.class.getName())
+                .getLogger(VentanaAltasBajasProfesoresCursada.class.getName())
                 .log(java.util
                          .logging
                          .Level
@@ -560,22 +545,20 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
         /* Create and display the form */
         java.awt
             .EventQueue
-            .invokeLater(new Runnable()
-            {
-                public void run()
-                {
-                  //  new VentanaAltasBajasAlumnosCursada().setVisible(true);
+            .invokeLater(new Runnable() {
+                public void run() {
+                    //new VentanaAltasBajasProfesoresCursada().setVisible(true);
                 }
             });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelIdCursada;
-    private javax.swing.JLabel LabelSinAlumnos;
+    private javax.swing.JLabel LabelSinProfesores;
     private javax.swing.JButton jButtonAgregarAlumno;
     private javax.swing.JButton jButtonBuscarCursadas;
     private javax.swing.JButton jButtonCargar;
-    private javax.swing.JButton jButtonEliminarAlumno;
+    private javax.swing.JButton jButtonEliminarProfesor;
     private javax.swing.JButton jButtonVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -585,9 +568,9 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JList<String> jListAlumnosAlta;
-    private javax.swing.JList<String> jListAlumnosBaja;
     private javax.swing.JList<String> jListCursadas;
+    private javax.swing.JList<String> jListProfesoresAlta;
+    private javax.swing.JList<String> jListProfesoresBaja;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

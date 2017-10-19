@@ -390,37 +390,38 @@ public class VentanaAltasBajasAsignaturasAlumno extends javax.swing.JFrame
 
     private void jButtonAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAltaActionPerformed
     {//GEN-HEADEREND:event_jButtonAltaActionPerformed
-        
+        int x=this.jListAsignaturasAltas.getSelectedIndex();
         int n=this.jListAlumnos.getSelectedIndex();
-        if(n!=-1){
+        if(n!=-1 && x!=-1){
             Alumno a=(Alumno) this.modeloBuscar.getElementAt(n);
-            int x=this.jListAsignaturasAltas.getSelectedIndex();
             Asignatura asig=(Asignatura) this.modeloAlta.getElementAt(x);
             try
             {
                 this.facultad.aprobarAlumnoAsignatura(a, asig);
+                this.modeloBaja.addElement(asig); 
+                JOptionPane.showMessageDialog(null, "Asignatura registrada correctamente en la lista de aprobadas del alumno","Informacion",JOptionPane.INFORMATION_MESSAGE);
             } catch (AsignaturaAprobadaYaRegistradaException e)
             {
-                JOptionPane.showMessageDialog(null, "La asignatura ya se encuentra aprobada");
-            }
-            this.limpiarModelo();   
+                JOptionPane.showMessageDialog(null, "La asignatura ya se encuentra aprobada","Error",JOptionPane.ERROR_MESSAGE);
+            }  
         }else{
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno y una asignatura","Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
     private void jButtonBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBajaActionPerformed
     {//GEN-HEADEREND:event_jButtonBajaActionPerformed
         // TODO add your handling code here:
+        int x=this.jListAsignaturasBaja.getSelectedIndex();
         int n=this.jListAlumnos.getSelectedIndex();
-        if(n!=-1){
+        if(n!=-1 && x!=-1){
             Alumno a=(Alumno) this.modeloBuscar.getElementAt(n);
-            int x=this.jListAsignaturasBaja.getSelectedIndex();
             Asignatura asig=(Asignatura) this.modeloBaja.getElementAt(x);
             this.facultad.eliminarAlumnoAsignatura(a, asig);
-            this.limpiarModelo();   
+            JOptionPane.showMessageDialog(null, "La asignatura fue eliminada correctamente","Informacion",JOptionPane.INFORMATION_MESSAGE);
+            this.modeloBaja.remove(x);  
         }else{
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno y una asignatura","Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonBajaActionPerformed
 

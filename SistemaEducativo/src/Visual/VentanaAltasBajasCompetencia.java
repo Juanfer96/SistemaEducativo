@@ -388,20 +388,23 @@ public class VentanaAltasBajasCompetencia extends javax.swing.JFrame
 
     private void jButtonAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAltaActionPerformed
     {//GEN-HEADEREND:event_jButtonAltaActionPerformed
-
         int n=this.jListProfesores.getSelectedIndex();
-        Profesor p=(Profesor) this.modeloBuscar.getElementAt(n);
         int x=this.jListAsignaturasAltas.getSelectedIndex();
-        Asignatura asig=(Asignatura) this.modeloAlta.getElementAt(x);
-        try
-        {
-            this.facultad.agregarCompetenciaProfesor(p, asig);
-            JOptionPane.showMessageDialog(null, "La asignatura fue añadida con exito");
-        } catch (AsignaturaYaRegistradaEnProfesorException e)
-        {
-            JOptionPane.showMessageDialog(null, "La asignatura ya se encuentra como habilitada");
+        if(n!=-1 && x!=-1){
+            Profesor p=(Profesor) this.modeloBuscar.getElementAt(n);
+            Asignatura asig=(Asignatura) this.modeloAlta.getElementAt(x);
+            try
+            {
+                this.facultad.agregarCompetenciaProfesor(p, asig);
+                JOptionPane.showMessageDialog(null, "La asignatura fue añadida con exito");
+                this.modeloBaja.addElement(asig);
+            } catch (AsignaturaYaRegistradaEnProfesorException e)
+            {
+                JOptionPane.showMessageDialog(null, "La asignatura ya se encuentra como habilitada");
+            }   
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una competencia y un profesor","Error",JOptionPane.ERROR_MESSAGE);
         }
-        this.limpiarModelo();
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
     private void jButtonVolverAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverAltaActionPerformed
@@ -414,37 +417,46 @@ public class VentanaAltasBajasCompetencia extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonBajaActionPerformed
         // TODO add your handling code here:
         int n=this.jListProfesores.getSelectedIndex();
-        Profesor p=(Profesor) this.modeloBuscar.getElementAt(n);
         int x=this.jListAsignaturasBaja.getSelectedIndex();
-        Asignatura asig=(Asignatura) this.modeloBaja.getElementAt(x);
-        this.facultad.eliminarCompetenciaProfesor(p, asig);
-        JOptionPane.showMessageDialog(null, "La asignatura fue eliminada con exito");
-        this.limpiarModelo();
+        if(n!=-1 && x!=-1){
+            Profesor p=(Profesor) this.modeloBuscar.getElementAt(n);
+            Asignatura asig=(Asignatura) this.modeloBaja.getElementAt(x);
+            this.facultad.eliminarCompetenciaProfesor(p, asig);
+            JOptionPane.showMessageDialog(null, "La asignatura fue eliminada con exito");
+            this.modeloBaja.remove(x);
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una competencia y un profesor","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonBajaActionPerformed
 
     private void jButtonCargarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCargarActionPerformed
     {//GEN-HEADEREND:event_jButtonCargarActionPerformed
         // TODO add your handling code here:
+        this.modeloBaja.clear();
         int n=this.jListProfesores.getSelectedIndex();
-        Profesor p=(Profesor) this.modeloBuscar.getElementAt(n);
-        TreeMap<String,Asignatura> asignaturas=this.facultad.getAsignaturas();
-        Set keys = asignaturas.keySet();
-           for (Iterator i = keys.iterator(); i.hasNext();) {
-             String key = (String) i.next();
-             Asignatura a = (Asignatura) asignaturas.get(key);
-             this.modeloAlta.addElement(a);
-           }
-        this.jListAsignaturasAltas.setModel(modeloAlta);
+        if(n!=-1){
+            Profesor p=(Profesor) this.modeloBuscar.getElementAt(n);
+            TreeMap<String,Asignatura> asignaturas=this.facultad.getAsignaturas();
+            Set keys = asignaturas.keySet();
+               for (Iterator i = keys.iterator(); i.hasNext();) {
+                 String key = (String) i.next();
+                 Asignatura a = (Asignatura) asignaturas.get(key);
+                 this.modeloAlta.addElement(a);
+               }
+            this.jListAsignaturasAltas.setModel(modeloAlta);
 
-        Hashtable<String,Asignatura> historia=p.getCompetencia();
-        Enumeration e = historia.elements();
-        Asignatura asig;
-        while( e.hasMoreElements() )
-        {
-            asig =(Asignatura) e.nextElement();
-            this.modeloBaja.addElement(asig);
+            Hashtable<String,Asignatura> historia=p.getCompetencia();
+            Enumeration e = historia.elements();
+            Asignatura asig;
+            while( e.hasMoreElements() )
+            {
+                asig =(Asignatura) e.nextElement();
+                this.modeloBaja.addElement(asig);
+            }
+            this.jListAsignaturasBaja.setModel(modeloBaja);   
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un profesor","Error",JOptionPane.ERROR_MESSAGE);
         }
-        this.jListAsignaturasBaja.setModel(modeloBaja);
     }//GEN-LAST:event_jButtonCargarActionPerformed
 
     /**
