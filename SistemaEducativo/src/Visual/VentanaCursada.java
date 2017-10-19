@@ -1,6 +1,19 @@
 
 package Visual;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import java.util.ArrayList;
+
+import java.util.Iterator;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+
+import sistemaeducativo.Asignatura;
+import sistemaeducativo.Facultad;
+
 /**
  *
  * @author Usuario
@@ -9,11 +22,40 @@ public class VentanaCursada extends javax.swing.JFrame
 {
 
     /** Creates new form VentanaCursada */
-    public VentanaCursada()
+    private Facultad facultad;
+    private VentanaPrincipal ventana;
+    private DefaultListModel modeloAlta;
+    public VentanaCursada(Facultad f, VentanaPrincipal ventana)
     {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        facultad=f;
+        this.ventana=ventana;
+        this.cerrar();
+        setResizable(false);
+        setTitle("Sistema Educativo -Profesor");
+        setLocationRelativeTo(null);
+        this.modeloAlta=new DefaultListModel();
     }
+    public void limpiarModelo()
+    {
+        this.modeloAlta.clear();
+        
 
+    }
+    public void cerrar() {
+        try{
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            addWindowListener(new WindowAdapter(){
+                public void windowClosing(WindowEvent e) {
+                    ventana.setVisible(true);
+                }
+            });
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -23,6 +65,7 @@ public class VentanaCursada extends javax.swing.JFrame
     private void initComponents()//GEN-BEGIN:initComponents
     {
 
+        buttonGroupAlta = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelAlta = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -183,9 +226,11 @@ public class VentanaCursada extends javax.swing.JFrame
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(new java.awt.GridLayout());
 
+        buttonGroupAlta.add(jRadioButton1CAlta);
         jRadioButton1CAlta.setText("1°Cuatrimestre");
         jPanel3.add(jRadioButton1CAlta);
 
+        buttonGroupAlta.add(jRadioButton2CAlta);
         jRadioButton2CAlta.setText("2°Cuatrimestre");
         jPanel3.add(jRadioButton2CAlta);
 
@@ -220,6 +265,13 @@ public class VentanaCursada extends javax.swing.JFrame
         jPanel9.setLayout(new java.awt.GridLayout());
 
         jButtonCrearCursadaAlta.setText("Crear Cursada");
+        jButtonCrearCursadaAlta.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonCrearCursadaAltaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelAltaLayout = new javax.swing.GroupLayout(jPanelAlta);
         jPanelAlta.setLayout(jPanelAltaLayout);
@@ -924,9 +976,9 @@ public class VentanaCursada extends javax.swing.JFrame
         while(it.hasNext())
         {
             Asignatura a=(Asignatura)it.next();
-            modeloBaja.addElement(a);
+            modeloAlta.addElement(a);
         }
-        this.jListAlta.setModel(modeloBaja);
+        this.jListAlta.setModel(modeloAlta);
     }//GEN-LAST:event_jButtonBuscarAltaActionPerformed
 
     private void jButtonBuscarBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarBajaActionPerformed
@@ -990,6 +1042,21 @@ public class VentanaCursada extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTextFieldDiaConsultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDiaConsultaActionPerformed
+
+    private void jButtonCrearCursadaAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCrearCursadaAltaActionPerformed
+    {//GEN-HEADEREND:event_jButtonCrearCursadaAltaActionPerformed
+        // TODO add your handling code here:
+        
+        if(this.jRadioButton1CAlta.isSelected() || this.jRadioButton2CAlta.isSelected())
+        {
+            Integer i=new Integer(null);
+            i=(Integer)i.parseInt(this.jTextFieldAñoAlta.getText());
+            if(this.jTextFieldAñoAlta.getText().length()==4 && i>2016 && i<2100)
+            {
+                
+            }
+        }
+    }//GEN-LAST:event_jButtonCrearCursadaAltaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1071,6 +1138,7 @@ public class VentanaCursada extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupAlta;
     private javax.swing.JButton jButtonAltasBajasAlumnosAlta;
     private javax.swing.JButton jButtonAltasBajasAlumnosMod;
     private javax.swing.JButton jButtonAltasBajasHorariosAlta;
