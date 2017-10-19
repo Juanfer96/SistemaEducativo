@@ -11,8 +11,12 @@ import java.util.Iterator;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 
+import javax.swing.JOptionPane;
+
 import sistemaeducativo.Asignatura;
+import sistemaeducativo.Cursada;
 import sistemaeducativo.Facultad;
+import sistemaeducativo.Profesor;
 
 /**
  *
@@ -25,6 +29,12 @@ public class VentanaCursada extends javax.swing.JFrame
     private Facultad facultad;
     private VentanaPrincipal ventana;
     private DefaultListModel modeloAlta;
+    private DefaultListModel modeloBaja;
+    private DefaultListModel modeloCursadaMod;
+    private DefaultListModel modeloAsignaturaMod;
+    private DefaultListModel modeloCursadaConsulta;
+    private DefaultListModel modeloAlumnoConsulta;
+    private DefaultListModel modeloProfesorConsulta;
     public VentanaCursada(Facultad f, VentanaPrincipal ventana)
     {
         initComponents();
@@ -36,10 +46,22 @@ public class VentanaCursada extends javax.swing.JFrame
         setTitle("Sistema Educativo -Profesor");
         setLocationRelativeTo(null);
         this.modeloAlta=new DefaultListModel();
+        this.modeloBaja=new DefaultListModel();
+        this.modeloCursadaMod=new DefaultListModel();
+        this.modeloAsignaturaMod=new DefaultListModel();
+        this.modeloCursadaConsulta=new DefaultListModel();
+        this.modeloAlumnoConsulta=new DefaultListModel();
+        this.modeloProfesorConsulta=new DefaultListModel();
     }
     public void limpiarModelo()
     {
         this.modeloAlta.clear();
+        this.modeloBaja.clear();
+        this.modeloCursadaMod.clear();
+        this.modeloAsignaturaMod.clear();
+        this.modeloCursadaConsulta.clear();
+        this.modeloAlumnoConsulta.clear();
+        this.modeloProfesorConsulta.clear();
         
 
     }
@@ -82,9 +104,6 @@ public class VentanaCursada extends javax.swing.JFrame
         jRadioButton2CAlta = new javax.swing.JRadioButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFieldAñoAlta = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jButtonAltasBajasAlumnosAlta = new javax.swing.JButton();
         jButtonAltasBajasProfesoresAlta = new javax.swing.JButton();
@@ -92,6 +111,11 @@ public class VentanaCursada extends javax.swing.JFrame
         jButtonVolverAlta = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jButtonCrearCursadaAlta = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jSpinnerAlta = new javax.swing.JSpinner();
+        jPanel32 = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
         jPanelBaja = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -211,7 +235,7 @@ public class VentanaCursada extends javax.swing.JFrame
                 .addGap(43, 43, 43))
         );
 
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonBuscarAlta.setText("Buscar");
         jButtonBuscarAlta.addActionListener(new java.awt.event.ActionListener()
@@ -224,7 +248,7 @@ public class VentanaCursada extends javax.swing.JFrame
         jPanel2.add(jButtonBuscarAlta);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel3.setLayout(new java.awt.GridLayout());
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
 
         buttonGroupAlta.add(jRadioButton1CAlta);
         jRadioButton1CAlta.setText("1°Cuatrimestre");
@@ -234,19 +258,10 @@ public class VentanaCursada extends javax.swing.JFrame
         jRadioButton2CAlta.setText("2°Cuatrimestre");
         jPanel3.add(jRadioButton2CAlta);
 
-        jPanel6.setLayout(new java.awt.GridLayout());
+        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setText("Ingrese el cuatrimestre");
         jPanel6.add(jLabel1);
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel7.setLayout(new java.awt.GridLayout(1, 2));
-
-        jLabel4.setText("Ingrese el año");
-        jPanel7.add(jLabel4);
-
-        jTextFieldAñoAlta.setText("ej:2017");
-        jPanel7.add(jTextFieldAñoAlta);
 
         jPanel8.setLayout(new java.awt.GridLayout(2, 2));
 
@@ -260,9 +275,16 @@ public class VentanaCursada extends javax.swing.JFrame
         jPanel8.add(jButtonAltasBajasHorariosAlta);
 
         jButtonVolverAlta.setText("Volver");
+        jButtonVolverAlta.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonVolverAltaActionPerformed(evt);
+            }
+        });
         jPanel8.add(jButtonVolverAlta);
 
-        jPanel9.setLayout(new java.awt.GridLayout());
+        jPanel9.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonCrearCursadaAlta.setText("Crear Cursada");
         jButtonCrearCursadaAlta.addActionListener(new java.awt.event.ActionListener()
@@ -272,6 +294,30 @@ public class VentanaCursada extends javax.swing.JFrame
                 jButtonCrearCursadaAltaActionPerformed(evt);
             }
         });
+        jPanel9.add(jButtonCrearCursadaAlta);
+
+        jPanel7.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel4.setText("       20");
+        jPanel7.add(jLabel4);
+        jPanel7.add(jSpinnerAlta);
+
+        jLabel23.setText("Ingrese el año");
+
+        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
+        jPanel32.setLayout(jPanel32Layout);
+        jPanel32Layout.setHorizontalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel32Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel23))
+        );
+        jPanel32Layout.setVerticalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel32Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel23))
+        );
 
         javax.swing.GroupLayout jPanelAltaLayout = new javax.swing.GroupLayout(jPanelAlta);
         jPanelAlta.setLayout(jPanelAltaLayout);
@@ -282,19 +328,18 @@ public class VentanaCursada extends javax.swing.JFrame
                 .addGroup(jPanelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addGroup(jPanelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAltaLayout.createSequentialGroup()
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(108, 108, 108))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAltaLayout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
             .addGroup(jPanelAltaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonCrearCursadaAlta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanelAltaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelAltaLayout.createSequentialGroup()
@@ -315,19 +360,19 @@ public class VentanaCursada extends javax.swing.JFrame
         jPanelAltaLayout.setVerticalGroup(
             jPanelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAltaLayout.createSequentialGroup()
-                .addContainerGap(195, Short.MAX_VALUE)
-                .addGroup(jPanelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelAltaLayout.createSequentialGroup()
+                .addContainerGap(194, Short.MAX_VALUE)
+                .addGroup(jPanelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAltaLayout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonCrearCursadaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(118, 118, 118))
             .addGroup(jPanelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelAltaLayout.createSequentialGroup()
                     .addContainerGap()
@@ -354,7 +399,7 @@ public class VentanaCursada extends javax.swing.JFrame
         jPanel10.add(jLabel5);
         jPanel10.add(jTextFieldNombreBaja);
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonBuscarBaja.setText("Buscar");
         jButtonBuscarBaja.addActionListener(new java.awt.event.ActionListener()
@@ -505,7 +550,7 @@ public class VentanaCursada extends javax.swing.JFrame
         jPanel16.add(jLabel9);
         jPanel16.add(jTextFieldNombreNuevoMod);
 
-        jPanel17.setLayout(new java.awt.GridLayout());
+        jPanel17.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonBuscarAsigMod.setText("Buscar");
         jButtonBuscarAsigMod.addActionListener(new java.awt.event.ActionListener()
@@ -543,7 +588,7 @@ public class VentanaCursada extends javax.swing.JFrame
         );
 
         jPanel19.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel19.setLayout(new java.awt.GridLayout());
+        jPanel19.setLayout(new java.awt.GridLayout(1, 0));
 
         jRadioButton1CMod.setText("1°Cuatrimestre");
         jPanel19.add(jRadioButton1CMod);
@@ -560,7 +605,7 @@ public class VentanaCursada extends javax.swing.JFrame
         jTextFieldAñoMod.setText("ej:2017");
         jPanel20.add(jTextFieldAñoMod);
 
-        jPanel21.setLayout(new java.awt.GridLayout());
+        jPanel21.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel12.setText("Modificar Cuatrimestre");
         jPanel21.add(jLabel12);
@@ -579,7 +624,7 @@ public class VentanaCursada extends javax.swing.JFrame
         jButtonVolverMod.setText("Volver");
         jPanel22.add(jButtonVolverMod);
 
-        jPanel14.setLayout(new java.awt.GridLayout());
+        jPanel14.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonBuscarMod.setText("Buscar");
         jButtonBuscarMod.addActionListener(new java.awt.event.ActionListener()
@@ -591,7 +636,7 @@ public class VentanaCursada extends javax.swing.JFrame
         });
         jPanel14.add(jButtonBuscarMod);
 
-        jPanel24.setLayout(new java.awt.GridLayout());
+        jPanel24.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonConfirmarMod.setText("Confirmar cambios");
 
@@ -724,7 +769,7 @@ public class VentanaCursada extends javax.swing.JFrame
         jPanel23.add(jLabel13);
         jPanel23.add(jTextFieldNombreConsulta);
 
-        jPanel25.setLayout(new java.awt.GridLayout());
+        jPanel25.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonBuscarConsulta.setText("Buscar");
         jButtonBuscarConsulta.addActionListener(new java.awt.event.ActionListener()
@@ -761,7 +806,7 @@ public class VentanaCursada extends javax.swing.JFrame
                 .addGap(68, 68, 68))
         );
 
-        jPanel27.setLayout(new java.awt.GridLayout());
+        jPanel27.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonCargarConsulta.setText("Cargar");
         jPanel27.add(jButtonCargarConsulta);
@@ -870,7 +915,7 @@ public class VentanaCursada extends javax.swing.JFrame
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel31.setLayout(new java.awt.GridLayout());
+        jPanel31.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonVolverConsulta.setText("Volver");
         jPanel31.add(jButtonVolverConsulta);
@@ -985,15 +1030,15 @@ public class VentanaCursada extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonBuscarBajaActionPerformed
         // TODO add your handling code here:
         this.limpiarModelo();
-        ArrayList<Asignatura> asignaturas=this.facultad.buscarAsignaturaPorNombre(this.jTextFieldNombreAlta.getText().toUpperCase());
-        Iterator it=asignaturas.iterator();
+        ArrayList<Cursada> cursadas=this.facultad.buscarCursadaPorNombre(this.jTextFieldNombreBaja.getText().toUpperCase());
+        Iterator it=cursadas.iterator();
 
         while(it.hasNext())
         {
-            Asignatura a=(Asignatura)it.next();
-            modeloBaja.addElement(a);
+            Cursada c=(Cursada)it.next();
+            modeloBaja.addElement(c);
         }
-        this.jListAlta.setModel(modeloBaja);
+        this.jListBaja.setModel(modeloBaja);
     }//GEN-LAST:event_jButtonBuscarBajaActionPerformed
 
     private void jButtonVolverBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverBajaActionPerformed
@@ -1006,11 +1051,11 @@ public class VentanaCursada extends javax.swing.JFrame
     private void jButtonEliminarBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEliminarBajaActionPerformed
     {//GEN-HEADEREND:event_jButtonEliminarBajaActionPerformed
         // TODO add your handling code here:
-        int n=this.jListAlta.getSelectedIndex();
-        Asignatura a=(Asignatura) this.modeloBaja.getElementAt(n);
-        this.facultad.bajaAsignatura(a);
+        int n=this.jListBaja.getSelectedIndex();
+        Cursada c=(Cursada) this.modeloBaja.getElementAt(n);
+        this.facultad.bajaCursada(c);
         this.limpiarModelo();
-        JOptionPane.showMessageDialog(null,"La asignatura fue eliminada con exito","Gracias",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null,"La cursada fue eliminada con exito","Gracias",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonEliminarBajaActionPerformed
 
     private void jButtonBuscarAsigModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarAsigModActionPerformed
@@ -1050,13 +1095,44 @@ public class VentanaCursada extends javax.swing.JFrame
         if(this.jRadioButton1CAlta.isSelected() || this.jRadioButton2CAlta.isSelected())
         {
             Integer i=new Integer(null);
-            i=(Integer)i.parseInt(this.jTextFieldAñoAlta.getText());
-            if(this.jTextFieldAñoAlta.getText().length()==4 && i>2016 && i<2100)
+            i=(Integer)this.jSpinnerAlta.getValue();
+            if(i>2016)
             {
-                
-            }
+                int n=this.jListAlta.getSelectedIndex();
+                if(n!=-1){
+                Asignatura a=(Asignatura) this.modeloAlta.getElementAt(n);
+                String s;
+                if(this.jRadioButton1CAlta.isSelected())
+                {
+                    s="01-";                            
+                }else
+                {
+                    s="02-";
+                }
+                s+=i.toString();
+                this.facultad.agregarCursada(a, s);
+                this.limpiarModelo();
+                }else
+                {
+                    JOptionPane.showMessageDialog(null, "Seleccione una asignatura por favor","Error",JOptionPane.ERROR_MESSAGE);   
+                }
+             }
+                else{
+                    JOptionPane.showMessageDialog(null, "El año ingresado es incorrecto","Error",JOptionPane.ERROR_MESSAGE);
+                }
+        }else
+        {
+            JOptionPane.showMessageDialog(null, "Seleccione un cuatrimestre por favor","Error",JOptionPane.ERROR_MESSAGE);
         }
+        
     }//GEN-LAST:event_jButtonCrearCursadaAltaActionPerformed
+
+    private void jButtonVolverAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverAltaActionPerformed
+    {//GEN-HEADEREND:event_jButtonVolverAltaActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        this.ventana.setVisible(true);
+    }//GEN-LAST:event_jButtonVolverAltaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1173,6 +1249,7 @@ public class VentanaCursada extends javax.swing.JFrame
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1212,6 +1289,7 @@ public class VentanaCursada extends javax.swing.JFrame
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -1233,8 +1311,8 @@ public class VentanaCursada extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JSpinner jSpinnerAlta;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextFieldAñoAlta;
     private javax.swing.JTextField jTextFieldAñoConsulta;
     private javax.swing.JTextField jTextFieldAñoMod;
     private javax.swing.JTextField jTextFieldCuatrimestreConsulta;
