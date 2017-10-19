@@ -947,6 +947,13 @@ public class VentanaCursada extends javax.swing.JFrame
         jPanel31.setLayout(new java.awt.GridLayout(1, 0));
 
         jButtonVolverConsulta.setText("Volver");
+        jButtonVolverConsulta.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonVolverConsultaActionPerformed(evt);
+            }
+        });
         jPanel31.add(jButtonVolverConsulta);
 
         jListHorariosConsulta.setModel(new javax.swing.AbstractListModel<String>()
@@ -1314,6 +1321,13 @@ public class VentanaCursada extends javax.swing.JFrame
             JOptionPane.showMessageDialog(null, "Debe seleccionar una cursada","Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonCargarConsultaActionPerformed
+
+    private void jButtonVolverConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverConsultaActionPerformed
+    {//GEN-HEADEREND:event_jButtonVolverConsultaActionPerformed
+        this.dispose();
+        this.ventana.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonVolverConsultaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -98,13 +98,13 @@
     <string>ASI0003</string>
     <object class="sistemaeducativo.Cursada">
      <void property="asignatura">
-      <object idref="Asignatura2"/>
+      <object idref="Asignatura0"/>
      </void>
      <void property="id">
       <string>ASI0003</string>
      </void>
      <void property="periodo">
-      <string>01-2018</string>
+      <string>01-2017</string>
      </void>
     </object>
    </void>
