@@ -30,13 +30,12 @@ import sistemaeducativo.HorarioCursadaSuperpuestaException;
 public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
     
     private Facultad facultad;
-    //Cambiar el tipo de ventana
-    private VentanaPrincipal ventana;
+    private VentanaCursada ventana;
     private DefaultListModel modeloCursadas;
     private DefaultListModel modeloHorarios;
     
     /** Creates new form VentanaAltasBajasHorariosCursada */
-    public VentanaAltasBajasHorariosCursada(Facultad f, VentanaPrincipal ventana) {
+    public VentanaAltasBajasHorariosCursada(Facultad f, VentanaCursada ventana) {
         initComponents();
         this.facultad=f;
         this.ventana=ventana;
@@ -264,7 +263,7 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
 
         jLabel5.setText("Minuto:");
 
-        jSpinnerHoraInicio.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+        jSpinnerHoraInicio.setModel(new javax.swing.SpinnerNumberModel(8, 0, 23, 1));
 
         jSpinnerMinutoInicio.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
@@ -301,7 +300,7 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
 
         jLabel7.setText("Minuto:");
 
-        jSpinnerHoraFin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+        jSpinnerHoraFin.setModel(new javax.swing.SpinnerNumberModel(8, 0, 23, 1));
 
         jSpinnerMinutoFin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 

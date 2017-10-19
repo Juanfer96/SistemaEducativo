@@ -14,6 +14,13 @@ public class Cursada
     private Asignatura asignatura;
     private String periodo;
     private ArrayList<Fecha> horario=new ArrayList<>();
+
+    @Override
+    public String toString()
+    {
+        // TODO Implement this method
+        return "ID: "+this.getId()+"  Asignatura: "+this.getAsignatura().getNombre()+" Cuatrimestre: "+this.periodo.substring(0, 2)+" Año: "+this.getPeriodo().substring(3, 7);
+    }
     private Hashtable<String,Profesor> profesores=new Hashtable<String, Profesor>();
     private Hashtable<String,Alumno> alumnos=new Hashtable<String,Alumno>();
     
@@ -197,11 +204,5 @@ public class Cursada
             return true;
         }
         return false;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Asignatura: "+this.getAsignatura().getNombre()+"\tID: "+this.getId()+"\tPeríodo: "+this.getPeriodo();
     }
 }

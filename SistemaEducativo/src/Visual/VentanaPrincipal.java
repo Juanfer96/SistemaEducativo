@@ -41,14 +41,15 @@ public class VentanaPrincipal extends javax.swing.JFrame
 
         jPanel1 = new javax.swing.JPanel();
         jButtonAlumnoPrincipal = new javax.swing.JButton();
-        jButtonAsignaturaPrincipal = new javax.swing.JButton();
         jButtonProfesorPrincipal = new javax.swing.JButton();
+        jButtonAsignaturaPrincipal = new javax.swing.JButton();
         jButtonCursadaPrincipal = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setLayout(new java.awt.GridLayout(2, 2));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ventanas Interactivas"));
+        jPanel1.setLayout(new java.awt.GridLayout(4, 1));
 
         jButtonAlumnoPrincipal.setText("Alumno");
         jButtonAlumnoPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -58,14 +59,6 @@ public class VentanaPrincipal extends javax.swing.JFrame
         });
         jPanel1.add(jButtonAlumnoPrincipal);
 
-        jButtonAsignaturaPrincipal.setText("Asignatura");
-        jButtonAsignaturaPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAsignaturaPrincipalActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtonAsignaturaPrincipal);
-
         jButtonProfesorPrincipal.setText("Profesor");
         jButtonProfesorPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +66,14 @@ public class VentanaPrincipal extends javax.swing.JFrame
             }
         });
         jPanel1.add(jButtonProfesorPrincipal);
+
+        jButtonAsignaturaPrincipal.setText("Asignatura");
+        jButtonAsignaturaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAsignaturaPrincipalActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonAsignaturaPrincipal);
 
         jButtonCursadaPrincipal.setText("Cursada");
         jButtonCursadaPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -82,21 +83,31 @@ public class VentanaPrincipal extends javax.swing.JFrame
         });
         jPanel1.add(jButtonCursadaPrincipal);
 
+        jLabel1.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel1.setText("Menú principal");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(82, 82, 82)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                .addGap(97, 97, 97))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(151, 151, 151))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                .addGap(33, 33, 33))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(38, 38, 38)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -147,10 +158,11 @@ public class VentanaPrincipal extends javax.swing.JFrame
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAsignaturaPrincipalActionPerformed
 
-    private void jButtonCursadaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCursadaPrincipalActionPerformed
-        //Cambiar
-        VentanaAltasBajasHorariosCursada ventana=new VentanaAltasBajasHorariosCursada(this.facultad,this);
-        ventana.setVisible(true);
+    private void jButtonCursadaPrincipalActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCursadaPrincipalActionPerformed
+    {//GEN-HEADEREND:event_jButtonCursadaPrincipalActionPerformed
+        // TODO add your handling code here:
+        VentanaCursada ventanaCursada=new VentanaCursada(this.facultad,this);
+        ventanaCursada.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonCursadaPrincipalActionPerformed
 
@@ -169,6 +181,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
         //facultad.agregarCursada(a, "1");
         VentanaPrincipal ventana = new VentanaPrincipal(facultad);
         ventana.setVisible(true);
+
         try
         {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing
@@ -244,6 +257,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private javax.swing.JButton jButtonAsignaturaPrincipal;
     private javax.swing.JButton jButtonCursadaPrincipal;
     private javax.swing.JButton jButtonProfesorPrincipal;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
