@@ -81,6 +81,13 @@ public class VentanaPrincipal extends javax.swing.JFrame
         jPanel1.add(jButtonProfesorPrincipal);
 
         jButtonCursadaPrincipal.setText("Cursada");
+        jButtonCursadaPrincipal.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonCursadaPrincipalActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonCursadaPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -148,6 +155,14 @@ public class VentanaPrincipal extends javax.swing.JFrame
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAsignaturaPrincipalActionPerformed
 
+    private void jButtonCursadaPrincipalActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCursadaPrincipalActionPerformed
+    {//GEN-HEADEREND:event_jButtonCursadaPrincipalActionPerformed
+        // TODO add your handling code here:
+        VentanaCursada ventanaCursada=new VentanaCursada(this.facultad,this);
+        ventanaCursada.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonCursadaPrincipalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -161,6 +176,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
         Facultad facultad=Persistencia.leerArchivo();
         VentanaPrincipal ventana = new VentanaPrincipal(facultad);
         ventana.setVisible(true);
+
         try
         {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing

@@ -250,7 +250,7 @@ public class Facultad {
         while (it.hasNext()) {
             Map.Entry m = (Map.Entry) it.next();
             c = (Cursada) m.getValue();
-            if (c.getAsignatura().equals(asignatura)) {
+            if (c.getAsignatura().getNombre().equals(asignatura)) {
                 cursadasReturn.add(c);
             }
         }
