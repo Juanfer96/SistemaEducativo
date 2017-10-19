@@ -66,6 +66,6 @@ public class Asignatura
     public String toString()
     {
         // TODO Implement this method
-        return "Nombre: "+this.getNombre()+" ID: "+this.getId();
+        return this.getNombre()+" ID: "+this.getId();
     }
 }

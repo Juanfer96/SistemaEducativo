@@ -165,8 +165,8 @@ public class VentanaPrincipal extends javax.swing.JFrame
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         Facultad facultad=Persistencia.leerArchivo();
-        Asignatura a=facultad.agregarAsignatura("FISICA");
-        facultad.agregarCursada(a, "1");
+        //Asignatura a=facultad.agregarAsignatura("PROGRAMACION I");
+        //facultad.agregarCursada(a, "1");
         VentanaPrincipal ventana = new VentanaPrincipal(facultad);
         ventana.setVisible(true);
         try

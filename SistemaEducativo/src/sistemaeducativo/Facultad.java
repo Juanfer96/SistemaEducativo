@@ -129,7 +129,7 @@ public class Facultad {
 
     public Cursada agregarCursada(Asignatura asignatura,  String periodo) {
         String s = String.format("%04d", ++PROXIDCURSADA);
-        String id = "ASI" + s;
+        String id = "CUR" + s;
         Cursada a = new Cursada(id, asignatura, periodo);
         this.getCursadas().put(a.getId(), a);
         return a;
@@ -407,8 +407,8 @@ public class Facultad {
         return rta;
     }
     
-    public void agregarHorarioCursada(Cursada c, int horaInicio, int minInicio, int horaFin, int minFin, int dia) throws HorarioCursadaSuperpuestaException {
-        c.agregarHorario(dia, horaInicio, minInicio, horaFin, minFin);
+    public Fecha agregarHorarioCursada(Cursada c, int horaInicio, int minInicio, int horaFin, int minFin, int dia) throws HorarioCursadaSuperpuestaException, HorarioCursadaInvalidoException {
+        return c.agregarHorario(dia, horaInicio, minInicio, horaFin, minFin);
     }
     
     public ArrayList<Cursada> cursadasDeProfesor(Profesor p) {

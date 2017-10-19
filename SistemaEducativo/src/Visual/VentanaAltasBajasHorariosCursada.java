@@ -20,6 +20,7 @@ import sistemaeducativo.Asignatura;
 import sistemaeducativo.Cursada;
 import sistemaeducativo.Facultad;
 import sistemaeducativo.Fecha;
+import sistemaeducativo.HorarioCursadaInvalidoException;
 import sistemaeducativo.HorarioCursadaSuperpuestaException;
 
 /**
@@ -84,12 +85,12 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jListCursadas = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
-        jButtonCargarCursadas = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jListHorarios = new javax.swing.JList<>();
         jButtonEliminarHorario = new javax.swing.JButton();
+        LabelSinHorarios = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jRadioButtonLunes = new javax.swing.JRadioButton();
@@ -110,6 +111,8 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
         jSpinnerHoraFin = new javax.swing.JSpinner();
         jSpinnerMinutoFin = new javax.swing.JSpinner();
         jButtonAltaHorario = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        LabelIdCursada = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,16 +129,14 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
             }
         });
 
+        jListCursadas.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListCursadasValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(jListCursadas);
 
         jLabel2.setText("Seleccione cursada:");
-
-        jButtonCargarCursadas.setText("Cargar");
-        jButtonCargarCursadas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCargarCursadasActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -155,10 +156,6 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonCargarCursadas, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,17 +164,16 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldNombreCursada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonBuscarCursadas)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonCargarCursadas)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonBuscarCursadas)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Baja de horarios", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 102))); // NOI18N
@@ -202,6 +198,8 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(LabelSinHorarios)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,7 +211,9 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(jLabel8)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(LabelSinHorarios))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -231,6 +231,7 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
 
         buttonGroupDias.add(jRadioButtonLunes);
         jRadioButtonLunes.setMnemonic('0');
+        jRadioButtonLunes.setSelected(true);
         jRadioButtonLunes.setText("Lunes");
 
         buttonGroupDias.add(jRadioButtonMartes);
@@ -263,7 +264,7 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
 
         jLabel5.setText("Minuto:");
 
-        jSpinnerHoraInicio.setModel(new javax.swing.SpinnerNumberModel(1, 1, 24, 1));
+        jSpinnerHoraInicio.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
 
         jSpinnerMinutoInicio.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
@@ -300,7 +301,7 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
 
         jLabel7.setText("Minuto:");
 
-        jSpinnerHoraFin.setModel(new javax.swing.SpinnerNumberModel(1, 1, 24, 1));
+        jSpinnerHoraFin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
 
         jSpinnerMinutoFin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
@@ -394,6 +395,8 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel10.setText("ID de cursada seleccionada:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -405,17 +408,27 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LabelIdCursada)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(LabelIdCursada))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -438,6 +451,7 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
         pack();
     }//GEN-END:initComponents
 
+    
     private void jButtonBuscarCursadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarCursadasActionPerformed
         this.limpiarModelo();
         String asignatura=this.jTextFieldNombreCursada.getText().toUpperCase();
@@ -445,29 +459,11 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
         Iterator it=cursadas.iterator();
         while(it.hasNext())
         {
-            System.out.println("Entro");
             Cursada c=(Cursada)it.next();
             modeloCursadas.addElement(c);
         }
         this.jListCursadas.setModel(modeloCursadas);
     }//GEN-LAST:event_jButtonBuscarCursadasActionPerformed
-
-    private void jButtonCargarCursadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarCursadasActionPerformed
-        int n = this.jListCursadas.getSelectedIndex();
-        if (n != -1) {
-            Cursada c = (Cursada) this.modeloCursadas.getElementAt(n);
-            ArrayList<Fecha> fechas = this.facultad.buscarHorariosDeCursada(c);
-            Fecha f;
-            Iterator it = fechas.iterator();
-            while (it.hasNext()) {
-                f = (Fecha) it.next();
-                this.modeloHorarios.addElement(f);
-            }
-            this.jListHorarios.setModel(modeloHorarios);
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una cursada", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButtonCargarCursadasActionPerformed
 
     private void jButtonEliminarHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarHorarioActionPerformed
         int n=this.jListHorarios.getSelectedIndex();
@@ -476,14 +472,18 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
             int x=this.jListCursadas.getSelectedIndex();
             Cursada c=(Cursada) this.modeloCursadas.getElementAt(x);
             this.facultad.eliminarHorarioCursada(c, f);
-            this.limpiarModelo();   
+            JOptionPane.showMessageDialog(null, "El horario fue eliminado correctamente de la cursada","Información",JOptionPane.INFORMATION_MESSAGE);
+            this.modeloHorarios.removeElementAt(n);   
+            if(modeloHorarios.isEmpty()){
+                this.LabelSinHorarios.setText("Actualemente la cursada no tiene horarios establecidos");
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un horario","Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonEliminarHorarioActionPerformed
 
     private void jButtonAltaHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAltaHorarioActionPerformed
-        int dia=this.buttonGroupDias.getSelection().getMnemonic();
+        int dia;
         int horaInicio,minInicio,horaFin,minFin;
         horaInicio=(Integer)this.jSpinnerHoraInicio.getModel().getValue();
         horaFin=(Integer)this.jSpinnerHoraFin.getModel().getValue();
@@ -491,11 +491,32 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
         minFin=(Integer)this.jSpinnerMinutoFin.getModel().getValue();
         int n=this.jListCursadas.getSelectedIndex();
         if(n!=-1){
+            if(this.jRadioButtonLunes.isSelected()){
+                dia=0;
+            }else if(this.jRadioButtonMartes.isSelected()){
+                dia=1;
+            }else if(this.jRadioButtonMiercoles.isSelected()){
+                dia=2;
+            }else if(this.jRadioButtonJueves.isSelected()){
+                dia=3;
+            }else if(this.jRadioButtonViernes.isSelected()){
+                dia=4;
+            }else if(this.jRadioButtonSabado.isSelected()){
+                dia=5;
+            }else if(this.jRadioButtonDomingo.isSelected()){
+                dia=6;
+            }else dia=-1;
             Cursada c = (Cursada)this.modeloCursadas.getElementAt(n);
             try {
-                this.facultad.agregarHorarioCursada(c, horaInicio, minInicio, horaFin, minFin, dia);
+                Fecha f=this.facultad.agregarHorarioCursada(c, horaInicio, minInicio, horaFin, minFin, dia);
+                JOptionPane.showMessageDialog(null, "El horario fue establecido correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
+                this.LabelSinHorarios.setText("");
+                this.modeloHorarios.addElement(f);
+                this.jListHorarios.setModel(modeloHorarios);
             } catch (HorarioCursadaSuperpuestaException e) {
                 JOptionPane.showMessageDialog(null, "El horario establecido se superpone con otro horario de la misma cursada","Error",JOptionPane.ERROR_MESSAGE);
+            } catch (HorarioCursadaInvalidoException e) {
+                JOptionPane.showMessageDialog(null, "El horario de fin ("+e.getHoraFin().toString()+") no es mayor al horario de inicio ("+e.getHoraInicio().toString()+")","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
         else{
@@ -503,6 +524,26 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButtonAltaHorarioActionPerformed
+
+    private void jListCursadasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListCursadasValueChanged
+        int n=this.jListCursadas.getSelectedIndex();
+        this.modeloHorarios.clear();
+        Cursada c = (Cursada) this.modeloCursadas.getElementAt(n);
+        this.LabelIdCursada.setText(c.getId());
+        ArrayList<Fecha> fechas = this.facultad.buscarHorariosDeCursada(c);
+        if(fechas.size()==0){
+            this.LabelSinHorarios.setText("Actualemente la cursada no tiene horarios establecidos");
+        }else{
+            this.LabelSinHorarios.setText("");
+            Fecha f;
+            Iterator it = fechas.iterator();
+            while (it.hasNext()) {
+                f = (Fecha) it.next();
+                this.modeloHorarios.addElement(f);
+            }
+            this.jListHorarios.setModel(modeloHorarios);   
+        }   
+    }//GEN-LAST:event_jListCursadasValueChanged
 
     /**
      * @param args the command line arguments
@@ -574,12 +615,14 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LabelIdCursada;
+    private javax.swing.JLabel LabelSinHorarios;
     public static javax.swing.ButtonGroup buttonGroupDias;
     private javax.swing.JButton jButtonAltaHorario;
     private javax.swing.JButton jButtonBuscarCursadas;
-    private javax.swing.JButton jButtonCargarCursadas;
     private javax.swing.JButton jButtonEliminarHorario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -9,7 +9,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import java.time.LocalTime;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class Persistencia
@@ -36,6 +41,13 @@ public class Persistencia
             {
                 System.out.println("Error al intentar leer el archivo.");
             }
+            Fecha.setLUNES((Integer) decoder.readObject());
+            Fecha.setMARTES((Integer) decoder.readObject());
+            Fecha.setMIERCOLES((Integer) decoder.readObject());
+            Fecha.setJUEVES((Integer) decoder.readObject());
+            Fecha.setVIERNES((Integer) decoder.readObject());
+            Fecha.setSABADO((Integer) decoder.readObject());
+            Fecha.setDOMINGO((Integer) decoder.readObject());
             Facultad.setPROXLEGAJOALUM((Integer) decoder.readObject());
             Facultad.setPROXLEGAJOPROF((Integer) decoder.readObject());
             Facultad.setPROXIDCURSADA((Integer) decoder.readObject());
@@ -65,6 +77,13 @@ public class Persistencia
         {
             System.out.println("Error al intentar guardar el archivo.");
         }
+        encoder.writeObject(Fecha.getLUNES());
+        encoder.writeObject(Fecha.getMARTES());
+        encoder.writeObject(Fecha.getMIERCOLES());
+        encoder.writeObject(Fecha.getJUEVES());
+        encoder.writeObject(Fecha.getVIERNES());
+        encoder.writeObject(Fecha.getSABADO());
+        encoder.writeObject(Fecha.getDOMINGO());
         encoder.writeObject(Facultad.getPROXLEGAJOALUM());
         encoder.writeObject(Facultad.getPROXLEGAJOPROF());
         encoder.writeObject(Facultad.getPROXIDCURSADA());

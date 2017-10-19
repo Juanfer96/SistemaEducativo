@@ -1,93 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_101" class="java.beans.XMLDecoder">
- <int>4</int>
+ <int>0</int>
+ <int>1</int>
+ <int>2</int>
  <int>3</int>
+ <int>4</int>
+ <int>5</int>
  <int>6</int>
- <int>9</int>
+ <int>0</int>
+ <int>0</int>
+ <int>1</int>
+ <int>1</int>
  <object class="sistemaeducativo.Facultad" id="Facultad0">
-  <void id="TreeMap0" property="alumnos">
-   <void method="put">
-    <string>ALU0001</string>
-    <object class="sistemaeducativo.Alumno">
-     <void property="apellido">
-      <string>PONCE</string>
-     </void>
-     <void property="domicilio">
-      <string>123</string>
-     </void>
-     <void property="legajo">
-      <string>ALU0001</string>
-     </void>
-     <void property="mail">
-      <string>123@123</string>
-     </void>
-     <void property="nombre">
-      <string>EMANUEL</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ALU0002</string>
-    <object class="sistemaeducativo.Alumno">
-     <void property="apellido">
-      <string>PICO</string>
-     </void>
-     <void property="domicilio">
-      <string>123</string>
-     </void>
-     <void property="legajo">
-      <string>ALU0002</string>
-     </void>
-     <void property="mail">
-      <string>321@132</string>
-     </void>
-     <void property="nombre">
-      <string>JUAN</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ALU0003</string>
-    <object class="sistemaeducativo.Alumno">
-     <void property="apellido">
-      <string>CABEZA</string>
-     </void>
-     <void property="domicilio">
-      <string>ASD</string>
-     </void>
-     <void property="legajo">
-      <string>ALU0003</string>
-     </void>
-     <void property="mail">
-      <string>asd@dasa</string>
-     </void>
-     <void property="nombre">
-      <string>DALILA</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ALU0004</string>
-    <object class="sistemaeducativo.Alumno">
-     <void property="apellido">
-      <string>FERRER</string>
-     </void>
-     <void property="domicilio">
-      <string>CONSITITUCION</string>
-     </void>
-     <void property="legajo">
-      <string>ALU0004</string>
-     </void>
-     <void property="mail">
-      <string>123@321</string>
-     </void>
-     <void property="nombre">
-      <string>MARIANO</string>
-     </void>
-    </object>
-   </void>
-  </void>
-  <void id="TreeMap1" property="asignaturas">
+  <void id="TreeMap0" property="asignaturas">
    <void method="put">
     <string>ASI0001</string>
     <object class="sistemaeducativo.Asignatura" id="Asignatura0">
@@ -95,194 +20,35 @@
       <string>ASI0001</string>
      </void>
      <void property="nombre">
-      <string>ANALISIS A</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0002</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura1">
-     <void property="correlatividades">
-      <void method="put">
-       <string>ASI0001</string>
-       <object idref="Asignatura0"/>
-      </void>
-     </void>
-     <void property="id">
-      <string>ASI0002</string>
-     </void>
-     <void property="nombre">
-      <string>ANALISIS B</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0003</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura2">
-     <void property="correlatividades">
-      <void method="put">
-       <string>ASI0002</string>
-       <object idref="Asignatura1"/>
-      </void>
-      <void method="put">
-       <string>ASI0001</string>
-       <object idref="Asignatura0"/>
-      </void>
-     </void>
-     <void property="id">
-      <string>ASI0003</string>
-     </void>
-     <void property="nombre">
-      <string>ANALISIS C</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0004</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura3">
-     <void property="id">
-      <string>ASI0004</string>
-     </void>
-     <void property="nombre">
-      <string>Fisica</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0005</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura4">
-     <void property="id">
-      <string>ASI0005</string>
-     </void>
-     <void property="nombre">
-      <string>FISICA</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0006</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura5">
-     <void property="id">
-      <string>ASI0006</string>
-     </void>
-     <void property="nombre">
-      <string>FISICA</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0007</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura6">
-     <void property="id">
-      <string>ASI0007</string>
-     </void>
-     <void property="nombre">
-      <string>FISICA</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0008</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura7">
-     <void property="id">
-      <string>ASI0008</string>
-     </void>
-     <void property="nombre">
-      <string>FISICA</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0009</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura8">
-     <void property="id">
-      <string>ASI0009</string>
-     </void>
-     <void property="nombre">
-      <string>FISICA</string>
+      <string>PROGRAMACION I</string>
      </void>
     </object>
    </void>
   </void>
-  <void id="TreeMap2" property="cursadas">
+  <void id="TreeMap1" property="cursadas">
    <void method="put">
-    <string>ASI0001</string>
-    <object class="sistemaeducativo.Cursada">
+    <string>CUR0001</string>
+    <object class="sistemaeducativo.Cursada" id="Cursada0">
      <void property="asignatura">
-      <object idref="Asignatura3"/>
+      <object idref="Asignatura0"/>
+     </void>
+     <void property="horario">
+      <void method="add">
+       <object class="sistemaeducativo.Fecha">
+        <void property="dia">
+         <int>3</int>
+        </void>
+        <void property="horaFin">
+         <string>17:00</string>
+        </void>
+        <void property="horaInicio">
+         <string>14:00</string>
+        </void>
+       </object>
+      </void>
      </void>
      <void property="id">
-      <string>ASI0001</string>
-     </void>
-     <void property="periodo">
-      <string>1</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0002</string>
-    <object class="sistemaeducativo.Cursada">
-     <void property="asignatura">
-      <object idref="Asignatura4"/>
-     </void>
-     <void property="id">
-      <string>ASI0002</string>
-     </void>
-     <void property="periodo">
-      <string>1</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0003</string>
-    <object class="sistemaeducativo.Cursada">
-     <void property="asignatura">
-      <object idref="Asignatura5"/>
-     </void>
-     <void property="id">
-      <string>ASI0003</string>
-     </void>
-     <void property="periodo">
-      <string>1</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0004</string>
-    <object class="sistemaeducativo.Cursada">
-     <void property="asignatura">
-      <object idref="Asignatura6"/>
-     </void>
-     <void property="id">
-      <string>ASI0004</string>
-     </void>
-     <void property="periodo">
-      <string>1</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0005</string>
-    <object class="sistemaeducativo.Cursada">
-     <void property="asignatura">
-      <object idref="Asignatura7"/>
-     </void>
-     <void property="id">
-      <string>ASI0005</string>
-     </void>
-     <void property="periodo">
-      <string>1</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>ASI0006</string>
-    <object class="sistemaeducativo.Cursada">
-     <void property="asignatura">
-      <object idref="Asignatura8"/>
-     </void>
-     <void property="id">
-      <string>ASI0006</string>
+      <string>CUR0001</string>
      </void>
      <void property="periodo">
       <string>1</string>
@@ -290,51 +56,11 @@
     </object>
    </void>
   </void>
-  <void id="TreeMap3" property="profesores">
-   <void method="put">
-    <string>PRO0001</string>
-    <object class="sistemaeducativo.Profesor">
-     <void property="apellido">
-      <string>PEREZ</string>
-     </void>
-     <void property="domicilio">
-      <string>ASD</string>
-     </void>
-     <void property="legajo">
-      <string>PRO0001</string>
-     </void>
-     <void property="mail">
-      <string>asd@dsa</string>
-     </void>
-     <void property="nombre">
-      <string>JUAN</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>PRO0003</string>
-    <object class="sistemaeducativo.Profesor">
-     <void property="apellido">
-      <string>PEREZ</string>
-     </void>
-     <void property="domicilio">
-      <string>AS@DS</string>
-     </void>
-     <void property="legajo">
-      <string>PRO0003</string>
-     </void>
-     <void property="mail">
-      <string>as@ds</string>
-     </void>
-     <void property="nombre">
-      <string>JUANSITO</string>
-     </void>
-    </object>
-   </void>
-  </void>
+  <void id="TreeMap2" property="alumnos"/>
+  <void id="TreeMap3" property="profesores"/>
  </object>
- <object idref="TreeMap0"/>
- <object idref="TreeMap3"/>
- <object idref="TreeMap1"/>
  <object idref="TreeMap2"/>
+ <object idref="TreeMap3"/>
+ <object idref="TreeMap0"/>
+ <object idref="TreeMap1"/>
 </java>

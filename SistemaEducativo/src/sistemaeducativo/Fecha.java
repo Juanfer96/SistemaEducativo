@@ -12,13 +12,17 @@ public class Fecha {
     public static int DOMINGO=6;
     
     private int dia;
-    private LocalTime horaInicio;
-    private LocalTime horaFin;
+    private String horaInicio;
+    private String horaFin;
     
     public Fecha(int dia, int horaInicio, int minInicio, int horaFin, int minFin) {
         this.dia=dia;
-        this.horaInicio=LocalTime.of(horaInicio, minInicio);
-        this.horaFin=LocalTime.of(horaFin, minFin);
+        this.horaInicio = String.format("%02d", horaInicio)+":"+String.format("%02d", minInicio);
+        this.horaFin= String.format("%02d", horaFin)+":"+String.format("%02d", minFin);
+    }
+    
+    public Fecha(){
+        super();
     }
 
 
@@ -54,21 +58,63 @@ public class Fecha {
         return dia;
     }
 
-    public LocalTime getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public LocalTime getHoraFin() {
+    public String getHoraFin() {
         return horaFin;
     }
-    
+
+
+    public static void setLUNES(int LUNES) {
+        Fecha.LUNES = LUNES;
+    }
+
+    public static void setMARTES(int MARTES) {
+        Fecha.MARTES = MARTES;
+    }
+
+    public static void setMIERCOLES(int MIERCOLES) {
+        Fecha.MIERCOLES = MIERCOLES;
+    }
+
+    public static void setJUEVES(int JUEVES) {
+        Fecha.JUEVES = JUEVES;
+    }
+
+    public static void setVIERNES(int VIERNES) {
+        Fecha.VIERNES = VIERNES;
+    }
+
+    public static void setSABADO(int SABADO) {
+        Fecha.SABADO = SABADO;
+    }
+
+    public static void setDOMINGO(int DOMINGO) {
+        Fecha.DOMINGO = DOMINGO;
+    }
+
+
+    public void setDia(int dia) {
+        this.dia = dia;
+    }
+
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public void setHoraFin(String horaFin) {
+        this.horaFin = horaFin;
+    }
+
     /**
      *
      * @param fecha
      * @return true si se superpone this con fecha. false en caso contrario
      */
     public boolean superpone(Fecha fecha) {
-        if(this.horaInicio.compareTo(fecha.getHoraInicio())==0 || this.horaInicio.isAfter(fecha.getHoraInicio()) && this.horaInicio.isBefore(fecha.getHoraFin()) || this.horaFin.isBefore(fecha.getHoraFin()) && this.horaFin.isAfter(fecha.getHoraInicio()) || this.horaInicio.isBefore(fecha.getHoraInicio()) && this.horaFin.isAfter(fecha.getHoraFin())) {
+        if(this.horaInicio.compareTo(fecha.getHoraInicio())==0 || this.horaInicio.compareTo(fecha.getHoraInicio())>0 && this.horaInicio.compareTo(fecha.getHoraFin())<0 || this.horaFin.compareTo(fecha.getHoraFin())<0 && this.horaFin.compareTo(fecha.getHoraInicio())>0 || this.horaInicio.compareTo(fecha.getHoraInicio())<0 && this.horaFin.compareTo(fecha.getHoraFin())>0 ) {
             return true;
         }
         return false;
@@ -77,6 +123,24 @@ public class Fecha {
 
     @Override
     public String toString() {
-        return super.toString();
+        String dia;
+        switch(this.dia){
+        case 0: dia="Lunes";
+            break;
+        case 1: dia="Martes";
+            break;
+        case 2: dia="Miercoles";
+            break;
+        case 3: dia="Jueves";
+            break;
+        case 4: dia="Viernes";
+            break;
+        case 5: dia="Sabado";
+            break;
+        case 6: dia="Domingo";
+            break;
+        default: dia=null;
+        }
+        return dia+" de "+this.getHoraInicio()+" a "+this.getHoraFin();
     }
 }

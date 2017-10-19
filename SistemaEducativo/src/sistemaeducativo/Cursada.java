@@ -153,27 +153,36 @@ public class Cursada
      * @param minFin
      */
     //Considere horario superpuesto solo entre la misma cursada
-    public void agregarHorario(int dia, int horaInicio, int minInicio, int horaFin, int minFin) throws HorarioCursadaSuperpuestaException {
-        if(this.getHorario().isEmpty()) {
-            //No habra cursadas superpuestas de esa asignatura, ya que será la primera que se inserta.
-            Fecha f= new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
-            this.getHorario().add(f);
-        }
-        else {
-            Fecha fechaEstablecida;
-            Fecha fechaEntrada=new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
-            Iterator it=this.getHorario().iterator();
-            while(it.hasNext()) {
-                fechaEstablecida=(Fecha)it.next();
-                if(fechaEstablecida.getDia()==fechaEntrada.getDia()) {
-                    if(fechaEstablecida.superpone(fechaEntrada)) {
-                        throw new HorarioCursadaSuperpuestaException(fechaEntrada,this);
+    public Fecha agregarHorario(int dia, int horaInicio, int minInicio, int horaFin, int minFin) throws HorarioCursadaSuperpuestaException, HorarioCursadaInvalidoException {
+        LocalTime auxInicio=LocalTime.of(horaInicio, minInicio);
+        LocalTime auxFin=LocalTime.of(horaFin, minFin);
+        Fecha f=null;
+        if(!auxFin.isAfter(auxInicio))//El horario de fin es menor o igual al horario de inicio
+        {
+            throw new HorarioCursadaInvalidoException(auxInicio,auxFin);
+        }else{
+            if(this.getHorario().isEmpty()) {
+                //No habra cursadas superpuestas de esa asignatura, ya que será la primera que se inserta.
+                f= new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
+                this.getHorario().add(f);
+            }
+            else {
+                Fecha fechaEstablecida;
+                Fecha fechaEntrada=new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
+                Iterator it=this.getHorario().iterator();
+                while(it.hasNext()) {
+                    fechaEstablecida=(Fecha)it.next();
+                    if(fechaEstablecida.getDia()==fechaEntrada.getDia()) {
+                        if(fechaEstablecida.superpone(fechaEntrada)) {
+                            throw new HorarioCursadaSuperpuestaException(fechaEntrada,this);
+                        }
                     }
                 }
-            }
-            Fecha f= new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
-            this.getHorario().add(f);
+                f= new Fecha(dia,horaInicio,minInicio,horaFin,minFin);
+                this.getHorario().add(f);
+            }   
         }
+        return f;
     }
     
     public boolean contieneAlumno(Alumno a) {
@@ -193,6 +202,6 @@ public class Cursada
 
     @Override
     public String toString() {
-        return "Asignatura: "+this.getAsignatura()+"\tID: "+this.getId()+"\tPeríodo: "+this.getPeriodo();
+        return "Asignatura: "+this.getAsignatura().getNombre()+"\tID: "+this.getId()+"\tPeríodo: "+this.getPeriodo();
     }
 }
