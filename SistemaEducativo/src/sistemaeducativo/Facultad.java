@@ -264,6 +264,12 @@ public class Facultad {
     public void eliminarHorarioCursada(Cursada c, Fecha f) {
         c.eliminarHorario(f);
     }
+    public void eliminarAlumnoCursada(Cursada c, Alumno a) {
+        c.eliminarAlumno(a.getLegajo());
+    }
+    public void eliminarProfesorCursada(Cursada c, Profesor p) {
+        c.eliminarProfesor(p.getLegajo());
+    }
     
     public ArrayList<Asignatura> buscarAsignaturaPorNombre(String asignatura) {
         ArrayList<Asignatura> asignaturasReturn = new ArrayList<Asignatura>();

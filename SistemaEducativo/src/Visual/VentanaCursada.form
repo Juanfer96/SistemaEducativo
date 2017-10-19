@@ -985,6 +985,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Altas/Bajas de Alumnos"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAltasBajasAlumnosModActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonAltasBajasProfesoresMod">
                   <Properties>
@@ -995,6 +998,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Altas/Bajas Horarios"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAltasBajasHorariosModActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonVolverMod">
                   <Properties>
