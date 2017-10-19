@@ -36,18 +36,18 @@ public class Persistencia
             {
                 System.out.println("Error al intentar leer el archivo.");
             }
+            Facultad.setPROXLEGAJOALUM((Integer) decoder.readObject());
+            Facultad.setPROXLEGAJOPROF((Integer) decoder.readObject());
+            Facultad.setPROXIDCURSADA((Integer) decoder.readObject());
+            Facultad.setPROXIDASIGNATURA((Integer) decoder.readObject());
             facultad = (Facultad)decoder.readObject();
             facultad.setAlumnos((TreeMap<String, Alumno>)decoder.readObject());
             facultad.setProfesores((TreeMap<String, Profesor>)decoder.readObject());
             facultad.setAsignaturas((TreeMap<String, Asignatura>)decoder.readObject());
             facultad.setCursadas((TreeMap<String, Cursada>)decoder.readObject());
-            facultad.setPROXLEGAJOALUM((Integer) decoder.readObject());
-            facultad.setPROXLEGAJOPROF((Integer) decoder.readObject());
-            facultad.setPROXIDCURSADA((Integer) decoder.readObject());
-            facultad.setPROXIDASIGNATURA((Integer) decoder.readObject());
             decoder.close();
         }
-        else // Si el archivo no existe es por ser la primer corrida del sistema. Se debe por lo tanto crear un Manager
+        else // Si el archivo no existe es por ser la primer corrida del sistema. Se debe por lo tanto crear una Facultad
         {
             facultad = Facultad.getInstancia();
         }
@@ -65,15 +65,15 @@ public class Persistencia
         {
             System.out.println("Error al intentar guardar el archivo.");
         }
+        encoder.writeObject(Facultad.getPROXLEGAJOALUM());
+        encoder.writeObject(Facultad.getPROXLEGAJOPROF());
+        encoder.writeObject(Facultad.getPROXIDCURSADA());
+        encoder.writeObject(Facultad.getPROXIDASIGNATURA());
         encoder.writeObject(facultad);
         encoder.writeObject(facultad.getAlumnos());
         encoder.writeObject(facultad.getProfesores());
         encoder.writeObject(facultad.getAsignaturas());
         encoder.writeObject(facultad.getCursadas());
-        encoder.writeObject(Facultad.getPROXLEGAJOALUM());
-        encoder.writeObject(Facultad.getPROXLEGAJOPROF());
-        encoder.writeObject(Facultad.getPROXIDCURSADA());
-        encoder.writeObject(Facultad.getPROXIDASIGNATURA());
         encoder.close();
     }
 }

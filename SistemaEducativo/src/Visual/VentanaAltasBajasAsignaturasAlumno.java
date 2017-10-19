@@ -363,6 +363,7 @@ public class VentanaAltasBajasAsignaturasAlumno extends javax.swing.JFrame
     private void jButtonBuscarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarModActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarModActionPerformed
         // TODO add your handling code here
+        this.limpiarModelo();
         String nombre=this.jTextFieldNombre.getText().toUpperCase();
         String apellido=this.jTextFieldApellido.getText().toUpperCase();
         ArrayList<Alumno> alumnos=facultad.buscarAlumnoPorNombre(nombre, apellido);;
@@ -380,28 +381,36 @@ public class VentanaAltasBajasAsignaturasAlumno extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonAltaActionPerformed
         
         int n=this.jListAlumnos.getSelectedIndex();
-        Alumno a=(Alumno) this.modeloBuscar.getElementAt(n);
-        int x=this.jListAsignaturasAltas.getSelectedIndex();
-        Asignatura asig=(Asignatura) this.modeloAlta.getElementAt(x);
-        try
-        {
-            this.facultad.aprobarAlumnoAsignatura(a, asig);
-        } catch (AsignaturaAprobadaYaRegistradaException e)
-        {
-            JOptionPane.showMessageDialog(null, "La asignatura ya se encuentra aprobada");
+        if(n!=-1){
+            Alumno a=(Alumno) this.modeloBuscar.getElementAt(n);
+            int x=this.jListAsignaturasAltas.getSelectedIndex();
+            Asignatura asig=(Asignatura) this.modeloAlta.getElementAt(x);
+            try
+            {
+                this.facultad.aprobarAlumnoAsignatura(a, asig);
+            } catch (AsignaturaAprobadaYaRegistradaException e)
+            {
+                JOptionPane.showMessageDialog(null, "La asignatura ya se encuentra aprobada");
+            }
+            this.limpiarModelo();   
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
         }
-        this.limpiarModelo();
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
     private void jButtonBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBajaActionPerformed
     {//GEN-HEADEREND:event_jButtonBajaActionPerformed
         // TODO add your handling code here:
         int n=this.jListAlumnos.getSelectedIndex();
-        Alumno a=(Alumno) this.modeloBuscar.getElementAt(n);
-        int x=this.jListAsignaturasBaja.getSelectedIndex();
-        Asignatura asig=(Asignatura) this.modeloBaja.getElementAt(x);
-        this.facultad.eliminarAlumnoAsignatura(a, asig);
-        this.limpiarModelo();
+        if(n!=-1){
+            Alumno a=(Alumno) this.modeloBuscar.getElementAt(n);
+            int x=this.jListAsignaturasBaja.getSelectedIndex();
+            Asignatura asig=(Asignatura) this.modeloBaja.getElementAt(x);
+            this.facultad.eliminarAlumnoAsignatura(a, asig);
+            this.limpiarModelo();   
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonBajaActionPerformed
 
     private void jButtonVolverAltaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverAltaActionPerformed
@@ -420,26 +429,30 @@ public class VentanaAltasBajasAsignaturasAlumno extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonCargarActionPerformed
         // TODO add your handling code here:
         int n=this.jListAlumnos.getSelectedIndex();
-        Alumno a=(Alumno) this.modeloBuscar.getElementAt(n);
-        ArrayList<Cursada> cursadas=this.facultad.cursadasDeAlumno(a);
-        Iterator it =cursadas.iterator();
-        Cursada c;
-           while(it.hasNext()) {
-                c=(Cursada)it.next();
-               Asignatura asig=c.getAsignatura();
-                this.modeloAlta.addElement(asig);
-           }
-        this.jListAsignaturasAltas.setModel(modeloAlta);
-        
-        Hashtable<String,Asignatura> historia=a.getHistoria();
-        Enumeration e = historia.elements();
-        Asignatura asig;
-        while( e.hasMoreElements() ){
-          asig =(Asignatura) e.nextElement();
-          this.modeloBaja.addElement(asig);
+        if(n!=-1){
+            Alumno a=(Alumno) this.modeloBuscar.getElementAt(n);
+            ArrayList<Cursada> cursadas=this.facultad.cursadasDeAlumno(a);
+            Iterator it =cursadas.iterator();
+            Cursada c;
+               while(it.hasNext()) {
+                    c=(Cursada)it.next();
+                   Asignatura asig=c.getAsignatura();
+                    this.modeloAlta.addElement(asig);
+               }
+            this.jListAsignaturasAltas.setModel(modeloAlta);
+            
+            Hashtable<String,Asignatura> historia=a.getHistoria();
+            Enumeration e = historia.elements();
+            Asignatura asig;
+            while( e.hasMoreElements() ){
+              asig =(Asignatura) e.nextElement();
+              this.modeloBaja.addElement(asig);
+            }
+            this.jListAsignaturasBaja.setModel(modeloBaja);   
         }
-        this.jListAsignaturasBaja.setModel(modeloBaja);
-
+        else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonCargarActionPerformed
 
     /**

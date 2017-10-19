@@ -120,7 +120,6 @@ public class VentanaPrincipal extends javax.swing.JFrame
     public void confirmarSalida() {
         int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro de cerrar la aplicacion?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
         if(valor==JOptionPane.YES_OPTION){
-            //Persistencia.guardarArchivo.
             Persistencia.guardarArchivo(this.facultad);
             System.exit(0);
         }
@@ -159,7 +158,8 @@ public class VentanaPrincipal extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        VentanaPrincipal ventana = new VentanaPrincipal(Persistencia.leerArchivo());
+        Facultad facultad=Persistencia.leerArchivo();
+        VentanaPrincipal ventana = new VentanaPrincipal(facultad);
         ventana.setVisible(true);
         try
         {

@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import sistemaeducativo.Alumno;
 import sistemaeducativo.Asignatura;
 import sistemaeducativo.Facultad;
+import sistemaeducativo.Persistencia;
 import sistemaeducativo.Profesor;
 
 /**
@@ -318,12 +319,6 @@ public class VentanaProfesor extends javax.swing.JFrame
         jLabelSeleccionarBaja.setText("Seleccione el profesor a eliminar");
         jPanel2.add(jLabelSeleccionarBaja);
 
-        jListProfesoresBaja.setModel(new javax.swing.AbstractListModel<String>()
-        {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jListProfesoresBaja);
 
         jPanel2.add(jScrollPane1);
@@ -392,26 +387,20 @@ public class VentanaProfesor extends javax.swing.JFrame
 
         jPanel4.setLayout(new java.awt.GridLayout(2, 2));
 
-        jLabelNombreMod.setText("Nombre del alumno ");
+        jLabelNombreMod.setText("Nombre del profesor ");
         jPanel4.add(jLabelNombreMod);
         jPanel4.add(jTextFieldNombreMod);
 
-        jLabelApellidoMod.setText("Apellido del alumno ");
+        jLabelApellidoMod.setText("Apellido del profesor ");
         jPanel4.add(jLabelApellidoMod);
         jPanel4.add(jTextFieldApellidoMod);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabelSeleccionarMod.setText("Seleccione el alumno ");
+        jLabelSeleccionarMod.setText("Seleccione el profesor ");
         jPanel6.add(jLabelSeleccionarMod);
 
-        jListProfesoresMod.setModel(new javax.swing.AbstractListModel<String>()
-        {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(jListProfesoresMod);
 
         jPanel6.add(jScrollPane2);
@@ -549,12 +538,6 @@ public class VentanaProfesor extends javax.swing.JFrame
         jLabelSeleccionarConsulta.setText("Seleccione el profesor");
         jPanel12.add(jLabelSeleccionarConsulta);
 
-        jListProfesoresConsulta.setModel(new javax.swing.AbstractListModel<String>()
-        {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(jListProfesoresConsulta);
 
         jPanel12.add(jScrollPane3);
@@ -591,12 +574,6 @@ public class VentanaProfesor extends javax.swing.JFrame
 
         jPanel14.setLayout(new java.awt.GridLayout(1, 0));
 
-        jListAsignaturasProfesorConsulta.setModel(new javax.swing.AbstractListModel<String>()
-        {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane4.setViewportView(jListAsignaturasProfesorConsulta);
 
         jLabel24.setText("Coleccion de Asignaturas en las que puede participar");
@@ -797,13 +774,22 @@ public class VentanaProfesor extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonEliminarBajaActionPerformed
         // TODO add your handling code here:
         int n=this.jListProfesoresBaja.getSelectedIndex();
+        if(n!=-1){
         Profesor a=(Profesor) this.modeloBaja.getElementAt(n);
+            int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea eliminar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+            if(valor==JOptionPane.YES_OPTION){
         this.facultad.bajaProfesor(a.getLegajo());
         this.limpiarModelo();
+            }  
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un profesor","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonEliminarBajaActionPerformed
 
     private void jButtonBuscarBajaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarBajaActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarBajaActionPerformed
+        this.limpiarModelo();
         String nombre=this.jTextFieldNombreBaja.getText().toUpperCase();
         String apellido=this.jTextFieldApellidoBaja.getText().toUpperCase();
         ArrayList<Profesor> profesores=facultad.buscarProfesorPorNombre(nombre, apellido);;
@@ -821,17 +807,19 @@ public class VentanaProfesor extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonConfirmarModActionPerformed
         // TODO add your handling code here:
         int n=this.jListProfesoresMod.getSelectedIndex();
+        if(n!=-1){
         Profesor a=(Profesor) this.modeloMod.getElementAt(n);
         if(this.validarMod())
         {
             String mail= this.jTextFieldMailNuevoMod.getText();
             if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
             {
+                    int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea modificar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                    if(valor==JOptionPane.YES_OPTION){
                 facultad.modificarProfesor(a,this.jTextFieldApellidoNuevoMod.getText().toUpperCase(),this.jTextFieldNombreNuevoMod.getText().toUpperCase(),this.jTextFieldDomicilioNuevoMod.getText().toUpperCase(), this.jTextFieldMailNuevoMod.getText().toUpperCase());
                 JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
                 this.limpiarModelo();
-
-                
+                    }
             }else
             {
                 JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
@@ -840,12 +828,15 @@ public class VentanaProfesor extends javax.swing.JFrame
             {
                 JOptionPane.showMessageDialog(null, "Complete todos los campos por favor");
             }
-        
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un profesor","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonConfirmarModActionPerformed
 
     private void jButtonBuscarModActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarModActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarModActionPerformed
         // TODO add your handling code here
+        this.limpiarModelo();
         String nombre=this.jTextFieldNombreMod.getText().toUpperCase();
         String apellido=this.jTextFieldApellidoMod.getText().toUpperCase();
         ArrayList<Profesor> profesores=facultad.buscarProfesorPorNombre(nombre, apellido);;
@@ -862,6 +853,7 @@ public class VentanaProfesor extends javax.swing.JFrame
     private void jButtonBuscarConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarConsultaActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarConsultaActionPerformed
         // TODO add your handling code here:
+        this.limpiarModelo();
         String nombre=this.jTextFieldNombreConsulta.getText().toUpperCase();
         String apellido=this.jTextFieldApellidoConsulta.getText().toUpperCase();
         ArrayList<Profesor> profesores=facultad.buscarProfesorPorNombre(nombre, apellido);;
@@ -885,6 +877,7 @@ public class VentanaProfesor extends javax.swing.JFrame
         // TODO add your handling code here:
         this.jListAsignaturasProfesorConsulta.clearSelection();
         int n=this.jListProfesoresConsulta.getSelectedIndex();
+        if(n!=-1){
         Profesor a=(Profesor) this.modeloConsulta.getElementAt(n);
         this.jTextFieldApellidoConsultaa.setText(a.getApellido());
         this.jTextFieldDomicilioConsulta.setText(a.getDomicilio());
@@ -900,6 +893,10 @@ public class VentanaProfesor extends javax.swing.JFrame
             this.modeloConsultaAsig.addElement(asig);
         }
         this.jListAsignaturasProfesorConsulta.setModel(modeloConsultaAsig);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un profesor","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonCargarConsultaActionPerformed
 
     private void jButtonVolverConsultaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVolverConsultaActionPerformed
