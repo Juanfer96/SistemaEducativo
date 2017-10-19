@@ -250,11 +250,19 @@ public class Facultad {
         while (it.hasNext()) {
             Map.Entry m = (Map.Entry) it.next();
             c = (Cursada) m.getValue();
-            if (c.getAsignatura().equals(asignatura)) {
+            if (c.getAsignatura().getNombre().equals(asignatura)) {
                 cursadasReturn.add(c);
             }
         }
         return cursadasReturn;
+    }
+    
+    public ArrayList<Fecha> buscarHorariosDeCursada(Cursada c) {
+        return c.getHorario();
+    }
+    
+    public void eliminarHorarioCursada(Cursada c, Fecha f) {
+        c.eliminarHorario(f);
     }
     
     public ArrayList<Asignatura> buscarAsignaturaPorNombre(String asignatura) {
@@ -397,6 +405,10 @@ public class Facultad {
             rta=false;
         }
         return rta;
+    }
+    
+    public void agregarHorarioCursada(Cursada c, int horaInicio, int minInicio, int horaFin, int minFin, int dia) throws HorarioCursadaSuperpuestaException {
+        c.agregarHorario(dia, horaInicio, minInicio, horaFin, minFin);
     }
     
     public ArrayList<Cursada> cursadasDeProfesor(Profesor p) {

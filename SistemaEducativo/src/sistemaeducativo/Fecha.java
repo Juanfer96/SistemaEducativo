@@ -73,4 +73,10 @@ public class Fecha {
         }
         return false;
     }
+
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

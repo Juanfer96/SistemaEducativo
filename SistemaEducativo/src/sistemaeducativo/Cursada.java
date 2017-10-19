@@ -138,6 +138,10 @@ public class Cursada
         return this.getProfesores().remove(legajo);
     }
     
+    public void eliminarHorario(Fecha f){
+        this.getHorario().remove(f);
+    }
+    
     
     /**
      * pre: Se considera que los datos ingresados son horas validas (segun su formato).
@@ -184,5 +188,11 @@ public class Cursada
             return true;
         }
         return false;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Asignatura: "+this.getAsignatura()+"\tID: "+this.getId()+"\tPeríodo: "+this.getPeriodo();
     }
 }
