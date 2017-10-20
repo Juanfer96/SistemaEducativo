@@ -376,6 +376,7 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
 
     private void jButtonBuscarCursadasActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBuscarCursadasActionPerformed
     {//GEN-HEADEREND:event_jButtonBuscarCursadasActionPerformed
+        this.jListCursadas.clearSelection();
         this.limpiarModelo();
         String asignatura=this.jTextFieldNombreCursada.getText().toUpperCase();
         ArrayList<Cursada> cursadas=facultad.buscarCursadaPorNombre(asignatura);
@@ -391,24 +392,27 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
     private void jListCursadasValueChanged(javax.swing.event.ListSelectionEvent evt)//GEN-FIRST:event_jListCursadasValueChanged
     {//GEN-HEADEREND:event_jListCursadasValueChanged
         int n=this.jListCursadas.getSelectedIndex();
-        this.modeloAlumnosBaja.clear();
-        Cursada c = (Cursada) this.modeloCursadas.getElementAt(n);
-        this.LabelIdCursada.setText(c.getId());
-        Hashtable<String,Alumno> alumnos = c.getAlumnos();
-        if(alumnos.size()==0)
-        {
-            this.LabelSinAlumnos.setText("Actualemente la cursada no tiene alumnos establecidos");
-        }else
-        {
-            this.LabelSinAlumnos.setText("");
-            Enumeration e = alumnos.elements();
-            Alumno a;
-            while( e.hasMoreElements() ){
-                a =(Alumno) e.nextElement();
-                this.modeloAlumnosBaja.addElement(a);
+        if(n!=-1){
+            this.modeloAlumnosBaja.clear();
+            Cursada c = (Cursada) this.modeloCursadas.getElementAt(n);
+            this.LabelIdCursada.setText(c.getId());
+            Hashtable<String,Alumno> alumnos = c.getAlumnos();
+            if(alumnos.size()==0)
+            {
+                this.LabelSinAlumnos.setText("Actualemente la cursada no tiene alumnos establecidos");
+            }else
+            {
+                this.LabelSinAlumnos.setText("");
+                Enumeration e = alumnos.elements();
+                Alumno a;
+                while( e.hasMoreElements() ){
+                    a =(Alumno) e.nextElement();
+                    this.modeloAlumnosBaja.addElement(a);
+                }
+                this.jListAlumnosBaja.setModel(modeloAlumnosBaja);
             }
-            this.jListAlumnosBaja.setModel(modeloAlumnosBaja);
         }
+        
     }//GEN-LAST:event_jListCursadasValueChanged
 
     private void jButtonEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEliminarAlumnoActionPerformed

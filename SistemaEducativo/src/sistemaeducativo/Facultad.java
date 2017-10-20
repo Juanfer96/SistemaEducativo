@@ -337,7 +337,7 @@ public class Facultad {
                     itHorariosAlumno=cAux.getHorario().iterator();
                     while(itHorariosAlumno.hasNext()) {
                         horarioAlumno=(Fecha)itHorariosAlumno.next();
-                        if(horarioCursada.superpone(horarioAlumno)) {
+                        if(c.getPeriodo().equals(cAux.getPeriodo()) && horarioCursada.superpone(horarioAlumno)) {
                             return true;
                         }
                     }
@@ -395,7 +395,7 @@ public class Facultad {
                     itHorariosProfesor=cAux.getHorario().iterator();
                     while(itHorariosProfesor.hasNext()) {
                         horarioProfesor=(Fecha)itHorariosProfesor.next();
-                        if(horarioCursada.superpone(horarioProfesor)) {
+                        if(c.getPeriodo().equals(cAux.getPeriodo()) && horarioCursada.superpone(horarioProfesor)) {
                             return true;
                         }
                     }

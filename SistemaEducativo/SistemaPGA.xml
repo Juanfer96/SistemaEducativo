@@ -8,8 +8,8 @@
  <int>5</int>
  <int>6</int>
  <int>5</int>
- <int>1</int>
- <int>5</int>
+ <int>2</int>
+ <int>6</int>
  <int>10</int>
  <object class="sistemaeducativo.Facultad" id="Facultad0">
   <void id="TreeMap0" property="alumnos">
@@ -131,7 +131,7 @@
    </void>
    <void method="put">
     <string>ASI0004</string>
-    <object class="sistemaeducativo.Asignatura">
+    <object class="sistemaeducativo.Asignatura" id="Asignatura2">
      <void property="id">
       <string>ASI0004</string>
      </void>
@@ -142,7 +142,7 @@
    </void>
    <void method="put">
     <string>ASI0005</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura2">
+    <object class="sistemaeducativo.Asignatura" id="Asignatura3">
      <void property="id">
       <string>ASI0005</string>
      </void>
@@ -153,7 +153,7 @@
    </void>
    <void method="put">
     <string>ASI0007</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura3">
+    <object class="sistemaeducativo.Asignatura" id="Asignatura4">
      <void property="id">
       <string>ASI0007</string>
      </void>
@@ -164,7 +164,7 @@
    </void>
    <void method="put">
     <string>ASI0008</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura4">
+    <object class="sistemaeducativo.Asignatura" id="Asignatura5">
      <void property="id">
       <string>ASI0008</string>
      </void>
@@ -175,15 +175,15 @@
    </void>
    <void method="put">
     <string>ASI0009</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura5">
+    <object class="sistemaeducativo.Asignatura" id="Asignatura6">
      <void property="correlatividades">
       <void method="put">
        <string>ASI0008</string>
-       <object idref="Asignatura4"/>
+       <object idref="Asignatura5"/>
       </void>
       <void method="put">
        <string>ASI0007</string>
-       <object idref="Asignatura3"/>
+       <object idref="Asignatura4"/>
       </void>
      </void>
      <void property="id">
@@ -196,7 +196,7 @@
    </void>
    <void method="put">
     <string>ASI0010</string>
-    <object class="sistemaeducativo.Asignatura" id="Asignatura6">
+    <object class="sistemaeducativo.Asignatura" id="Asignatura7">
      <void property="id">
       <string>ASI0010</string>
      </void>
@@ -210,14 +210,20 @@
    <void method="put">
     <string>CUR0002</string>
     <object class="sistemaeducativo.Cursada" id="Cursada0">
-     <void property="alumnos">
-      <void method="put">
-       <string>ALU0002</string>
-       <object idref="Alumno0"/>
-      </void>
-     </void>
      <void property="asignatura">
       <object idref="Asignatura1"/>
+     </void>
+     <void property="horario">
+      <void method="add">
+       <object class="sistemaeducativo.Fecha">
+        <void property="horaFin">
+         <string>10:00</string>
+        </void>
+        <void property="horaInicio">
+         <string>08:00</string>
+        </void>
+       </object>
+      </void>
      </void>
      <void property="id">
       <string>CUR0002</string>
@@ -263,7 +269,7 @@
     <string>CUR0004</string>
     <object class="sistemaeducativo.Cursada" id="Cursada2">
      <void property="asignatura">
-      <object idref="Asignatura2"/>
+      <object idref="Asignatura3"/>
      </void>
      <void property="horario">
       <void method="add">
@@ -295,7 +301,7 @@
       </void>
      </void>
      <void property="asignatura">
-      <object idref="Asignatura6"/>
+      <object idref="Asignatura7"/>
      </void>
      <void property="horario">
       <void method="add">
@@ -330,6 +336,38 @@
      </void>
     </object>
    </void>
+   <void method="put">
+    <string>CUR0006</string>
+    <object class="sistemaeducativo.Cursada" id="Cursada4">
+     <void property="alumnos">
+      <void method="put">
+       <string>ALU0002</string>
+       <object idref="Alumno0"/>
+      </void>
+     </void>
+     <void property="asignatura">
+      <object idref="Asignatura2"/>
+     </void>
+     <void property="horario">
+      <void method="add">
+       <object class="sistemaeducativo.Fecha">
+        <void property="horaFin">
+         <string>10:00</string>
+        </void>
+        <void property="horaInicio">
+         <string>08:00</string>
+        </void>
+       </object>
+      </void>
+     </void>
+     <void property="id">
+      <string>CUR0006</string>
+     </void>
+     <void property="periodo">
+      <string>02-2017</string>
+     </void>
+    </object>
+   </void>
   </void>
   <void id="TreeMap3" property="profesores">
    <void method="put">
@@ -341,11 +379,11 @@
      <void property="competencia">
       <void method="put">
        <string>ASI0007</string>
-       <object idref="Asignatura3"/>
+       <object idref="Asignatura4"/>
       </void>
       <void method="put">
        <string>ASI0005</string>
-       <object idref="Asignatura2"/>
+       <object idref="Asignatura3"/>
       </void>
      </void>
      <void property="domicilio">
@@ -359,6 +397,26 @@
      </void>
      <void property="nombre">
       <string>DALILA</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>PRO0002</string>
+    <object class="sistemaeducativo.Profesor">
+     <void property="apellido">
+      <string>EVANS</string>
+     </void>
+     <void property="domicilio">
+      <string>CHACABUCO 3323</string>
+     </void>
+     <void property="legajo">
+      <string>PRO0002</string>
+     </void>
+     <void property="mail">
+      <string>felipe@evans.com</string>
+     </void>
+     <void property="nombre">
+      <string>FELIPE</string>
      </void>
     </object>
    </void>

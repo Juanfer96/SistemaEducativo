@@ -377,6 +377,7 @@ public class VentanaAltasBajasProfesoresCursada extends javax.swing.JFrame {
 
     private void jButtonBuscarCursadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarCursadasActionPerformed
         this.limpiarModelo();
+        this.jListCursadas.clearSelection();
         String asignatura=this.jTextFieldNombreCursada.getText().toUpperCase();
         ArrayList<Cursada> cursadas=facultad.buscarCursadaPorNombre(asignatura);
         Iterator it=cursadas.iterator();
@@ -390,6 +391,7 @@ public class VentanaAltasBajasProfesoresCursada extends javax.swing.JFrame {
 
     private void jListCursadasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListCursadasValueChanged
         int n=this.jListCursadas.getSelectedIndex();
+        if(n!=-1){
         this.modeloProfesoresBaja.clear();
         Cursada c = (Cursada) this.modeloCursadas.getElementAt(n);
         this.LabelIdCursada.setText(c.getId());
@@ -407,6 +409,7 @@ public class VentanaAltasBajasProfesoresCursada extends javax.swing.JFrame {
                 this.modeloProfesoresBaja.addElement(a);
             }
             this.jListProfesoresBaja.setModel(modeloProfesoresBaja);
+        }
         }
     }//GEN-LAST:event_jListCursadasValueChanged
 
