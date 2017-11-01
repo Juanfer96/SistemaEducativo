@@ -4,11 +4,23 @@ import java.util.Hashtable;
 
 public class Profesor extends Persona
 {
+    private String telefono;
     private Hashtable <String, Asignatura> competencia=new Hashtable<String,Asignatura>();
        
-    public Profesor(String legajo, String apellido, String nombre, String domicilio, String mail)
+    public Profesor(String legajo, String apellido, String nombre, String domicilio, String mail,String telefono)
     {
         super(legajo, apellido, nombre, domicilio, mail);
+        this.telefono=telefono;
+    }
+
+    public void setTelefono(String telefono)
+    {
+        this.telefono = telefono;
+    }
+
+    public String getTelefono()
+    {
+        return telefono;
     }
 
     public Profesor()
@@ -27,11 +39,12 @@ public class Profesor extends Persona
     }
     
     
-    public void modificarProfesor(String apellido, String nombre, String domicilio, String mail) {
+    public void modificarProfesor(String apellido, String nombre, String domicilio, String mail,String telefono) {
         this.setApellido(apellido);
         this.setNombre(nombre);
         this.setDomicilio(domicilio);
         this.setMail(mail);
+        this.setTelefono(telefono);
         }
     
     /**
@@ -49,7 +62,7 @@ public class Profesor extends Persona
     public void eliminarCompetencia(Asignatura a)
     {
         this.getCompetencia().remove(a.getId());
-        }   
+    }   
     
     
     

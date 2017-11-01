@@ -1,6 +1,7 @@
 package sistemaeducativo;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -8,10 +9,10 @@ import java.util.TreeMap;
 
 
 public class Facultad {
-    public static int PROXLEGAJOALUM;
-    public static int PROXLEGAJOPROF;
-    public static int PROXIDCURSADA;
-    public static int PROXIDASIGNATURA;
+    public  int PROXLEGAJOALUM;
+    public  int PROXLEGAJOPROF;
+    public  int PROXIDCURSADA;
+    public  int PROXIDASIGNATURA;
     private static Facultad instancia = null;
     private TreeMap<String, Alumno> alumnos = new TreeMap<>();
     private TreeMap<String, Profesor> profesores = new TreeMap<>();
@@ -68,36 +69,36 @@ public class Facultad {
     }
 
 
-    public static void setPROXLEGAJOALUM(int PROXLEGAJOALUM) {
-        Facultad.PROXLEGAJOALUM = PROXLEGAJOALUM;
+    public  void setPROXLEGAJOALUM(int PROXLEGAJOALUM) {
+        PROXLEGAJOALUM = PROXLEGAJOALUM;
     }
 
-    public static void setPROXLEGAJOPROF(int PROXLEGAJOPROF) {
-        Facultad.PROXLEGAJOPROF = PROXLEGAJOPROF;
+    public  void setPROXLEGAJOPROF(int PROXLEGAJOPROF) {
+        PROXLEGAJOPROF = PROXLEGAJOPROF;
     }
 
-    public static void setPROXIDCURSADA(int PROXIDCURSADA) {
-        Facultad.PROXIDCURSADA = PROXIDCURSADA;
+    public  void setPROXIDCURSADA(int PROXIDCURSADA) {
+        PROXIDCURSADA = PROXIDCURSADA;
     }
 
-    public static void setPROXIDASIGNATURA(int PROXIDASIGNATURA) {
-        Facultad.PROXIDASIGNATURA = PROXIDASIGNATURA;
+    public  void setPROXIDASIGNATURA(int PROXIDASIGNATURA) {
+        PROXIDASIGNATURA = PROXIDASIGNATURA;
     }
 
 
-    public static int getPROXLEGAJOALUM() {
+    public  int getPROXLEGAJOALUM() {
         return PROXLEGAJOALUM;
     }
 
-    public static int getPROXLEGAJOPROF() {
+    public  int getPROXLEGAJOPROF() {
         return PROXLEGAJOPROF;
     }
 
-    public static int getPROXIDCURSADA() {
+    public  int getPROXIDCURSADA() {
         return PROXIDCURSADA;
     }
 
-    public static int getPROXIDASIGNATURA() {
+    public  int getPROXIDASIGNATURA() {
         return PROXIDASIGNATURA;
     }
 
@@ -111,10 +112,10 @@ public class Facultad {
         return a;
     }
 
-    public Profesor agregarProfesor(String apellido, String nombre, String domicilio, String mail) {
+    public Profesor agregarProfesor(String apellido, String nombre, String domicilio, String mail,String telefono) {
         String s = String.format("%04d", ++PROXLEGAJOPROF);
         String leg = "PRO" + s;
-        Profesor a = new Profesor(leg, apellido, nombre, domicilio, mail);
+        Profesor a = new Profesor(leg, apellido, nombre, domicilio, mail,telefono);
         this.getProfesores().put(a.getLegajo(), a);
         return a;
     }
@@ -157,6 +158,24 @@ public class Facultad {
         while(it.hasNext()) {
             c=(Cursada)it.next();
             this.bajaCursada(c);
+        }
+        Iterator it1 = this.getProfesores()
+                          .values()
+                          .iterator();
+        Profesor p;
+        while(it1.hasNext())
+        {
+            p=(Profesor)it1.next();
+            p.getCompetencia().remove(a.getId());
+        }
+        Iterator it2 = this.getAsignaturas()
+                          .values()
+                          .iterator();
+        Asignatura asig;
+        while(it2.hasNext())
+        {
+            asig=(Asignatura)it2.next();
+            asig.getCorrelatividades().remove(a.getId());
         }
         this.getAsignaturas().remove(a.getId());
     }
@@ -430,6 +449,8 @@ public class Facultad {
         }
         return cursadasReturn;
     }
+    
+
     public void agregarCorrelativaAsignatura(Asignatura a1,Asignatura a2) throws CorrelativaRegistradaException
     {
         a1.agregarCorrelatividad(a2);
@@ -465,8 +486,8 @@ public class Facultad {
     }
 
     
-    public void modificarProfesor(Profesor p,String apellido, String nombre, String domicilio, String mail) {
-        p.modificarProfesor(apellido, nombre, domicilio, mail);
+    public void modificarProfesor(Profesor p,String apellido, String nombre, String domicilio, String mail,String telefono) {
+        p.modificarProfesor(apellido, nombre, domicilio, mail,telefono);
     }
     
     /**

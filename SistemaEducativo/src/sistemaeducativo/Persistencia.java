@@ -41,18 +41,11 @@ public class Persistencia
             {
                 System.out.println("Error al intentar leer el archivo.");
             }
-            Fecha.setLUNES((Integer) decoder.readObject());
-            Fecha.setMARTES((Integer) decoder.readObject());
-            Fecha.setMIERCOLES((Integer) decoder.readObject());
-            Fecha.setJUEVES((Integer) decoder.readObject());
-            Fecha.setVIERNES((Integer) decoder.readObject());
-            Fecha.setSABADO((Integer) decoder.readObject());
-            Fecha.setDOMINGO((Integer) decoder.readObject());
-            Facultad.setPROXLEGAJOALUM((Integer) decoder.readObject());
-            Facultad.setPROXLEGAJOPROF((Integer) decoder.readObject());
-            Facultad.setPROXIDCURSADA((Integer) decoder.readObject());
-            Facultad.setPROXIDASIGNATURA((Integer) decoder.readObject());
             facultad = (Facultad)decoder.readObject();
+            facultad.setPROXLEGAJOALUM((Integer) decoder.readObject());
+            facultad.setPROXLEGAJOPROF((Integer) decoder.readObject());
+            facultad.setPROXIDCURSADA((Integer) decoder.readObject());
+            facultad.setPROXIDASIGNATURA((Integer) decoder.readObject());
             facultad.setAlumnos((TreeMap<String, Alumno>)decoder.readObject());
             facultad.setProfesores((TreeMap<String, Profesor>)decoder.readObject());
             facultad.setAsignaturas((TreeMap<String, Asignatura>)decoder.readObject());
@@ -77,18 +70,11 @@ public class Persistencia
         {
             System.out.println("Error al intentar guardar el archivo.");
         }
-        encoder.writeObject(Fecha.getLUNES());
-        encoder.writeObject(Fecha.getMARTES());
-        encoder.writeObject(Fecha.getMIERCOLES());
-        encoder.writeObject(Fecha.getJUEVES());
-        encoder.writeObject(Fecha.getVIERNES());
-        encoder.writeObject(Fecha.getSABADO());
-        encoder.writeObject(Fecha.getDOMINGO());
-        encoder.writeObject(Facultad.getPROXLEGAJOALUM());
-        encoder.writeObject(Facultad.getPROXLEGAJOPROF());
-        encoder.writeObject(Facultad.getPROXIDCURSADA());
-        encoder.writeObject(Facultad.getPROXIDASIGNATURA());
         encoder.writeObject(facultad);
+        encoder.writeObject(facultad.getPROXLEGAJOALUM());
+        encoder.writeObject(facultad.getPROXLEGAJOPROF());
+        encoder.writeObject(facultad.getPROXIDCURSADA());
+        encoder.writeObject(facultad.getPROXIDASIGNATURA());
         encoder.writeObject(facultad.getAlumnos());
         encoder.writeObject(facultad.getProfesores());
         encoder.writeObject(facultad.getAsignaturas());

@@ -3,13 +3,13 @@ package sistemaeducativo;
 import java.time.LocalTime;
 
 public class Fecha {
-    public static int LUNES=0;
-    public static int MARTES=1;
-    public static int MIERCOLES=2;
-    public static int JUEVES=3;
-    public static int VIERNES=4;
-    public static int SABADO=5;
-    public static int DOMINGO=6;
+    public static final int LUNES=0;
+    public static final int MARTES=1;
+    public static final int MIERCOLES=2;
+    public static final int JUEVES=3;
+    public static final int VIERNES=4;
+    public static final int SABADO=5;
+    public static final int DOMINGO=6;
     
     private int dia;
     private String horaInicio;
@@ -26,33 +26,7 @@ public class Fecha {
     }
 
 
-    public static int getLUNES() {
-        return LUNES;
-    }
-
-    public static int getMARTES() {
-        return MARTES;
-    }
-
-    public static int getMIERCOLES() {
-        return MIERCOLES;
-    }
-
-    public static int getJUEVES() {
-        return JUEVES;
-    }
-
-    public static int getVIERNES() {
-        return VIERNES;
-    }
-
-    public static int getSABADO() {
-        return SABADO;
-    }
-
-    public static int getDOMINGO() {
-        return DOMINGO;
-    }
+   
 
     public int getDia() {
         return dia;
@@ -67,34 +41,7 @@ public class Fecha {
     }
 
 
-    public static void setLUNES(int LUNES) {
-        Fecha.LUNES = LUNES;
-    }
-
-    public static void setMARTES(int MARTES) {
-        Fecha.MARTES = MARTES;
-    }
-
-    public static void setMIERCOLES(int MIERCOLES) {
-        Fecha.MIERCOLES = MIERCOLES;
-    }
-
-    public static void setJUEVES(int JUEVES) {
-        Fecha.JUEVES = JUEVES;
-    }
-
-    public static void setVIERNES(int VIERNES) {
-        Fecha.VIERNES = VIERNES;
-    }
-
-    public static void setSABADO(int SABADO) {
-        Fecha.SABADO = SABADO;
-    }
-
-    public static void setDOMINGO(int DOMINGO) {
-        Fecha.DOMINGO = DOMINGO;
-    }
-
+   
 
     public void setDia(int dia) {
         this.dia = dia;
@@ -125,19 +72,19 @@ public class Fecha {
     public String toString() {
         String dia;
         switch(this.dia){
-        case 0: dia="Lunes";
+        case LUNES: dia="Lunes";
             break;
-        case 1: dia="Martes";
+        case MARTES: dia="Martes";
             break;
-        case 2: dia="Miercoles";
+        case MIERCOLES: dia="Miercoles";
             break;
-        case 3: dia="Jueves";
+        case JUEVES: dia="Jueves";
             break;
-        case 4: dia="Viernes";
+        case VIERNES: dia="Viernes";
             break;
-        case 5: dia="Sabado";
+        case SABADO: dia="Sabado";
             break;
-        case 6: dia="Domingo";
+        case DOMINGO: dia="Domingo";
             break;
         default: dia=null;
         }

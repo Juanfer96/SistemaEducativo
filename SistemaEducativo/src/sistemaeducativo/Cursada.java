@@ -103,26 +103,24 @@ public class Cursada
     /**
      * pre: Se considera que el alumno a inscribirse cumple con todas las restricciones.
      * @param a
-     * @throws AlumnoInhabilitadoException
-     * @throws AlumnoRegistradoEnCursadaException
+  
      */
-    public void agregarAlumno(Alumno a) throws AlumnoInhabilitadoException, AlumnoRegistradoEnCursadaException {
+    public void agregarAlumno(Alumno a)  {
         this.getAlumnos().put(a.getLegajo(), a); 
     }
     
     /**
      * pre: Se considera que el profesor a inscribirse cumple con todas las restricciones.
      * @param p
-     * @throws ProfesorRegistradoEnCursadaException
-     * @throws ProfesorInhabilitadoException
+     
      */
-    public void agregarProfesor(Profesor p) throws ProfesorRegistradoEnCursadaException, ProfesorInhabilitadoException {
+    public void agregarProfesor(Profesor p)  {
         this.getProfesores().put(p.getLegajo(), p);
     }
     
     
     
-    //Retorna el legajo del alumno eliminado (si dicho alumno se encuentra en la cursada)
+    //Retorna el objeto del alumno eliminado (si dicho alumno se encuentra en la cursada)
     //Retorna null si no lo encontro (obviamente no lo elimina).
     public Object eliminarAlumno(String legajo)
     {
@@ -134,7 +132,7 @@ public class Cursada
         return this.getAlumnos().remove(legajo);
     }
     
-    //Retorna el legajo del profesor eliminado (si dicho alumno se encuentra en la cursada)
+    //Retorna el objeto del profesor eliminado (si dicho alumno se encuentra en la cursada)
     //Retorna null si no lo encontro (obviamente no lo elimina).
     public Object eliminarProfesor(String legajo)
     {
