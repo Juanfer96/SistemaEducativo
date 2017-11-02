@@ -6,6 +6,7 @@ public class Profesor extends Persona
 {
     private String telefono;
     private Hashtable <String, Asignatura> competencia=new Hashtable<String,Asignatura>();
+    
        
     public Profesor(String legajo, String apellido, String nombre, String domicilio, String mail,String telefono)
     {

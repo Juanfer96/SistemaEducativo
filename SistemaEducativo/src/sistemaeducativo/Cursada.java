@@ -136,10 +136,6 @@ public class Cursada
     //Retorna null si no lo encontro (obviamente no lo elimina).
     public Object eliminarProfesor(String legajo)
     {
-        /*if(this.getProfesores().remove(legajo)==null)
-        {
-            //excepcion de que quiero eliminar una correlatividad q no existe(no econtro la clave)
-        }*/
         return this.getProfesores().remove(legajo);
     }
     

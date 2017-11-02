@@ -47,6 +47,14 @@ public class Asignatura
     {
         return correlatividades;
     }
+    
+    /**
+     *
+     * @param a a!=null, a!=""
+     * @throws CorrelativaRegistradaException
+     * post: Si la asignatura a ya se encuentra registrada en la coleccion de correlativas, se lanza CorrelativaRegistradaException,
+     * en caso contrario se procede a agregar la asignatura a en la coleccion de correlativas.
+     */ 
     public void agregarCorrelatividad(Asignatura a) throws CorrelativaRegistradaException
     {
         if(this.getCorrelatividades().containsKey(a.getId()))
@@ -57,6 +65,13 @@ public class Asignatura
             this.getCorrelatividades().put(a.getId(), a);
         }
     }
+    
+    /**
+     * 
+     * @param id id!=null y id!=""
+     * post: Si el id de la asignatura pertenece a una asignatura registrada entre las correlativas, se elimina
+     * En caso contrario no se produce ningun efecto.
+     */
     public void eliminarCorrelatividad(String id)
     {
         this.getCorrelatividades().remove(id);
