@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 import sistemaeducativo.Alumno;
 import sistemaeducativo.Asignatura;
 import sistemaeducativo.Facultad;
+import sistemaeducativo.MailInvalidoException;
+import sistemaeducativo.NoExisteEntidadException;
 
 /**
  *
@@ -976,17 +978,26 @@ public class VentanaAlumno extends javax.swing.JFrame
             if(this.validarMod())
             {
                 String mail= this.jTextFieldMailNuevoMod.getText();
-                if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
-                {
-                    int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea modificar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-                    if(valor==JOptionPane.YES_OPTION){
-                        facultad.modificarAlumno(a,this.jTextFieldApellidoNuevoMod.getText().toUpperCase(),this.jTextFieldNombreNuevoMod.getText().toUpperCase(),this.jTextFieldDomicilioNuevoMod.getText().toUpperCase(), this.jTextFieldMailNuevoMod.getText().toUpperCase());
+                int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea modificar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                if(valor==JOptionPane.YES_OPTION){
+                    try {
+                        facultad.modificarAlumno(a, this.jTextFieldApellidoNuevoMod
+                                                        .getText()
+                                                        .toUpperCase(), this.jTextFieldNombreNuevoMod
+                                                                            .getText()
+                                                                            .toUpperCase(), this.jTextFieldDomicilioNuevoMod
+                                                                                                .getText()
+                                                                                                .toUpperCase(),
+                                                 this.jTextFieldMailNuevoMod
+                                                                                                                    .getText()
+                                                                                                                    .toUpperCase());
                         JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
-                        this.limpiarModelo();     
-                    }  
-                }else
-                {
-                    JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
+                        this.limpiarModelo();
+                    } catch (MailInvalidoException e) {
+                        JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
+                    } catch (NoExisteEntidadException e) {
+                        //Nunca se dara, segun la implementacion de la vista, que el alumno no se encuentre registrado en la colecciones de facultad.
+                    }
                 }
             }else
                 {
@@ -1011,13 +1022,18 @@ public class VentanaAlumno extends javax.swing.JFrame
         if(this.validarAlta())
         {
             String mail= this.jTextFieldMailAlta.getText();
-            if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
-            {
-                this.facultad.agregarAlumno(this.jTextFieldApellidoAlta.getText().toUpperCase(), this.jTextFieldNombreAlta.getText().toUpperCase(), this.jTextFieldDomicilioAlta.getText().toUpperCase(), this.jTextFieldMailAlta.getText());
+            try {
+                this.facultad.agregarAlumno(this.jTextFieldApellidoAlta
+                                                .getText()
+                                                .toUpperCase(), this.jTextFieldNombreAlta
+                                                                    .getText()
+                                                                    .toUpperCase(), this.jTextFieldDomicilioAlta
+                                                                                        .getText()
+                                                                                        .toUpperCase(),
+                                            this.jTextFieldMailAlta.getText());
                 JOptionPane.showMessageDialog(null, "El alumno fue creado con exito","Gracias",JOptionPane.INFORMATION_MESSAGE);
                 this.limpiarTextFieldAlta();
-            }else
-            {
+            } catch (MailInvalidoException e) {
                 JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto","Error en mail",JOptionPane.ERROR_MESSAGE);
             }
         }else
@@ -1086,7 +1102,10 @@ public class VentanaAlumno extends javax.swing.JFrame
             Alumno a=(Alumno) this.modeloBaja.getElementAt(n);
             int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea eliminar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
             if(valor==JOptionPane.YES_OPTION){
-                this.facultad.bajaAlumno(a.getLegajo());
+                try {
+                    this.facultad.bajaAlumno(a.getLegajo());
+                } catch (NoExisteEntidadException e) {
+                }
                 this.limpiarModelo();       
             }    
         }

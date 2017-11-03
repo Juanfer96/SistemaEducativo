@@ -20,8 +20,10 @@ import sistemaeducativo.Asignatura;
 import sistemaeducativo.Cursada;
 import sistemaeducativo.Facultad;
 import sistemaeducativo.Fecha;
+import sistemaeducativo.FormatoHoraException;
 import sistemaeducativo.HorarioCursadaInvalidoException;
 import sistemaeducativo.HorarioCursadaSuperpuestaException;
+import sistemaeducativo.NoExisteEntidadException;
 
 /**
  *
@@ -471,11 +473,15 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
             Fecha f=(Fecha) this.modeloHorarios.getElementAt(n);
             int x=this.jListCursadas.getSelectedIndex();
             Cursada c=(Cursada) this.modeloCursadas.getElementAt(x);
-            this.facultad.eliminarHorarioCursada(c, f);
-            JOptionPane.showMessageDialog(null, "El horario fue eliminado correctamente de la cursada","Información",JOptionPane.INFORMATION_MESSAGE);
-            this.modeloHorarios.removeElementAt(n);   
-            if(modeloHorarios.isEmpty()){
-                this.LabelSinHorarios.setText("Actualemente la cursada no tiene horarios establecidos");
+            try {
+                this.facultad.eliminarHorarioCursada(c, f);
+                JOptionPane.showMessageDialog(null, "El horario fue eliminado correctamente de la cursada","Información",JOptionPane.INFORMATION_MESSAGE);
+                this.modeloHorarios.removeElementAt(n);   
+                if(modeloHorarios.isEmpty()){
+                    this.LabelSinHorarios.setText("Actualemente la cursada no tiene horarios establecidos");
+                }
+            } catch (NoExisteEntidadException e) {
+                JOptionPane.showMessageDialog(null, "No existe la cursada","Error",JOptionPane.ERROR_MESSAGE);
             }
         }else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un horario","Error",JOptionPane.ERROR_MESSAGE);
@@ -517,6 +523,10 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "El horario establecido se superpone con otro horario de la misma cursada","Error",JOptionPane.ERROR_MESSAGE);
             } catch (HorarioCursadaInvalidoException e) {
                 JOptionPane.showMessageDialog(null, "El horario de fin ("+e.getHoraFin().toString()+") no es mayor al horario de inicio ("+e.getHoraInicio().toString()+")","Error",JOptionPane.ERROR_MESSAGE);
+                } catch(FormatoHoraException e){
+                JOptionPane.showMessageDialog(null, "El horario/dia especificados no poseen un formato correcto","Error",JOptionPane.ERROR_MESSAGE);
+                } catch (NoExisteEntidadException e) {
+                JOptionPane.showMessageDialog(null, "No existe la cursada","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
         else{
@@ -531,19 +541,24 @@ public class VentanaAltasBajasHorariosCursada extends javax.swing.JFrame {
         this.modeloHorarios.clear();
         Cursada c = (Cursada) this.modeloCursadas.getElementAt(n);
         this.LabelIdCursada.setText(c.getId());
-        ArrayList<Fecha> fechas = this.facultad.buscarHorariosDeCursada(c);
-        if(fechas.size()==0){
-            this.LabelSinHorarios.setText("Actualemente la cursada no tiene horarios establecidos");
-        }else{
-            this.LabelSinHorarios.setText("");
-            Fecha f;
-            Iterator it = fechas.iterator();
-            while (it.hasNext()) {
-                f = (Fecha) it.next();
-                this.modeloHorarios.addElement(f);
+            try {
+                ArrayList<Fecha> fechas = this.facultad.buscarHorariosDeCursada(c);
+                if(fechas.size()==0){
+                    this.LabelSinHorarios.setText("Actualemente la cursada no tiene horarios establecidos");
+                }else{
+                    this.LabelSinHorarios.setText("");
+                    Fecha f;
+                    Iterator it = fechas.iterator();
+                    while (it.hasNext()) {
+                        f = (Fecha) it.next();
+                        this.modeloHorarios.addElement(f);
+                    }
+                    this.jListHorarios.setModel(modeloHorarios);   
+                }   
+            } catch (NoExisteEntidadException e) {
+                JOptionPane.showMessageDialog(null, "No existe la cursada","Error",JOptionPane.ERROR_MESSAGE);
             }
-            this.jListHorarios.setModel(modeloHorarios);   
-        }   
+
         }
     }//GEN-LAST:event_jListCursadasValueChanged
 

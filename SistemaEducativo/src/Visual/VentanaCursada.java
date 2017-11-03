@@ -20,6 +20,8 @@ import sistemaeducativo.Asignatura;
 import sistemaeducativo.Cursada;
 import sistemaeducativo.Facultad;
 import sistemaeducativo.Fecha;
+import sistemaeducativo.NoExisteEntidadException;
+import sistemaeducativo.PeriodoInvalidoException;
 import sistemaeducativo.Profesor;
 
 /**
@@ -1157,9 +1159,13 @@ public class VentanaCursada extends javax.swing.JFrame
         int n=this.jListBaja.getSelectedIndex();
         if(n!=-1){
             Cursada c=(Cursada) this.modeloBaja.getElementAt(n);
-            this.facultad.bajaCursada(c);
-            this.limpiarModelo();
-            JOptionPane.showMessageDialog(null,"La cursada fue eliminada con exito","Informacion",JOptionPane.INFORMATION_MESSAGE);   
+            try {
+                this.facultad.bajaCursada(c);
+                this.limpiarModelo();
+                JOptionPane.showMessageDialog(null,"La cursada fue eliminada con exito","Informacion",JOptionPane.INFORMATION_MESSAGE);   
+            } catch (NoExisteEntidadException e) {
+                JOptionPane.showMessageDialog(null, "No existe la cursada","Error",JOptionPane.ERROR_MESSAGE);
+            }
         }else{
             JOptionPane.showMessageDialog(null,"Debe seleccionar una cursada","Error",JOptionPane.ERROR_MESSAGE);
         }
@@ -1243,9 +1249,15 @@ public class VentanaCursada extends javax.swing.JFrame
                     s="02-";
                 }
                 s+=i.toString();
-                this.facultad.agregarCursada(a, s);
-                JOptionPane.showMessageDialog(null, "La cursada fue creada con exito");
-                this.limpiarModelo();
+                    try {
+                        this.facultad.agregarCursada(a, s);
+                        JOptionPane.showMessageDialog(null, "La cursada fue creada con exito");
+                        this.limpiarModelo();
+                    } catch (PeriodoInvalidoException e) {
+                        JOptionPane.showMessageDialog(null, "El periodo ingresado es invalido","Error",JOptionPane.ERROR_MESSAGE); 
+                    } catch (NoExisteEntidadException e) {
+                        JOptionPane.showMessageDialog(null, "No existe la asignatura","Error",JOptionPane.ERROR_MESSAGE);
+                    }
                 }else
                 {
                     JOptionPane.showMessageDialog(null, "Seleccione una asignatura por favor","Error",JOptionPane.ERROR_MESSAGE);   
@@ -1293,10 +1305,15 @@ public class VentanaCursada extends javax.swing.JFrame
                     s="02-";
                 }
                 s+=i.toString();
-                c.setAsignatura(a);
-                c.setPeriodo(s);
-                JOptionPane.showMessageDialog(null, "Cursada modificada correctamente","Informacion",JOptionPane.INFORMATION_MESSAGE); 
-                this.limpiarModelo();
+                    try {
+                        this.facultad.modificarCursada(c, a, s);
+                        JOptionPane.showMessageDialog(null, "Cursada modificada correctamente","Informacion",JOptionPane.INFORMATION_MESSAGE); 
+                        this.limpiarModelo();
+                    } catch (PeriodoInvalidoException e) {
+                        JOptionPane.showMessageDialog(null, "El periodo ingresado es invalido","Error",JOptionPane.ERROR_MESSAGE);
+                    } catch (NoExisteEntidadException e) {
+                        JOptionPane.showMessageDialog(null, "No existe la asignatura","Error",JOptionPane.ERROR_MESSAGE);
+                    }
                 }else
                 {
                     JOptionPane.showMessageDialog(null, "Seleccione una asignatura y una cursada por favor","Error",JOptionPane.ERROR_MESSAGE);   

@@ -24,6 +24,7 @@ import sistemaeducativo.Asignatura;
 import sistemaeducativo.Cursada;
 import sistemaeducativo.Facultad;
 import sistemaeducativo.Fecha;
+import sistemaeducativo.NoExisteEntidadException;
 
 /**
  *
@@ -423,12 +424,16 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
             Alumno a=(Alumno) this.modeloAlumnosBaja.getElementAt(n);
             int x=this.jListCursadas.getSelectedIndex();
             Cursada c=(Cursada) this.modeloCursadas.getElementAt(x);
-            this.facultad.eliminarAlumnoCursada(c, a);
-            JOptionPane.showMessageDialog(null, "El alumno fue eliminado correctamente de la cursada","Información",JOptionPane.INFORMATION_MESSAGE);
-            this.modeloAlumnosBaja.removeElementAt(n);
-            if(modeloAlumnosBaja.isEmpty())
-            {
-                this.LabelSinAlumnos.setText("Actualemente la cursada no tiene alumnos establecidos");
+            try {
+                this.facultad.eliminarAlumnoCursada(c, a);
+                JOptionPane.showMessageDialog(null, "El alumno fue eliminado correctamente de la cursada","Información",JOptionPane.INFORMATION_MESSAGE);
+                this.modeloAlumnosBaja.removeElementAt(n);
+                if(modeloAlumnosBaja.isEmpty())
+                {
+                    this.LabelSinAlumnos.setText("Actualemente la cursada no tiene alumnos establecidos");
+                }
+            } catch (NoExisteEntidadException e) {
+                JOptionPane.showMessageDialog(null, "No existe la cursada o el alumno","Error",JOptionPane.ERROR_MESSAGE);
             }
         }else
         {
@@ -479,6 +484,8 @@ public class VentanaAltasBajasAlumnosCursada extends javax.swing.JFrame
             } catch (AlumnoRegistradoEnCursadaException e)
             {
                 JOptionPane.showMessageDialog(null, "El Alumno ya esta registrado en esta cursada","Error",JOptionPane.ERROR_MESSAGE);
+            } catch (NoExisteEntidadException e) {
+                JOptionPane.showMessageDialog(null, "No existe la cursada o el alumno","Error",JOptionPane.ERROR_MESSAGE);
             }
         }else
         {

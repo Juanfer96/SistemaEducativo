@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 import sistemaeducativo.Alumno;
 import sistemaeducativo.Asignatura;
 import sistemaeducativo.Facultad;
+import sistemaeducativo.MailInvalidoException;
+import sistemaeducativo.NoExisteEntidadException;
 import sistemaeducativo.Persistencia;
 import sistemaeducativo.Profesor;
 
@@ -1086,16 +1088,23 @@ public class VentanaProfesor extends javax.swing.JFrame
         if(this.validarAlta())
         {
             String mail= this.jTextFieldMailAlta.getText();
-            if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
-            {
-                this.facultad.agregarProfesor(this.jTextFieldApellidoAlta.getText().toUpperCase(), this.jTextFieldNombreAlta.getText().toUpperCase(), this.jTextFieldDomicilioAlta.getText().toUpperCase(), this.jTextFieldMailAlta.getText(),this.jTextFieldTelAlta.getText().toUpperCase());
+
+            try {
+                this.facultad.agregarProfesor(this.jTextFieldApellidoAlta
+                                                  .getText()
+                                                  .toUpperCase(), this.jTextFieldNombreAlta
+                                                                      .getText()
+                                                                      .toUpperCase(), this.jTextFieldDomicilioAlta
+                                                                                          .getText()
+                                                                                          .toUpperCase(),
+                                              this.jTextFieldMailAlta.getText(), this.jTextFieldTelAlta
+                                                                                     .getText()
+                                                                                     .toUpperCase());
                 JOptionPane.showMessageDialog(null, "El profesor fue creado con exito","Gracias",JOptionPane.INFORMATION_MESSAGE);
                 this.limpiarTextFieldAlta();
-
-            }else
-            {
+            } catch (MailInvalidoException e) {
                 JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto","Error en mail",JOptionPane.ERROR_MESSAGE);
-            }
+            }    
         }else
         {
             JOptionPane.showMessageDialog(null, "Complete todos los campos por favor","Error en los campos",JOptionPane.ERROR_MESSAGE);
@@ -1116,8 +1125,11 @@ public class VentanaProfesor extends javax.swing.JFrame
         Profesor a=(Profesor) this.modeloBaja.getElementAt(n);
             int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea eliminar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
             if(valor==JOptionPane.YES_OPTION){
-        this.facultad.bajaProfesor(a.getLegajo());
-        this.limpiarModelo();
+                try {
+                    this.facultad.bajaProfesor(a.getLegajo());
+                } catch (NoExisteEntidadException e) {
+                }
+                this.limpiarModelo();
             }  
         }
         else{
@@ -1150,18 +1162,29 @@ public class VentanaProfesor extends javax.swing.JFrame
         if(this.validarMod())
         {
             String mail= this.jTextFieldMailNuevoMod.getText();
-            if(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0))
-            {
-                    int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea modificar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-                    if(valor==JOptionPane.YES_OPTION){
-                facultad.modificarProfesor(a,this.jTextFieldApellidoNuevoMod.getText().toUpperCase(),this.jTextFieldNombreNuevoMod.getText().toUpperCase(),this.jTextFieldDomicilioNuevoMod.getText().toUpperCase(), this.jTextFieldMailNuevoMod.getText().toUpperCase(),this.jTextFieldTelNuevoMod.getText().toUpperCase());
-                JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
-                this.limpiarModelo();
+            int valor=JOptionPane.showConfirmDialog(this,"¿Esta seguro que desea modificar a "+a.getApellido()+"?","Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+            if(valor==JOptionPane.YES_OPTION){
+                    try {
+                        facultad.modificarProfesor(a, this.jTextFieldApellidoNuevoMod
+                                                          .getText()
+                                                          .toUpperCase(), this.jTextFieldNombreNuevoMod
+                                                                              .getText()
+                                                                              .toUpperCase(), this.jTextFieldDomicilioNuevoMod
+                                                                                                  .getText()
+                                                                                                  .toUpperCase(),
+                                                   this.jTextFieldMailNuevoMod
+                                                                                                                      .getText()
+                                                                                                                      .toUpperCase(),
+                 this.jTextFieldTelNuevoMod
+                                                                                                                                          .getText()
+                                                                                                                                          .toUpperCase());
+                        JOptionPane.showMessageDialog(null, "Los cambios se realizarion con exito");
+                        this.limpiarModelo();
+                    } catch (MailInvalidoException e) {
+                        JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
+                    } catch (NoExisteEntidadException e) {
                     }
-            }else
-            {
-                JOptionPane.showMessageDialog(null, "El mail ingresado es incorrecto");
-            }
+                }
         }else
             {
                 JOptionPane.showMessageDialog(null, "Complete todos los campos por favor");

@@ -25,6 +25,7 @@ import sistemaeducativo.AsignaturaAprobadaYaRegistradaException;
 import sistemaeducativo.AsignaturaYaRegistradaEnProfesorException;
 import sistemaeducativo.Cursada;
 import sistemaeducativo.Facultad;
+import sistemaeducativo.NoExisteEntidadException;
 import sistemaeducativo.Profesor;
 
 /**
@@ -401,7 +402,8 @@ public class VentanaAltasBajasCompetencia extends javax.swing.JFrame
             } catch (AsignaturaYaRegistradaEnProfesorException e)
             {
                 JOptionPane.showMessageDialog(null, "La asignatura ya se encuentra como habilitada");
-            }   
+            } catch (NoExisteEntidadException e) {
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar una competencia y un profesor","Error",JOptionPane.ERROR_MESSAGE);
         }
@@ -421,7 +423,10 @@ public class VentanaAltasBajasCompetencia extends javax.swing.JFrame
         if(n!=-1 && x!=-1){
             Profesor p=(Profesor) this.modeloBuscar.getElementAt(n);
             Asignatura asig=(Asignatura) this.modeloBaja.getElementAt(x);
-            this.facultad.eliminarCompetenciaProfesor(p, asig);
+            try {
+                this.facultad.eliminarCompetenciaProfesor(p, asig);
+            } catch (NoExisteEntidadException e) {
+            }
             JOptionPane.showMessageDialog(null, "La asignatura fue eliminada con exito");
             this.modeloBaja.remove(x);
         }else{

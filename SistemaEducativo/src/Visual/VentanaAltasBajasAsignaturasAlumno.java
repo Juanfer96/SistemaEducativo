@@ -21,8 +21,10 @@ import javax.swing.JOptionPane;
 import sistemaeducativo.Alumno;
 import sistemaeducativo.Asignatura;
 import sistemaeducativo.AsignaturaAprobadaYaRegistradaException;
+import sistemaeducativo.AsignaturaNoAprobableException;
 import sistemaeducativo.Cursada;
 import sistemaeducativo.Facultad;
+import sistemaeducativo.NoExisteEntidadException;
 
 /**
  *
@@ -403,7 +405,11 @@ public class VentanaAltasBajasAsignaturasAlumno extends javax.swing.JFrame
             } catch (AsignaturaAprobadaYaRegistradaException e)
             {
                 JOptionPane.showMessageDialog(null, "La asignatura ya se encuentra aprobada","Error",JOptionPane.ERROR_MESSAGE);
-            }  
+            } catch (NoExisteEntidadException e) {
+                //Nunca se dara, segun la implementacion de la vista, que la asignatura o el alumno no se encuentren registrados en las colecciones de facultad.
+            } catch (AsignaturaNoAprobableException e) {
+                //Nunca se dara, segun la implementacion de la vista, que la asignatura a aprobar no se este cursando por el alumno.
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno y una asignatura","Error",JOptionPane.ERROR_MESSAGE);
         }
@@ -417,7 +423,10 @@ public class VentanaAltasBajasAsignaturasAlumno extends javax.swing.JFrame
         if(n!=-1 && x!=-1){
             Alumno a=(Alumno) this.modeloBuscar.getElementAt(n);
             Asignatura asig=(Asignatura) this.modeloBaja.getElementAt(x);
-            this.facultad.eliminarAlumnoAsignatura(a, asig);
+            try {
+                this.facultad.eliminarAlumnoAsignatura(a, asig);
+            } catch (NoExisteEntidadException e) {
+            }
             JOptionPane.showMessageDialog(null, "La asignatura fue eliminada correctamente","Informacion",JOptionPane.INFORMATION_MESSAGE);
             this.modeloBaja.remove(x);  
         }else{
@@ -437,24 +446,29 @@ public class VentanaAltasBajasAsignaturasAlumno extends javax.swing.JFrame
         int n=this.jListAlumnos.getSelectedIndex();
         if(n!=-1){
             Alumno a=(Alumno) this.modeloBuscar.getElementAt(n);
-            ArrayList<Cursada> cursadas=this.facultad.cursadasDeAlumno(a);
-            Iterator it =cursadas.iterator();
-            Cursada c;
-               while(it.hasNext()) {
-                    c=(Cursada)it.next();
-                   Asignatura asig=c.getAsignatura();
-                    this.modeloAlta.addElement(asig);
-               }
-            this.jListAsignaturasAltas.setModel(modeloAlta);
-            
-            Hashtable<String,Asignatura> historia=a.getHistoria();
-            Enumeration e = historia.elements();
-            Asignatura asig;
-            while( e.hasMoreElements() ){
-              asig =(Asignatura) e.nextElement();
-              this.modeloBaja.addElement(asig);
+            ArrayList<Cursada> cursadas;
+            try {
+                cursadas = this.facultad.cursadasDeAlumno(a);
+                Iterator it =cursadas.iterator();
+                Cursada c;
+                   while(it.hasNext()) {
+                        c=(Cursada)it.next();
+                       Asignatura asig=c.getAsignatura();
+                        this.modeloAlta.addElement(asig);
+                   }
+                this.jListAsignaturasAltas.setModel(modeloAlta);
+                
+                Hashtable<String,Asignatura> historia=a.getHistoria();
+                Enumeration e = historia.elements();
+                Asignatura asig;
+                while( e.hasMoreElements() ){
+                  asig =(Asignatura) e.nextElement();
+                  this.modeloBaja.addElement(asig);
+                }
+                this.jListAsignaturasBaja.setModel(modeloBaja);   
+            } catch (NoExisteEntidadException e) {
+                JOptionPane.showMessageDialog(null, "No existe el alumno","Error",JOptionPane.ERROR_MESSAGE);
             }
-            this.jListAsignaturasBaja.setModel(modeloBaja);   
         }
         else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
