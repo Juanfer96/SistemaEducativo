@@ -22,6 +22,7 @@ import sistemaeducativo.AlumnoOcupadoParaCursadaException;
 import sistemaeducativo.AlumnoRegistradoEnCursadaException;
 import sistemaeducativo.Cursada;
 import sistemaeducativo.Facultad;
+import sistemaeducativo.NoExisteEntidadException;
 import sistemaeducativo.Profesor;
 import sistemaeducativo.ProfesorInhabilitadoException;
 import sistemaeducativo.ProfesorOcupadoParaCursadaException;
@@ -420,9 +421,13 @@ public class VentanaAltasBajasProfesoresCursada extends javax.swing.JFrame {
             Profesor a=(Profesor) this.modeloProfesoresBaja.getElementAt(n);
             int x=this.jListCursadas.getSelectedIndex();
             Cursada c=(Cursada) this.modeloCursadas.getElementAt(x);
-            this.facultad.eliminarProfesorCursada(c, a);
-            JOptionPane.showMessageDialog(null, "El profesor fue eliminado correctamente de la cursada","Información",JOptionPane.INFORMATION_MESSAGE);
-            this.modeloProfesoresBaja.removeElementAt(n);
+            try {
+                this.facultad.eliminarProfesorCursada(c, a);
+                JOptionPane.showMessageDialog(null, "El profesor fue eliminado correctamente de la cursada","Información",JOptionPane.INFORMATION_MESSAGE);
+                this.modeloProfesoresBaja.removeElementAt(n);
+            } catch (NoExisteEntidadException e) {
+                JOptionPane.showMessageDialog(null, "No existe el alumno o la cursada","Error",JOptionPane.ERROR_MESSAGE);
+            }
             if(modeloProfesoresBaja.isEmpty())
             {
                 this.LabelSinProfesores.setText("Actualemente la cursada no tiene profesores establecidos");
@@ -468,6 +473,8 @@ public class VentanaAltasBajasProfesoresCursada extends javax.swing.JFrame {
             } catch (ProfesorRegistradoEnCursadaException e)
             {
                 JOptionPane.showMessageDialog(null, "El profesor ya esta registrado en esta cursada","Error",JOptionPane.ERROR_MESSAGE);
+            } catch (NoExisteEntidadException e) {
+                JOptionPane.showMessageDialog(null, "No existe el alumno o la cursada","Error",JOptionPane.ERROR_MESSAGE);
             }
         }else
         {

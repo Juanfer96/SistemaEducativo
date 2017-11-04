@@ -27,6 +27,7 @@ import sistemaeducativo.AsignaturaAprobadaYaRegistradaException;
 import sistemaeducativo.CorrelativaRegistradaException;
 import sistemaeducativo.Cursada;
 import sistemaeducativo.Facultad;
+import sistemaeducativo.NoExisteEntidadException;
 
 /**
  *
@@ -798,9 +799,13 @@ public class VentanaAsignatura extends javax.swing.JFrame
         int n=this.jListBaja.getSelectedIndex();
         if(n!=-1) {
             Asignatura a=(Asignatura) this.modeloBaja.getElementAt(n);
-            this.facultad.bajaAsignatura(a);
-            this.limpiarModelo();
-            JOptionPane.showMessageDialog(null,"La asignatura fue eliminada con exito","Gracias",JOptionPane.INFORMATION_MESSAGE);
+            try {
+                this.facultad.bajaAsignatura(a);
+                this.limpiarModelo();
+                JOptionPane.showMessageDialog(null,"La asignatura fue eliminada con exito","Gracias",JOptionPane.INFORMATION_MESSAGE);
+            } catch (NoExisteEntidadException e) {
+                JOptionPane.showMessageDialog(null, "No existe el alumno","Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno","Error",JOptionPane.ERROR_MESSAGE);
@@ -881,7 +886,9 @@ public class VentanaAsignatura extends javax.swing.JFrame
             } catch (CorrelativaRegistradaException e)
             {
                 JOptionPane.showMessageDialog(null, "La correlativa ya se encuentra registrada");
-            }  
+            } catch (NoExisteEntidadException e) {
+                //Segun la implementacion de la vista, nunca se dara el caso en que la asignatura no exista.
+            }
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar una asignatura","Error",JOptionPane.ERROR_MESSAGE);
@@ -896,9 +903,13 @@ public class VentanaAsignatura extends javax.swing.JFrame
         if(x!=-1){
             Asignatura a1=(Asignatura) this.modeloMod.getElementAt(n);
             Asignatura a2=(Asignatura) this.modeloModBaja.getElementAt(x);
-            this.facultad.eliminarCorrelativaAsignatura(a1, a2);
-            JOptionPane.showMessageDialog(null, "La correlativa se elimino con exito");
-            this.modeloModBaja.removeElement(a2);   
+            try {
+                this.facultad.eliminarCorrelativaAsignatura(a1, a2);
+                JOptionPane.showMessageDialog(null, "La correlativa se elimino con exito");
+                this.modeloModBaja.removeElement(a2);  
+            } catch (NoExisteEntidadException e) {
+                //Nunca se dara la situacion en la que la asignatura no exista, segun la implementacion de la vista.
+            } 
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar una asignatura","Error",JOptionPane.ERROR_MESSAGE);

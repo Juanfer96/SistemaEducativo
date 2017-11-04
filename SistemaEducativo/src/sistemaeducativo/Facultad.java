@@ -7,7 +7,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-
+/**
+ * Esta clase es la encargada de comunicar el modelo con la interfaz.
+ * Es responsable de asignar el legajo/id a las diferentes entidades instanciadas.
+ */
 public class Facultad {
     public  int PROXLEGAJOALUM;
     public  int PROXLEGAJOPROF;
@@ -114,10 +117,13 @@ public class Facultad {
      * @param apellido apellido!=null && apellido!=""
      * @param nombre nombre!=null && nombre!=""
      * @param domicilio domicilio!=null && domicilio !=""
-     * @param mail :se espera un mail valido , se verifica la validez en la interfaz, mail!=null && mail!=""
-     * @return : se autoincrementa el legajo y se crea un nuevo alumno , y se agrega a la coleccion alumnos.Retorna el alumno agregado
+     * @param mail mail!=null && mail!=""
+     * @return : Retorna el alumno agregado
+     * post: Si el mail ingresado posee un formato valido, se autoincrementa el legajo, se instancia un objeto de la clase alumno , y se agrega a la coleccion alumnos,
+     * en caso contrario se lanza MailInvalidoException.
      */
-    public Alumno agregarAlumno(String apellido, String nombre, String domicilio, String mail) {
+    public Alumno agregarAlumno(String apellido, String nombre, String domicilio, String mail) throws MailInvalidoException{
+        this.verificarMail(mail);
         String s = String.format("%04d", ++PROXLEGAJOALUM);
         String leg = "ALU" + s;
         Alumno a = new Alumno(leg, apellido, nombre, domicilio, mail);
@@ -128,11 +134,14 @@ public class Facultad {
      * @param apellido apellido!=null && apellido!=""
      * @param nombre nombre!=null && nombre!=""
      * @param domicilio domicilio!=null && domicilio !=""
-     * @param mail :se espera un mail valido , se verifica la validez en la interfaz, mail!=null && mail!=""
+     * @param mail mail!=null && mail!=""
      * @param telefono : telefono!=null && telefono!=""
-     * @return : se autoincrementa el legajo y se crea un nuevo profesor , y se agrega a la coleccion profesores.Retorna el profesor agregado
+     * @return : Retorna la instancia de Profesor.
+     * post: Si el mail ingresado posee un formato valido, se autoincrementa el legajo ,se instancia un objeto de la clase profesor , y se agrega a la coleccion profesores.
+     * en caso contrario se lanza MailInvalidoException.,
      */
-    public Profesor agregarProfesor(String apellido, String nombre, String domicilio, String mail,String telefono) {
+    public Profesor agregarProfesor(String apellido, String nombre, String domicilio, String mail,String telefono) throws MailInvalidoException {
+        this.verificarMail(mail);
         String s = String.format("%04d", ++PROXLEGAJOPROF);
         String leg = "PRO" + s;
         Profesor a = new Profesor(leg, apellido, nombre, domicilio, mail,telefono);
@@ -153,40 +162,83 @@ public class Facultad {
     }
 
     /**
-     * @param asignatura asignatura!=null y asignatura existente en la coleccion asignaturas 
+     * @param asignatura asignatura!=null
      * @param periodo periodo valido , periodo!=null && periodo !=""
-     * @return se autoincrementa el legajo y se crea una nueva cursada , y se agrega a la coleccioncursadas.Retorna la cursada agregada
+     * @return Retorna la cursada agregada
+     * post: si la asignatura se encuentra registrada en la coleccion de asignaturas y el periodo tiene un formato valido, se autoincrementa el legajo, se crea una nueva cursada para dicha asignatura
+     * y se agrega a la coleccioncursadas.
+     * Si el periodo es invalido se lanza PeriodoInvalidoException
+     * Si la asignatura no se encuentra registrada en la coleccion de asignaturas se lanza NoExisteEntidadException
      */
-    public Cursada agregarCursada(Asignatura asignatura,  String periodo) {
+    public Cursada agregarCursada(Asignatura asignatura,  String periodo) throws PeriodoInvalidoException,
+                                                                                NoExisteEntidadException {
+        if(!this.asignaturas.containsKey(asignatura.getId())){
+            throw new NoExisteEntidadException(asignatura);
+        }
+        this.verificaCursadaPeriodo(periodo);
         String s = String.format("%04d", ++PROXIDCURSADA);
         String id = "CUR" + s;
         Cursada a = new Cursada(id, asignatura, periodo);
         this.getCursadas().put(a.getId(), a);
         return a;
     }
+
+    /**
+     * 
+     * @param c !=null
+     * @param asignatura 
+     * @param periodo
+     * @throws PeriodoInvalidoException
+     * post: Si la asignatura no se encuentra registrada en la coleccion de asignaturas o la cursada no se encuentra en la coleccion de cursadas, se lanza NoExisteEntidadException,
+     * si el periodo recibido como parametro tiene un formato invalido se lanza PeriodoInvalidoException,
+     * en caso contrario se procede a modificar la cursada c
+     */
+    public void modificarCursada(Cursada c, Asignatura asignatura,  String periodo) throws PeriodoInvalidoException,
+                                                                                          NoExisteEntidadException {
+        if(!this.asignaturas.containsKey(asignatura.getId()))
+            throw new NoExisteEntidadException(asignatura);
+        if(!this.cursadas.containsKey(c.getId()))
+            throw new NoExisteEntidadException(c);
+        this.verificaCursadaPeriodo(periodo);
+        c.modificar(asignatura, periodo);
+    }
+    
     
     //Bajas de las entidades
     
     /**
      * @param cursada Se considera que cursada pertenece a una cursada existente.
-     * post: la cursada se elimina de la coleccion de cursadas
+     * post: Si la cursada no se encuentra registrada en la coleccion de cursadas se lanzaNoExisteEntidadException,
+     * en caso contrario, la cursada se elimina de la coleccion de cursadas
      */
-    public void bajaCursada(Cursada cursada) {
+    public void bajaCursada(Cursada cursada) throws NoExisteEntidadException {
+        if(!this.cursadas.containsKey(cursada.getId()))
+            throw new NoExisteEntidadException(cursada);
         this.getCursadas().remove(cursada.getId());
     }
 
 
     /**
-     * El metodo ademas de dar de baja en la coleccion correspondiente la asignatura, da de baja a las cursadas de esa asignatura, se elimina dicha asignatura de las correlativas en las que se encuentre y de la competencia de los profesores
+     * 
      * @param a la asignatura existe , a!=null 
+     * post: Si la asignatura a no se encuentra registrada en la coleccion de asignaturas se lanza NoExisteEntidadException,
+     * en caso contrario, ademas de dar de baja en la coleccion correspondiente la asignatura, da de baja a las cursadas de esa asignatura, 
+     * se elimina dicha asignatura de las correlativas en las que se encuentre y de la competencia de los profesores.
+     * Tener en cuenta de que en caso de que algun alumno posea dicha asignatura como aprobada en su historia academica, se tomo la decision de que la conserve.
      */
-    public void bajaAsignatura(Asignatura a) {
+    public void bajaAsignatura(Asignatura a) throws NoExisteEntidadException {
+        if(!this.asignaturas.containsKey(a.getId())){
+            throw new NoExisteEntidadException(a);
+        }
         ArrayList<Cursada> cursadas=this.cursadasDeAsignatura(a);
         Iterator it=cursadas.iterator();
         Cursada c;
         while(it.hasNext()) {
             c=(Cursada)it.next();
-            this.bajaCursada(c);
+            try {
+                this.bajaCursada(c);
+            } catch (NoExisteEntidadException e) {
+            }
         }
         Iterator it1 = this.getProfesores()
                           .values()
@@ -210,10 +262,16 @@ public class Facultad {
     }
     
     /**
-     * @param a la asignatura debe existir , a!=null
+     * @param a a!=null
      * @return El metodo devuelve en un ArrayList todas las cursadas de la asignatura pasada como parametro
+     * post: Si la asignatura a no se encuentra registrada en la coleccion de asignaturas se lanza NoExisteEntidadException,
+     * en caso contrario se devuelve un arrayList con las cursadas de la asignatura pasada como parametro. En caso de que no tenga ninguna cursada activa,
+     * el arrayList devuelto estara vacio.
      */
-    private ArrayList<Cursada> cursadasDeAsignatura(Asignatura a){
+    private ArrayList<Cursada> cursadasDeAsignatura(Asignatura a) throws NoExisteEntidadException {
+        if(!this.asignaturas.containsKey(a.getId())){
+            throw new NoExisteEntidadException(a);
+        }
         Iterator it=this.getCursadas().entrySet().iterator();
         Cursada c;
         ArrayList<Cursada> cursadasReturn=new ArrayList<>();
@@ -228,11 +286,15 @@ public class Facultad {
 
 
     /**
-     *  pre: se considera que el legajo es de un alumno existente
      * @param legajo legajo!=null && legajo!=""
-     * post: el alumno se elimina de todas las cursadas y de la coleccion de alumnos
+     * post: Si el legajo pasado como parametro no pertenece a un alumno contenido en la coleccion de alumnos,
+     * se lanza NoExisteEntidadException,
+     * en caso contrario, el alumno cuyo legajo es el pasado como parametro, se elimina de todas las cursadas y de la coleccion de alumnos
      */
-    public void bajaAlumno(String legajo) {
+    public void bajaAlumno(String legajo) throws NoExisteEntidadException {
+        if(!this.alumnos.containsKey(legajo)){
+            throw new NoExisteEntidadException(legajo);
+        }
         this.getAlumnos().remove(legajo);
         Cursada c;
         Iterator it = this.getCursadas().entrySet().iterator();
@@ -245,9 +307,14 @@ public class Facultad {
     /**
      *  pre: se considera que el legajo es de un profesor existente
      * @param legajo legajo!=null && legajo!=""
-     * post: el profesor se elimina de todas las cursadas y de la coleccion de profesores
+     * post: Si el legajo pasado como parametro no pertenece a un profesor contenido en la coleccion de profesores,
+     * se lanza NoExisteEntidadException,
+     * el profesor se elimina de todas las cursadas y de la coleccion de profesores
      */
-    public void bajaProfesor(String legajo) {
+    public void bajaProfesor(String legajo) throws NoExisteEntidadException {
+        if(!this.profesores.containsKey(legajo)){
+            throw new NoExisteEntidadException(legajo);
+        }
         this.getProfesores().remove(legajo);
         Cursada c;
         Iterator it = this.getCursadas()
@@ -265,7 +332,8 @@ public class Facultad {
     /**
      * @param nombre nombre!=null && nombre!=""
      * @param apellido apellido!=null & apellido!=""
-     * @return Retorna un arraylist de alumnos que tengan ese nombre y ese apellido , buscando en la coleccion de alumnos
+     * @return Retorna un arraylist de alumnos que tengan ese nombre y ese apellido , buscando en la coleccion de alumnos.
+     * En caso de que no se encuentre ningun alumno con dichos atributos, se devuelve un arrayList vacio.
      */
     public ArrayList<Alumno> buscarAlumnoPorNombre(String nombre, String apellido) {
         ArrayList<Alumno> alumnosReturn = new ArrayList<>();
@@ -286,6 +354,7 @@ public class Facultad {
      * @param nombre nombre!=null && nombre!=""
      * @param apellido apellido!=null & apellido!=""
      * @return Retorna un arraylist de profesores que tengan ese nombre y ese apellido , buscando en la coleccion de profesores
+     * En caso de que no se encuentre ningun profesor con dichos atributos, se devuelve un arrayList vacio.
      */
     public ArrayList<Profesor> buscarProfesorPorNombre(String nombre, String apellido) {
         ArrayList<Profesor> profesoresReturn = new ArrayList<>();
@@ -306,6 +375,7 @@ public class Facultad {
     /**
      * @param asignatura asignatura!=null && asignautra!=""
      * @return retorna un arraylist de cursadas con el mismo nombre de la asignatura pasada como parametro, buscando en la coleccion de cursadas
+     * En caso de que no se encuentre ninguna cursada con dicho atributo, se devuelve un arrayList vacio.
      */
     public ArrayList<Cursada> buscarCursadaPorNombre(String asignatura) {
         ArrayList<Cursada> cursadasReturn = new ArrayList<>();
@@ -325,20 +395,32 @@ public class Facultad {
     
     /**
      *
-     * @param c c!=null c debe existir en la coleccion de cursadas
+     * @param c c!=null 
      * @return un ArrayList de Fechas (horarios) que posee la cursada c
+     * post: En caso de que la cursada c no se encuentre registrada en la coleccion de cursadas, se lanza NoExisteEntidadException,
+     * en caso contrario se retorna el arrayList de horarios de la cursada.
      */
-    public ArrayList<Fecha> buscarHorariosDeCursada(Cursada c) {
+    public ArrayList<Fecha> buscarHorariosDeCursada(Cursada c) throws NoExisteEntidadException {
+        if(!this.cursadas.containsKey(c.getId())){
+            throw new NoExisteEntidadException(c);
+        }
         return c.getHorario();
     }
     
     /**
      *
-     * @param c c!=null c debe existir en la coleccion de cursadas
-     * @param f f!=null la fecha debe estar registrada en la coleccion de horarios de la cursada
-     * post: se procede a eliminar la fecha f de la cursada c
+     * @param c c!=null c
+     * @param f f!=null
+     * post: En caso de que la cursada no se encuentre registrada en la coleccion de cursadas,
+     * o que la fecha f no se encuentre registrada en la coleccion de fechas de la cursada c, se lanza NoExisteEntidadException,
+     * en caso contrario se procede a eliminar la fecha f de la cursada c
      */
-    public void eliminarHorarioCursada(Cursada c, Fecha f) {
+    public void eliminarHorarioCursada(Cursada c, Fecha f) throws NoExisteEntidadException {
+        if(!this.cursadas.containsKey(c.getId())){
+            throw new NoExisteEntidadException(c);
+        }
+        if(!c.getHorario().contains(f))
+            throw new NoExisteEntidadException(f);
         c.eliminarHorario(f);
     }
     
@@ -346,10 +428,17 @@ public class Facultad {
      *
      * @param c c!=null c debe existir en la coleccion de cursadas
      * @param a a!=null a debe existir en la coleccion de alumnos
-     * post: Se procede a eliminar el alumno a de la cursada c si es que se encuentra inscripto en la misma,
+     * post: En caso de que la cursada no se encuentre registrada en la coleccion de cursadas, o
+     * que el alumno no se encuentre registrado en la coleccion de alumnos se lanza NoExisteEntidadException.
+     * Si no se cumple ninguna de estas situaciones, se procede a eliminar el alumno a de la cursada c, si es que el mismo se encuentra inscripto en la misma,
      * en caso contrario no se realiza ninguna accion.
      */
-    public void eliminarAlumnoCursada(Cursada c, Alumno a) {
+    public void eliminarAlumnoCursada(Cursada c, Alumno a) throws NoExisteEntidadException {
+        if(!this.cursadas.containsKey(c.getId())){
+            throw new NoExisteEntidadException(c);
+        }
+        if(!this.alumnos.containsKey(a.getLegajo()))
+            throw new NoExisteEntidadException(a);
         c.eliminarAlumno(a.getLegajo());
     }
     
@@ -357,10 +446,17 @@ public class Facultad {
      *
      * @param c c!=null c debe existir en la colecciond e cursadas
      * @param p p!=null p debe existir en la coleccion de profesores
-     * post: Se procede a eliminar el profesor p de la cursada c si es que se encuentra inscripto en la misma,
+     * post: En caso de que la cursada no se encuentre registrada en la coleccion de cursadas, o
+     * que el profesor no se encuentre registrado en la coleccion de profesores se lanza NoExisteEntidadException.
+     * Si no se cumple ninguna de estas situaciones, se procede a eliminar el profesor p de la cursada c, si es que el mismo se encuentra inscripto en la misma,
      * en caso contrario no se realiza ninguna accion.
      */
-    public void eliminarProfesorCursada(Cursada c, Profesor p) {
+    public void eliminarProfesorCursada(Cursada c, Profesor p) throws NoExisteEntidadException {
+        if(!this.cursadas.containsKey(c.getId())){
+            throw new NoExisteEntidadException(c);
+        }
+        if(!this.profesores.containsKey(p.getLegajo()))
+            throw new NoExisteEntidadException(p);
         c.eliminarProfesor(p.getLegajo());
     }
     /**
@@ -391,12 +487,20 @@ public class Facultad {
      * @throws AlumnoRegistradoEnCursadaException
      * @throws AlumnoInhabilitadoException
      * @throws AlumnoOcupadoParaCursadaException
-     * post: Si alumno ya esta registrado en la cursada se lanza AlumnoRegistradoEnCursadaException,
+     * post: Si el alumno a o la cursada c no se encuentran registrados en sus respectivas colecciones, se lanza  NoExisteEntidadException,
+     * si alumno ya esta registrado en la cursada se lanza AlumnoRegistradoEnCursadaException,
      * Si el alumno esta inhabilitado, es decir que no tiene las correlativas,se lanza AlumnoInhabilitadoException,
      * Si el alumno no tiene disponibilidad horario se lanza AlumnoOcupadoException,
      * De no cumplirse ninguna de estas el alumno es agregado a la cursada c
      */
-    public void agregarAlumnoEnCursada(Alumno a, Cursada c) throws AlumnoRegistradoEnCursadaException, AlumnoInhabilitadoException, AlumnoOcupadoParaCursadaException {
+    public void agregarAlumnoEnCursada(Alumno a, Cursada c) throws AlumnoRegistradoEnCursadaException, AlumnoInhabilitadoException, AlumnoOcupadoParaCursadaException,
+                                                                   NoExisteEntidadException {
+        if(!this.alumnos.containsKey(a.getLegajo())) {
+            throw new NoExisteEntidadException(a);
+        }
+        if(!this.cursadas.containsKey(c.getId())){
+            throw new NoExisteEntidadException(c);
+        }
         if(c.getAlumnos().containsKey(a.getLegajo())) {
             throw new AlumnoRegistradoEnCursadaException(a,c);
         }
@@ -418,8 +522,14 @@ public class Facultad {
     /**
      * @param a el alumno debe existir, a!=null
      * @return retorna un Arraylist de cursadas donde el alumno a se encuentra inscripto
+     * post: Si el alumno a no se encuentra registrado en la coleccion de alumnos, se lanza NoExisteEntidadException,
+     * en caso contrario se devuelve un arrayList con las cursadas actuales del alumno,
+     * en caso de que el alumno no posea cursadas, se procede a retornar un arratList vacio.
      */
-    public ArrayList<Cursada> cursadasDeAlumno(Alumno a) {
+    public ArrayList<Cursada> cursadasDeAlumno(Alumno a) throws NoExisteEntidadException {
+        if(!this.alumnos.containsKey(a.getLegajo())) {
+            throw new NoExisteEntidadException(a);
+        }
         ArrayList<Cursada> cursadasReturn=new ArrayList<Cursada>();
         Iterator it = this.getCursadas().entrySet().iterator();
         Cursada c;
@@ -434,11 +544,19 @@ public class Facultad {
     }
 
     /**
-     * @param a el alumno debe existir , a!=null
-     * @param c la cursada debe existir, c!=null
-     * @return retorna true si el alumno tiene disponibilidad horario para cursar la cursada c,false en caso contrario
+     * @param a!=null
+     * @param c!=null
+     * @return true/false
+     * post: Si el alumno a o la cursada c no se encuentran registrados en las colecciones respectivas, se procede a lanzar NoExisteEntidadException,
+     * en caso contrario retorna true si el alumno tiene disponibilidad horario para cursar la cursada c, false en caso contrario
      */
-    private boolean alumnoOcupadoParaCursada(Alumno a, Cursada c) {
+    private boolean alumnoOcupadoParaCursada(Alumno a, Cursada c) throws NoExisteEntidadException {
+        if(!this.alumnos.containsKey(a.getLegajo())) {
+            throw new NoExisteEntidadException(a);
+        }
+        if(!this.cursadas.containsKey(c.getId())) {
+            throw new NoExisteEntidadException(c);
+        }
         ArrayList<Cursada>cursadasAlumno=this.cursadasDeAlumno(a);
         if(cursadasAlumno.size()>0) {
             Iterator itCursadas=cursadasAlumno.iterator();
@@ -464,11 +582,19 @@ public class Facultad {
     }
 
     /**
-     * @param a alumno debe existir ,a !=null
-     * @param c cursada debe existir, c!=null
-     * @return Retorna true si el alumno tiene las asignaturas aprobadas para cursar la cursada c,false en caso contrario
+     * @param a a !=null
+     * @param c c!=null
+     * @return true/false
+     * post: Si el alumno a o la cursada c no se encuentran registrados en las colecciones respectivas, se procede a lanzar NoExisteEntidadException,
+     * sino, retorna true si el alumno tiene las asignaturas aprobadas para cursar la cursada c,false en caso contrario
      */
-    private boolean alumnoHabilitadoParaCursada(Alumno a, Cursada c) {
+    private boolean alumnoHabilitadoParaCursada(Alumno a, Cursada c) throws NoExisteEntidadException {
+        if(!this.alumnos.containsKey(a.getLegajo())) {
+            throw new NoExisteEntidadException(a);
+        }
+        if(!this.cursadas.containsKey(c.getId())) {
+            throw new NoExisteEntidadException(c);
+        }
         boolean rta=true;
         String asignaturaId;
         Iterator it = c.getAsignatura().getCorrelatividades().entrySet().iterator();
@@ -488,12 +614,21 @@ public class Facultad {
      * @throws ProfesorRegistradoEnCursadaException
      * @throws ProfesorInhabilitadoException
      * @throws ProfesorOcupadoParaCursadaException
-     * post: si el profesor ya se encuentra registrado en esa cursada se lanza ProfesorRegistradoEnCursadaException,
+     * post: Si el profesor o la cursada no se encuentran registradas en sus respectivas colecciones se procede a lanzar NoExisteEntidadException,
+     * si el profesor ya se encuentra registrado en esa cursada se lanza ProfesorRegistradoEnCursadaException,
      * Si el profesor no tiene la asignatura de la cursada c en sus competencia se lanza ProfesorInhabilitadoExecption,
      * Si el profesor no tiene disponibilidad horario se lanza ProfesorOcupadoException
      * Si no se cumple ninguna de estas el profesor se agrega a la coleccion de profesores de la cursada
      */
-    public void agregarProfesorEnCursada(Profesor p, Cursada c) throws ProfesorRegistradoEnCursadaException,ProfesorInhabilitadoException,ProfesorOcupadoParaCursadaException {
+    public void agregarProfesorEnCursada(Profesor p, Cursada c) throws ProfesorRegistradoEnCursadaException,ProfesorInhabilitadoException,ProfesorOcupadoParaCursadaException,
+                                                                       NoExisteEntidadException {
+        if(!this.profesores.containsKey(p.getLegajo())) {
+            throw new NoExisteEntidadException(p);
+        }
+        if(!this.cursadas.containsKey(c.getId())) {
+            throw new NoExisteEntidadException(c);
+        }
+        
         if(c.getProfesores().containsKey(p.getLegajo())) {
             throw new ProfesorRegistradoEnCursadaException(p,c);
         }
@@ -512,11 +647,19 @@ public class Facultad {
         }
     }
     /**
-     * @param p el profesor debe existir , p!=null
-     * @param c la cursada debe existir, c!=null
-     * @return retorna true si el profesor tiene disponibilidad horario para cursar la cursada c,false en caso contrario
+     * @param p p!=null
+     * @param c c!=null
+     * @return true/false
+     * post: Si el profesor o la cursada no se encuentran registradas en sus respectivas colecciones se procede a lanzar NoExisteEntidadException,
+     * sino, retorna true si el profesor tiene disponibilidad horario para cursar la cursada c,false en caso contrario
      */
-    private boolean profesorOcupadoParaCursada(Profesor p, Cursada c) {
+    private boolean profesorOcupadoParaCursada(Profesor p, Cursada c) throws NoExisteEntidadException {
+        if(!this.profesores.containsKey(p.getLegajo())) {
+            throw new NoExisteEntidadException(p);
+        }
+        if(!this.cursadas.containsKey(c.getId())) {
+            throw new NoExisteEntidadException(c);
+        }
         ArrayList<Cursada>cursadasProfesor=this.cursadasDeProfesor(p);
         if(cursadasProfesor.size()>0) {
             Iterator itCursadas=cursadasProfesor.iterator();
@@ -541,11 +684,19 @@ public class Facultad {
         return false;
     }
     /**
-     * @param p profesor debe existir , p!=null
-     * @param c cursada debe existir, c!=null
-     * @return Retorna true si el profesor tiene la asignatura de la cursada c entre sus competencias,false en caso contrario
+     * @param p p!=null
+     * @param c c!=null
+     * @return true/false
+     * post: post: Si el profesor o la cursada no se encuentran registradas en sus respectivas colecciones se procede a lanzar NoExisteEntidadException,
+     * sino, retorna true si el profesor tiene la asignatura de la cursada c entre sus competencias,false en caso contrario
      */
-    public boolean profesorHabilitadoParaCursada(Profesor p, Cursada c) {
+    public boolean profesorHabilitadoParaCursada(Profesor p, Cursada c) throws NoExisteEntidadException {
+        if(!this.profesores.containsKey(p.getLegajo())) {
+            throw new NoExisteEntidadException(p);
+        }
+        if(!this.cursadas.containsKey(c.getId())) {
+            throw new NoExisteEntidadException(c);
+        }
         boolean rta=true;
         if(p.getCompetencia().get(c.getAsignatura().getId())==null) {
             rta=false;
@@ -556,27 +707,39 @@ public class Facultad {
     /**
      * 
      * @param c c!=null. c debe existir en la coleccion de cursadas
-     * @param horaInicio debe ser una hora valida, es decir un entero entre 0 y 23
-     * @param minInicio debe ser un minuto valido, es decir, un entero entre 0 y 59
-     * @param horaFin debe ser una hora valida, es decir un entero entre 0 y 23
-     * @param minFin debe ser un minuto valido, es decir, un entero entre 0 y 59
-     * @param dia debe ser un dia valido, es decir un entero entre 0 y 6, especificados como constantes de clase en la clase Fecha
-     * @return
+     * @param horaInicio
+     * @param minInicio 
+     * @param horaFin 
+     * @param minFin 
+     * @param dia: entero que representa un dia de la semana (segun las constantes de clase definidas en la clase Fecha)
+     * @return el objeto Fecha creado
      * @throws HorarioCursadaSuperpuestaException
      * @throws HorarioCursadaInvalidoException
-     * post: si El horario de fin es menor o igual al horario de inicio se lanza HorarioCursadaInvalidoException,
+     * post: Si la cursada c no se encuentra registrada en la coleccion de cursadas se procede a lanzar  NoExisteEntidadException,
+     * si el horario de fin es menor o igual al horario de inicio se lanza HorarioCursadaInvalidoException,
      * si la cursada c ya tiene un horario que se superpone con el horario a agregar se lanza HorarioCursadaSuperpuestaException
+     * si horaInicio u horaFin no poseen un formato valido (entero entre 0 y 23) o si minInicio o minFin no poseen un formato valido (entero entre 0 y 59) o si ellanza FormatoHoraException
      * en caso contrario se agrega el horario con el formato horainicio:mininicio,  horafin:minfin a la cursada c
      */
-    public Fecha agregarHorarioCursada(Cursada c, int horaInicio, int minInicio, int horaFin, int minFin, int dia) throws HorarioCursadaSuperpuestaException, HorarioCursadaInvalidoException {
+    public Fecha agregarHorarioCursada(Cursada c, int horaInicio, int minInicio, int horaFin, int minFin, int dia) throws HorarioCursadaSuperpuestaException, HorarioCursadaInvalidoException, FormatoHoraException,
+                                                       NoExisteEntidadException {
+        if(!this.cursadas.containsKey(c.getId())) {
+            throw new NoExisteEntidadException(c);
+        }
+        this.verificarHorario(horaInicio, minInicio, horaFin, minFin, dia);
         return c.agregarHorario(dia, horaInicio, minInicio, horaFin, minFin);
     }
 
     /**
-     * @param p el profesor debe existir , p!=null
-     * @return retorna un arraylist de cursadas donde el profesor se encuentra registrado
+     * @param p p!=null
+     * @return ArrayList de cursadas.
+     * post: Si el profesor p no se encuentra registrada en la coleccion de profesores se procede a lanzar  NoExisteEntidadException,
+     * en caso contrario, se retorna un arraylist de cursadas donde el profesor se encuentra registrado
      */
-    public ArrayList<Cursada> cursadasDeProfesor(Profesor p) {
+    public ArrayList<Cursada> cursadasDeProfesor(Profesor p) throws NoExisteEntidadException {
+        if(!this.profesores.containsKey(p.getLegajo())) {
+            throw new NoExisteEntidadException(p);
+        }
         ArrayList<Cursada> cursadasReturn=new ArrayList<Cursada>();
         Iterator it = this.getCursadas().entrySet().iterator();
         Cursada c;
@@ -593,14 +756,19 @@ public class Facultad {
     //Se llama al metodo agregarCorrelatividad de la clase asignatura.Contrato del metodo especificado en la clase Asignatura agregarCorrelatividad
     /**
      * 
-     * @param a1 a1!=null, a1 debe existir en la coleccion de asignaturas
-     * @param a2 a2!=null, a2 debe existir en la coleccion de asignaturas
+     * @param a1 a1!=null
+     * @param a2 a2!=null 
      * @throws CorrelativaRegistradaException
      * post: Si la asignatura a2 ya se encuentra registrada en la coleccion de correlativas de la asignatura a1, se lanza CorrelativaRegistradaException,
+     * si alguna de las asignaturas no estan registradas en la coleccion de asignaturas se lanza NoExisteEntidadException
      * en caso contrario se procede a agregar la asignatura a2 en la coleccion de correlativas de la asignatura a1.
      */
-    public void agregarCorrelativaAsignatura(Asignatura a1,Asignatura a2) throws CorrelativaRegistradaException
-    {
+    public void agregarCorrelativaAsignatura(Asignatura a1,Asignatura a2) throws CorrelativaRegistradaException,
+                                                                                  NoExisteEntidadException {
+        if(!this.asignaturas.containsKey(a1.getId()))
+            throw new NoExisteEntidadException(a1);
+        if(!this.asignaturas.containsKey(a2.getId()))
+            throw new NoExisteEntidadException(a2);
         a1.agregarCorrelatividad(a2);
     }
     
@@ -610,40 +778,90 @@ public class Facultad {
      * @param a1 a1!=null, a1 debe existir en la coleccion de asignaturas
      * @param a2 a2!=null, a2 debe existir en la coleccion de asignaturas
      * post: Si la asignatura a2 pertenece a una asignatura registrada entre las correlativas de la asignatura a1, se elimina a2 de las correlativas de a1
-     * En caso contrario no se produce ningun efecto.
+     * en caso de que a1 o a2 no esten registradas en la coleccion de asignaturas se lanza NoExisteEntidadException 
+     * en caso de que a2 no pertenezca a una asignatura registrada entre las correlativas de la asignatura a1 no se produce ningun efecto.
      */
-    public void eliminarCorrelativaAsignatura(Asignatura a1,Asignatura a2)
-    {
+    public void eliminarCorrelativaAsignatura(Asignatura a1,Asignatura a2) throws NoExisteEntidadException {
+        if(!this.asignaturas.containsKey(a1.getId()))
+            throw new NoExisteEntidadException(a1);
+        if(!this.asignaturas.containsKey(a2.getId()))
+            throw new NoExisteEntidadException(a2);
         a1.eliminarCorrelatividad(a2.getId());
     }
     //Alumno-Profesor
     
     /**
-     * pre: el alumno a debe existir + idem requisitos para dar de alta un alumno.
-     * @param a
-     * @param apellido
-     * @param nombre
-     * @param domicilio
-     * @param mail
+     *  
+     * @param a a!=null
+     * @param apellido != null && apellido !=""
+     * @param nombre != null && nombre !=""
+     * @param domicilio != null && domicilio !=""
+     * @param mail != null && mail !=""
+     * post: si el alumno a  no se encuentra registrado en la coleccion de alumnos de la facultad se lanza NoExisteEntidadException,
+     * si el String mail no posee un formato valido se lanza MailInvalidoException,
+     * en caso contrario se procede a modificar los atributos del Alumno a segun cada parametro de entrada.
      */
-    public void modificarAlumno(Alumno a, String apellido, String nombre, String domicilio, String mail) {
+    public void modificarAlumno(Alumno a, String apellido, String nombre, String domicilio, String mail) throws MailInvalidoException, NoExisteEntidadException {
+        if(!this.alumnos.containsKey(a.getLegajo())){
+            throw new NoExisteEntidadException(a);
+        }
+        this.verificarMail(mail);
         a.modificarAlumno(apellido, nombre, domicilio, mail);
     }
-
+    //Requerimiento a considerar: un alumno puede aprobar una asignatura si y solo si se encuentra cursandola.
     /**
-     * @param alumno alumno debe existir, alumno!=null y el alumno debe estar cursando esa asignatura
-     * @param asignatura asignatura debe existir ,asignatura !=null
+     * 
+     * @param alumno!=null y el alumno debe estar cursando esa asignatura
+     * @param asignatura asignatura !=null
      * @throws AsignaturaAprobadaYaRegistradaException
-     * post: Si en la historia del alumno ya se encuentra esa Asignatura lanza AsignaturaAprobadaYaRegistradaException,
-     * Si no se llama al metodo aprobarAsignatura de alumno en donde se pone la asignatura en la historia del alumno
+     * post: si el Alumno alumno o la Asignatura asignatura no se encuentran registrados en la coleccion de alumnos o en la coleccion de asignaturas, respectivamente, de la facultad se lanza NoExisteEntidadException,
+     * si el Alumno alumno no se encuentra cursando una cursada de la Asignatura asignatura se lanza AsignaturaNoAprobableException,
+     * si en la historia del alumno ya se encuentra esa Asignatura lanza AsignaturaAprobadaYaRegistradaException,
+     * si no se llama al metodo aprobarAsignatura de alumno en donde se pone la asignatura en la historia del alumno.
      */
-    public void aprobarAlumnoAsignatura(Alumno alumno, Asignatura asignatura) throws AsignaturaAprobadaYaRegistradaException{
+    public void aprobarAlumnoAsignatura(Alumno alumno, Asignatura asignatura) throws AsignaturaAprobadaYaRegistradaException,
+                                                                      NoExisteEntidadException,
+                                                                      AsignaturaNoAprobableException {
+        this.verificarAsignaturaAprobable(asignatura, alumno);
+        if(!this.alumnos.containsKey(alumno.getLegajo())){
+            throw new NoExisteEntidadException(alumno);
+        }
+        if(!this.asignaturas.containsKey(asignatura.getId())){
+            throw new NoExisteEntidadException(asignatura);
+        }
         if(alumno.getHistoria().containsKey(asignatura.getId())) {
             throw new AsignaturaAprobadaYaRegistradaException(alumno,asignatura);
             //Ya se encuentra aprobada esa asignatura
         }
-        else{
-            alumno.aprobarAsignatura(asignatura);
+        alumno.aprobarAsignatura(asignatura);
+    }
+    
+    /**
+     * @param asignatura
+     * @param alumno
+     * @throws AsignaturaNoAprobableException: se lanza en caso de que el alumno no este cursando la asignatura pasada como parametro, impidiendo que el mismo la pueda aprobar.
+     * post: Si la asignatura o el alumno no se encuentran registrados en sus respectivas colecciones, se lanza NoExisteEntidadException,
+     * El metodo verifica que el Alumno alumno, pueda aprobar la Asignatura asignatura; es decir, que el alumno este cursando una cursada de asignatura.
+     */
+    public void verificarAsignaturaAprobable(Asignatura asignatura, Alumno alumno) throws AsignaturaNoAprobableException,
+                                                                   NoExisteEntidadException {
+        if(!this.alumnos.containsKey(alumno.getLegajo())){
+            throw new NoExisteEntidadException(alumno);
+        }
+        if(!this.asignaturas.containsKey(asignatura.getId())){
+            throw new NoExisteEntidadException(asignatura);
+        }
+        Iterator it=this.cursadasDeAlumno(alumno).iterator();
+        Cursada c;
+        boolean rta=false;
+        while(it.hasNext() && !rta){
+            c=(Cursada)it.next();
+            if(c.getAsignatura()==asignatura){
+                rta=true;
+            }
+        }
+        if(rta==false) {
+            throw new AsignaturaNoAprobableException(asignatura,alumno);
         }
     }
     
@@ -651,35 +869,57 @@ public class Facultad {
      * pre: la asignatura se encuentra dentro de las materias aprobadas por alumno.
      * @param alumno debe existir, alumno!=null
      * @param asignatura debe exisit, asignatura!=null
-     * post: se elimina la asignatura de la historia del alumno 
+     * post: Si el alumno no se encuentra registrado en la coleccion de alumnos o la asignatura no se encuentra registrada en la coleccion de asignaturas, se lanza NoExisteEntidadException,
+     * en caso contrario, se elimina la asignatura de la historia del alumno 
      */
-    public void eliminarAlumnoAsignatura(Alumno alumno, Asignatura asignatura) {
+    public void eliminarAlumnoAsignatura(Alumno alumno, Asignatura asignatura) throws NoExisteEntidadException {
+        if(!this.alumnos.containsKey(alumno.getLegajo())){
+            throw new NoExisteEntidadException(alumno);
+        }
+        if(!this.asignaturas.containsKey(asignatura.getId())){
+            throw new NoExisteEntidadException(asignatura);
+        }
         alumno.eliminarAsignatura(asignatura);
     }
 
 
     /**
-     * pre: El profesor p debe existir + mismos req que el alta de profesor
-     * @param p debe existir, p!=null
+     * pre: 
+     * @param p p!=null
      * @param apellido
      * @param nombre
      * @param domicilio
      * @param mail
      * @param telefono
+     * post: si el profesor p no se encuentra registrado en la coleccion de profesores de la facultad se lanza NoExisteEntidadException,
+     * si el String mail no posee un formato valido se lanza MailInvalidoException,
+     * en caso contrario se procede a modificar los atributos del Profesor p segun cada parametro de entrada.
      */
-    public void modificarProfesor(Profesor p,String apellido, String nombre, String domicilio, String mail,String telefono) {
-        p.modificarProfesor(apellido, nombre, domicilio, mail,telefono);
+    public void modificarProfesor(Profesor p,String apellido, String nombre, String domicilio, String mail,String telefono) throws MailInvalidoException, NoExisteEntidadException {
+        if(!this.profesores.containsKey(p.getLegajo())){
+            throw new NoExisteEntidadException(p);
+        }
+        this.verificarMail(mail);
+        p.modificarProfesor(apellido, nombre, domicilio, mail, telefono);
     }
 
 
     /** 
-     * @param p p debe existir, p!=null
-     * @param a a debe existir, a!=null
+     * @param p p!=null
+     * @param a a!=null
      * @throws AsignaturaYaRegistradaEnProfesorException
-     * post: Si la asignatura ya se encuentra registrada en la coleccion de competencias del profesor se lanza AsignaturaYaRegistradaEnProfesorException,
+     * post: Si el profesor o la asignatura no se encuentran registrados en sus respectivas colecciones se procede a lanzar NoExisteEntidadException
+     * si la asignatura ya se encuentra registrada en la coleccion de competencias del profesor se lanza AsignaturaYaRegistradaEnProfesorException,
      * en caso contrario la asignatura se agrega a la coleccion de competencias del profesor
      */
-    public void agregarCompetenciaProfesor(Profesor p, Asignatura a) throws AsignaturaYaRegistradaEnProfesorException {
+    public void agregarCompetenciaProfesor(Profesor p, Asignatura a) throws AsignaturaYaRegistradaEnProfesorException,
+                                                                            NoExisteEntidadException {
+        if(!this.profesores.containsKey(p.getLegajo())){
+            throw new NoExisteEntidadException(p);
+        }
+        if(!this.asignaturas.containsKey(a.getId())){
+            throw new NoExisteEntidadException(a);
+        }
         if(p.getCompetencia().containsKey(a.getId())) {
             throw new AsignaturaYaRegistradaEnProfesorException(a,p);
         }
@@ -690,11 +930,46 @@ public class Facultad {
     
     /**
      * pre: La asignatura a debe encontrarse en la coleccion de competencias del profesor p 
-     * @param p p debe existir, p!=null
-     * @param a a debe existir, a!=null
-     * post: Se elimina la asignatura a de la coleccion de competencias del profesor
+     * @param p p!=null
+     * @param a a!=null
+     * post: Si el profesor o la asignatura no se encuentran registrados en sus respectivas colecciones se procede a lanzar NoExisteEntidadException,
+     * en caso contrario, se elimina la asignatura a de la coleccion de competencias del profesor
      */
-    public void eliminarCompetenciaProfesor(Profesor p, Asignatura a) {
+    public void eliminarCompetenciaProfesor(Profesor p, Asignatura a) throws NoExisteEntidadException {
+        if(!this.profesores.containsKey(p.getLegajo())){
+            throw new NoExisteEntidadException(p);
+        }
+        if(!this.asignaturas.containsKey(a.getId())){
+            throw new NoExisteEntidadException(a);
+        }
         p.eliminarCompetencia(a);
+    }
+    
+    public void verificarMail(String mail) throws MailInvalidoException{
+        if(!(mail.contains("@")&& (mail.indexOf("@") <(mail.length()-1)) && (mail.indexOf("@")>0)))
+            throw new MailInvalidoException(mail);
+    }
+    
+    public void verificaCursadaPeriodo(String periodo) throws PeriodoInvalidoException
+    {
+        boolean ret = false;
+        String cad;    
+        if(periodo.length() == 7 && periodo.indexOf("-") == 2)
+        {
+            cad = periodo.substring(0,2);
+            if(cad.equals("01") || cad.equals("02"))
+            {
+                cad = periodo.substring(3);
+                ret = cad.compareTo("2017") >= 0 && cad.compareTo("2100") <= 0;
+            }
+        }
+        if (!ret)
+            throw new PeriodoInvalidoException(periodo);
+    }
+    
+    public void verificarHorario(int horaInicio, int minInicio, int horaFin, int minFin, int dia) throws FormatoHoraException {
+        if(horaInicio<0||horaInicio>23||horaFin<0||horaFin>23||minInicio<0||minInicio>59||minFin<0||minInicio>59||dia<Fecha.LUNES||dia>Fecha.DOMINGO) {
+            throw new FormatoHoraException(horaInicio,minInicio,horaFin,minFin);
+        }
     }
 }
