@@ -822,7 +822,7 @@ public class Facultad {
     public void aprobarAlumnoAsignatura(Alumno alumno, Asignatura asignatura) throws AsignaturaAprobadaYaRegistradaException,
                                                                       NoExisteEntidadException,
                                                                       AsignaturaNoAprobableException {
-        this.verificarAsignaturaAprobable(asignatura, alumno);
+        Cursada c=this.verificarAsignaturaAprobable(asignatura, alumno);
         if(!this.alumnos.containsKey(alumno.getLegajo())){
             throw new NoExisteEntidadException(alumno);
         }
@@ -834,6 +834,7 @@ public class Facultad {
             //Ya se encuentra aprobada esa asignatura
         }
         alumno.aprobarAsignatura(asignatura);
+        c.eliminarAlumno(alumno.getLegajo());
     }
     
     /**
@@ -843,7 +844,7 @@ public class Facultad {
      * post: Si la asignatura o el alumno no se encuentran registrados en sus respectivas colecciones, se lanza NoExisteEntidadException,
      * El metodo verifica que el Alumno alumno, pueda aprobar la Asignatura asignatura; es decir, que el alumno este cursando una cursada de asignatura.
      */
-    public void verificarAsignaturaAprobable(Asignatura asignatura, Alumno alumno) throws AsignaturaNoAprobableException,
+    public Cursada verificarAsignaturaAprobable(Asignatura asignatura, Alumno alumno) throws AsignaturaNoAprobableException,
                                                                    NoExisteEntidadException {
         if(!this.alumnos.containsKey(alumno.getLegajo())){
             throw new NoExisteEntidadException(alumno);
@@ -852,7 +853,7 @@ public class Facultad {
             throw new NoExisteEntidadException(asignatura);
         }
         Iterator it=this.cursadasDeAlumno(alumno).iterator();
-        Cursada c;
+        Cursada c=null;
         boolean rta=false;
         while(it.hasNext() && !rta){
             c=(Cursada)it.next();
@@ -863,6 +864,7 @@ public class Facultad {
         if(rta==false) {
             throw new AsignaturaNoAprobableException(asignatura,alumno);
         }
+        return c;
     }
     
     /**
