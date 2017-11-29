@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>SistemaEducativo-PicoPonce</groupId>
+  <artifactId>SistemaEducativo</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <description>Generated POM from JDeveloper for project SistemaEducativo</description>
+  <dependencies>
+    <dependency>
+      <groupId>com.oracle.adf.library</groupId>
+      <artifactId>JUnit-4-Runtime</artifactId>
+      <version>12.2.1-2-0</version>
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <sourceDirectory>src/</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>javadoc/</directory>
+        <includes>
+          <include>index.html</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${basedir}</directory>
+        <includes>
+          <include>*</include>
+        </includes>
+      </resource>
+    </resources>
+    <outputDirectory>classes/</outputDirectory>
+  </build>
+</project>

@@ -237,6 +237,13 @@ public class FacultadTest2
     {
         assertTrue("No se deberia haber encontrado al alumno",this.fixture2.facultad.buscarAlumnoPorNombre("Emanuel", "Ponce").size()==0);
     }
+    //Se testea la busqueda de un alumno existente segun nombre e inexsistente segun apellido
+    @Test
+    public void buscarAlumnoPorNombreTest3CB()
+    {
+        assertTrue("No se deberia haber encontrado al alumno",this.fixture2.facultad.buscarAlumnoPorNombre("Juan", "Ponce").size()==0);
+    }
+    
     
     //Se testea la busqueda de un profesor existente segun nombre y apellido
     @Test
@@ -250,6 +257,12 @@ public class FacultadTest2
     public void buscarProfesorPorNombreTest2()
     {
         assertTrue("No se deberia haber encontrado al profesor",this.fixture2.facultad.buscarProfesorPorNombre("Leonel", "Guccione").size()==0);
+    }
+    //Se testea la busqueda de un profesor existente segun nombre e inexsistente segun apellido
+    @Test
+    public void buscarProfesorPorNombreTest3CB()
+    {
+        assertTrue("No se deberia haber encontrado al profesor",this.fixture2.facultad.buscarProfesorPorNombre("Guillermo", "Ponce").size()==0);
     }
     
     //Se testea la busqueda de una asignatura existente segun nombre 
@@ -546,5 +559,26 @@ public class FacultadTest2
         {
             assertTrue("Error en la exception NoExisteEntidadException", e.getEntidad().equals(a));
         }
-    }    
+    }  
+    
+    //Se testea agregar una competencia valida a un profesor inexistente
+    @Test
+    public void agregarCompetenciaProfesorTest3CB()
+    {
+        Profesor p=new Profesor("PRO0999","Fernandez","Mariano","Tejedor 1223","fernandez@gmail","22333223");
+        Asignatura a=this.fixture2.facultad.buscarAsignaturaPorNombre("Analisis 1").get(0);
+        try
+        {
+            this.fixture2
+                .facultad
+                .agregarCompetenciaProfesor(p, a);
+            fail("Se deberia lanzar la exception NoExisteEntidadException");
+        } catch (AsignaturaYaRegistradaEnProfesorException e)
+        {
+            fail("No se deberia lanzar la exception AsignaturaYaRegistradaEnProfesorException");
+        } catch (NoExisteEntidadException e)
+        {
+            assertTrue("Error en la exception NoExisteEntidadException", e.getEntidad().equals(p));
+        }
+    } 
 }

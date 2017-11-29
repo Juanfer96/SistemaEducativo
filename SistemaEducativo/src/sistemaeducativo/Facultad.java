@@ -550,7 +550,7 @@ public class Facultad {
      * post: Si el alumno a o la cursada c no se encuentran registrados en las colecciones respectivas, se procede a lanzar NoExisteEntidadException,
      * en caso contrario retorna true si el alumno tiene disponibilidad horario para cursar la cursada c, false en caso contrario
      */
-    private boolean alumnoOcupadoParaCursada(Alumno a, Cursada c) throws NoExisteEntidadException {
+    public boolean alumnoOcupadoParaCursada(Alumno a, Cursada c) throws NoExisteEntidadException {
         if(!this.alumnos.containsKey(a.getLegajo())) {
             throw new NoExisteEntidadException(a);
         }
@@ -588,20 +588,28 @@ public class Facultad {
      * post: Si el alumno a o la cursada c no se encuentran registrados en las colecciones respectivas, se procede a lanzar NoExisteEntidadException,
      * sino, retorna true si el alumno tiene las asignaturas aprobadas para cursar la cursada c,false en caso contrario
      */
-    private boolean alumnoHabilitadoParaCursada(Alumno a, Cursada c) throws NoExisteEntidadException {
-        if(!this.alumnos.containsKey(a.getLegajo())) {
+    public boolean alumnoHabilitadoParaCursada(Alumno a, Cursada c) throws NoExisteEntidadException
+    {
+        if (!this.alumnos.containsKey(a.getLegajo()))
+        {
             throw new NoExisteEntidadException(a);
         }
-        if(!this.cursadas.containsKey(c.getId())) {
+        if (!this.cursadas.containsKey(c.getId()))
+        {
             throw new NoExisteEntidadException(c);
         }
-        boolean rta=true;
+        boolean rta = true;
         String asignaturaId;
-        Iterator it = c.getAsignatura().getCorrelatividades().entrySet().iterator();
-        while (it.hasNext() && rta==true) {
+        Iterator it = c.getAsignatura()
+                       .getCorrelatividades()
+                       .entrySet()
+                       .iterator();
+        while (it.hasNext() && rta == true)
+        {
             Map.Entry m = (Map.Entry) it.next();
             asignaturaId = (String) m.getKey();
-            if(!a.getHistoria().containsKey(asignaturaId)) {
+            if (!a.getHistoria().containsKey(asignaturaId))
+            {
                 rta = false;
             }
         }
@@ -653,28 +661,36 @@ public class Facultad {
      * post: Si el profesor o la cursada no se encuentran registradas en sus respectivas colecciones se procede a lanzar NoExisteEntidadException,
      * sino, retorna true si el profesor tiene disponibilidad horario para cursar la cursada c,false en caso contrario
      */
-    private boolean profesorOcupadoParaCursada(Profesor p, Cursada c) throws NoExisteEntidadException {
-        if(!this.profesores.containsKey(p.getLegajo())) {
+    public boolean profesorOcupadoParaCursada(Profesor p, Cursada c) throws NoExisteEntidadException
+    {
+        if (!this.profesores.containsKey(p.getLegajo()))
+        {
             throw new NoExisteEntidadException(p);
         }
-        if(!this.cursadas.containsKey(c.getId())) {
+        if (!this.cursadas.containsKey(c.getId()))
+        {
             throw new NoExisteEntidadException(c);
         }
-        ArrayList<Cursada>cursadasProfesor=this.cursadasDeProfesor(p);
-        if(cursadasProfesor.size()>0) {
-            Iterator itCursadas=cursadasProfesor.iterator();
-            Iterator itHorarioCursada=c.getHorario().iterator();
+        ArrayList<Cursada> cursadasProfesor = this.cursadasDeProfesor(p);
+        if (cursadasProfesor.size() > 0)
+        {
+            Iterator itCursadas = cursadasProfesor.iterator();
+            Iterator itHorarioCursada = c.getHorario().iterator();
             Iterator itHorariosProfesor;
-            Fecha horarioProfesor,horarioCursada;
+            Fecha horarioProfesor, horarioCursada;
             Cursada cAux;
-            while(itHorarioCursada.hasNext()) {
-                horarioCursada=(Fecha)itHorarioCursada.next();
-                while(itCursadas.hasNext()) {
-                    cAux=(Cursada)itCursadas.next();
-                    itHorariosProfesor=cAux.getHorario().iterator();
-                    while(itHorariosProfesor.hasNext()) {
-                        horarioProfesor=(Fecha)itHorariosProfesor.next();
-                        if(c.getPeriodo().equals(cAux.getPeriodo()) && horarioCursada.superpone(horarioProfesor)) {
+            while (itHorarioCursada.hasNext())
+            {
+                horarioCursada = (Fecha) itHorarioCursada.next();
+                while (itCursadas.hasNext())
+                {
+                    cAux = (Cursada) itCursadas.next();
+                    itHorariosProfesor = cAux.getHorario().iterator();
+                    while (itHorariosProfesor.hasNext())
+                    {
+                        horarioProfesor = (Fecha) itHorariosProfesor.next();
+                        if (c.getPeriodo().equals(cAux.getPeriodo()) && horarioCursada.superpone(horarioProfesor))
+                        {
                             return true;
                         }
                     }
@@ -822,7 +838,7 @@ public class Facultad {
     public void aprobarAlumnoAsignatura(Alumno alumno, Asignatura asignatura) throws AsignaturaAprobadaYaRegistradaException,
                                                                       NoExisteEntidadException,
                                                                       AsignaturaNoAprobableException {
-        Cursada c=this.verificarAsignaturaAprobable(asignatura, alumno);
+        
         if(!this.alumnos.containsKey(alumno.getLegajo())){
             throw new NoExisteEntidadException(alumno);
         }
@@ -833,6 +849,7 @@ public class Facultad {
             throw new AsignaturaAprobadaYaRegistradaException(alumno,asignatura);
             //Ya se encuentra aprobada esa asignatura
         }
+        Cursada c=this.verificarAsignaturaAprobable(asignatura, alumno);
         alumno.aprobarAsignatura(asignatura);
         c.eliminarAlumno(alumno.getLegajo());
     }

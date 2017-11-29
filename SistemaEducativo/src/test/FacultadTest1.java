@@ -28,12 +28,14 @@ public class FacultadTest1
     }
 
     @Test
+    //Se testea el alta de una asignatura 
     public void altaAsignaturaTest1()
     {
         this.fixture1.facutltad.agregarAsignatura("Programacion3");
         assertTrue("Error al agregar asignatura",this.fixture1.facutltad.buscarAsignaturaPorNombre("Programacion3").size()==1);
     }
     @Test
+    //Se testea el alta de un alumno valido
     public void altaAlumnoTest1()
     {
         try
@@ -49,6 +51,7 @@ public class FacultadTest1
 
     }
     @Test
+    //Se testea el alta de un alumno con email invalido
     public void altaAlumnoTest2()
     {
         try
@@ -64,6 +67,7 @@ public class FacultadTest1
 
     }
     @Test
+    //Se testea el alta de un alumno con email invalido
     public void altaAlumnoTest3()
     {
         try
@@ -79,6 +83,7 @@ public class FacultadTest1
 
     }
     @Test
+    //Se testea el alta de un alumno con email invalido
     public void altaAlumnoTest4()
     {
         try
@@ -94,6 +99,7 @@ public class FacultadTest1
 
     }
     @Test
+    //Se testea el alta de un profesor
     public void altaProfesorTest1()
     {
         try
@@ -108,6 +114,7 @@ public class FacultadTest1
         }
     }
     @Test
+    //Se testea el alta de un profesor con email invalido
     public void altaProfesorTest2()
     {
         try
@@ -121,6 +128,7 @@ public class FacultadTest1
             assertTrue("Error en la excepcion no coinciden los mail",e.getMail().equals("@gmail.com"));
         }
     }
+    //Se testea el alta de un profesor con email invalido
     @Test
     public void altaProfesorTest3()
     {
@@ -135,6 +143,7 @@ public class FacultadTest1
             assertTrue("Error en la excepcion no coinciden los mail",e.getMail().equals("leonelgmail.com"));
         }
     }
+    //Se testea el alta de un profesor con email invalido
     @Test
     public void altaProfesorTest4()
     {

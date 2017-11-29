@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import sistemaeducativo.Alumno;
 import sistemaeducativo.Asignatura;
 import sistemaeducativo.CorrelativaRegistradaException;
 import sistemaeducativo.Cursada;
@@ -15,6 +16,7 @@ import sistemaeducativo.FormatoHoraException;
 import sistemaeducativo.HorarioCursadaInvalidoException;
 import sistemaeducativo.HorarioCursadaSuperpuestaException;
 import sistemaeducativo.NoExisteEntidadException;
+import sistemaeducativo.Profesor;
 
 public class FacultadTest3
 {
@@ -110,6 +112,27 @@ public class FacultadTest3
             this.fixture3
                 .facultad
                 .agregarCorrelativaAsignatura(a1, a2);
+            fail("La correlativa no existe se debio lanzar NoExisteEntidadException");
+            
+        } catch (CorrelativaRegistradaException e)
+        {
+            fail("no se deberia haber lanzado CorrelativaRegistradaException ");
+        } catch (NoExisteEntidadException e)
+        {
+            assertTrue("Error en  NoExisteEntidadException",e.getEntidad().equals(a2));
+        }
+    }
+    //Se testea que se agregue una correlativa exsitente a una asignatura inexistente
+    @Test
+    public void agregarCorrelativaAsignaturaTest4CB()
+    {
+        Asignatura a1=this.fixture3.facultad.buscarAsignaturaPorNombre("mateA").get(0);
+        Asignatura a2=new Asignatura("ASI0010","mateD");
+        try
+        {
+            this.fixture3
+                .facultad
+                .agregarCorrelativaAsignatura(a2, a1);
             fail("La correlativa no existe se debio lanzar NoExisteEntidadException");
             
         } catch (CorrelativaRegistradaException e)
@@ -338,6 +361,146 @@ public class FacultadTest3
         {
             assertTrue("Error en la exception NoExisteEntidadException", e.getEntidad().equals(f));
         }
+    }
+    //Se testea la verificacion de un alumno inexistente y una cursada inexistente
+    @Test
+    public void alumnoOcupadoParaCursada1CB()
+    {
+        Alumno a=new Alumno("ALU0056","Canonaco","Seba","lalalal","adada@adada");
+        Cursada c=this.fixture3.facultad.buscarCursadaPorNombre("mateA").get(0);
+        try
+        {
+            this.fixture3
+                .facultad
+                .alumnoOcupadoParaCursada(a, c);
+            fail("Se deberia haber lanzado NoExisteEntidadException");
+        } catch (NoExisteEntidadException e)
+        {
+            assertTrue("Error en la exception NoExisteEntidadException",e.getEntidad().equals(a));
+        }
+    }
+    //Se testea la verificacion de un alumno existente y una cursada inexistente
+    @Test
+    public void alumnoOcupadoParaCursada2CB()
+    {
+        Alumno a =this.fixture3.facultad.buscarAlumnoPorNombre("Juan", "Pico").get(0);
+        Cursada c=new Cursada("CUR0234",this.fixture3.facultad.buscarAsignaturaPorNombre("mateA").get(0),"01-2017");
+        try
+        {
+            this.fixture3
+                .facultad
+                .alumnoOcupadoParaCursada(a, c);
+            fail("Se deberia haber lanzado NoExisteEntidadException");
+        } catch (NoExisteEntidadException e)
+        {
+            assertTrue("Error en la exception NoExisteEntidadException",e.getEntidad().equals(c));
+        }
+    }
+    //Se testea la verificacion de un profesor inexistente y una cursada existente
+    @Test
+    public void profesorOcupadoParaCursada1CB()
+    {
+        Profesor a=new Profesor("PRO0056","Canonaco","Seba","lalalal","adada@adada","2235336336");
+        Cursada c=this.fixture3.facultad.buscarCursadaPorNombre("mateA").get(0);
+        try
+        {
+            this.fixture3
+                .facultad
+                .profesorOcupadoParaCursada(a, c);
+            fail("Se deberia haber lanzado NoExisteEntidadException");
+        } catch (NoExisteEntidadException e)
+        {
+            assertTrue("Error en la exception NoExisteEntidadException",e.getEntidad().equals(a));
+        }
+    }
+    //Se testea la verificacion de un profesor existente y una cursada inexistente
+    @Test
+    public void profesorOcupadoParaCursada2CB()
+    {
+        Profesor a=this.fixture3.facultad.buscarProfesorPorNombre("Jorge", "Rico").get(0);
+        Cursada c=new Cursada("CUR0234",this.fixture3.facultad.buscarAsignaturaPorNombre("mateA").get(0),"01-2017");
+        try
+        {
+            this.fixture3
+                .facultad
+                .profesorOcupadoParaCursada(a, c);
+            fail("Se deberia haber lanzado NoExisteEntidadException");
+        } catch (NoExisteEntidadException e)
+        {
+            assertTrue("Error en la exception NoExisteEntidadException",e.getEntidad().equals(c));
+        }
+    }
+    //Se testea la verificacion de un profesor inexstitente Habilitado para una cursada existente
+    @Test
+    public void profesorHabilitadoParaCursada1CB()
+    {
+        Profesor a=new Profesor("PRO0056","Canonaco","Seba","lalalal","adada@adada","2235336336");
+        Cursada c=this.fixture3.facultad.buscarCursadaPorNombre("mateA").get(0);
+        try
+        {
+            this.fixture3
+                .facultad
+                .profesorHabilitadoParaCursada(a, c);
+            fail("Se deberia haber lanzado NoExisteEntidadException");
+        } catch (NoExisteEntidadException e)
+        {
+            assertTrue("Erro en NoExisteEntidadException",e.getEntidad().equals(a));
+        }
+
+    }
+    //Se testea la verificacion de un profesor exstitente Habilitado para una cursada inexistente
+    @Test
+    public void profesorHabilitadoParaCursada2CB()
+    {
+        Profesor a=this.fixture3.facultad.buscarProfesorPorNombre("Jorge", "Rico").get(0);
+        Cursada c=new Cursada("CUR0234",this.fixture3.facultad.buscarAsignaturaPorNombre("mateA").get(0),"01-2017");
+        try
+        {
+            this.fixture3
+                .facultad
+                .profesorHabilitadoParaCursada(a, c);
+            fail("Se deberia haber lanzado NoExisteEntidadException");
+        } catch (NoExisteEntidadException e)
+        {
+            assertTrue("Erro en NoExisteEntidadException",e.getEntidad().equals(c));
+        }
+
+    }
+    //Se testea la verificacion de un alumno inexstitente Habilitado para una cursada existente
+    @Test
+    public void alumnoHabilitadoParaCursada1CB()
+    {
+        Alumno a=new Alumno("ALU0056","Canonaco","Seba","lalalal","adada@adada");
+        Cursada c=this.fixture3.facultad.buscarCursadaPorNombre("mateA").get(0);
+        try
+        {
+            this.fixture3
+                .facultad
+                .alumnoHabilitadoParaCursada(a, c);
+            fail("Se deberia haber lanzado NoExisteEntidadException");
+        } catch (NoExisteEntidadException e)
+        {
+            assertTrue("Erro en NoExisteEntidadException",e.getEntidad().equals(a));
+        }
+
+    }
+    //Se testea la verificacion de un alumno exstitente Habilitado para una cursada inexistente
+    @Test
+    public void alumnoHabilitadoParaCursada2CB()
+    {
+        Alumno a =this.fixture3.facultad.buscarAlumnoPorNombre("Juan", "Pico").get(0);
+        Cursada c=new Cursada("CUR0234",this.fixture3.facultad.buscarAsignaturaPorNombre("mateA").get(0),"01-2017");
+        try
+        {
+            this.fixture3
+                .facultad
+                .alumnoHabilitadoParaCursada(a, c);
+            fail("Se deberia haber lanzado NoExisteEntidadException");
+        } catch (NoExisteEntidadException e)
+        {
+            assertTrue("Erro en NoExisteEntidadException",e.getEntidad().equals(c));
+        }
+
     }
     
 }
